@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mFragment.ButtonFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/buttonLineVer1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/buttonLineVer2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.47" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/buttonLineVer3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/buttonLineHor1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/buttonLineHor2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.83" />
+
+    <ImageView
+        android:id="@+id/buttonTxtBattery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/buttery0"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor1"
+        app:layout_constraintEnd_toEndOf="@+id/buttonLineVer2" />
+
+    <ImageView
+        android:id="@+id/buttonTxtSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/speed0"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor1"
+        app:layout_constraintStart_toEndOf="@+id/buttonTxtBattery" />
+
+
+
+     <com.luwu.xgo_robot.mView.ButtonView
+         android:id="@+id/buttonButtonLeft"
+         android:layout_width="230dp"
+         android:layout_height="230dp"
+         app:noPress="@drawable/button1_nopress"
+         app:upPress="@drawable/button1_forward_press"
+         app:downPress="@drawable/button1_back_press"
+         app:leftPress="@drawable/button1_left_press"
+         app:rightPress="@drawable/button1_right_press"
+         app:layout_constraintBottom_toTopOf="@+id/buttonLineHor2"
+         app:layout_constraintStart_toStartOf="@+id/buttonLineVer1"/>
+    <com.luwu.xgo_robot.mView.ButtonView
+        android:id="@+id/buttonButtonRight"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        app:noPress="@drawable/button2_nopress"
+        app:leftPress="@drawable/button2_left_press"
+        app:rightPress="@drawable/button2_right_press"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor2"
+        app:layout_constraintEnd_toStartOf="@+id/buttonLineVer3"/>
+
+    <com.luwu.xgo_robot.mView.VerticalSeekBar
+        android:id="@+id/buttonSeekBar"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        app:allBackground="@drawable/seekbar_background"
+        app:thumbBackground="@drawable/seekbar_thumb"
+        app:pastBackground="@drawable/seekbar_past_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/buttonLineHor2"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

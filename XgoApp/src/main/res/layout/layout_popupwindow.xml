@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#333333">
+
+    <TextView
+        android:id="@+id/popTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textSize="25sp"
+        android:text="@string/morefc"
+        android:gravity="center"/>
+    <Switch
+        android:id="@+id/popMoveSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/autoPowerOn"
+        android:textColor="#ffffff"
+        android:padding="5dp"
+        android:textSize="18sp"
+        android:checked="false"
+        android:visibility="gone"/>
+    <Button
+        android:id="@+id/popIMUBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:padding="5dp"
+        android:textSize="18sp"
+        android:text="@string/attitudeGyroscope"
+        android:gravity="center_vertical"
+        android:background="#00000000"/>
+
+    <Button
+        android:id="@+id/popSpeedModeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:padding="5dp"
+        android:textSize="18sp"
+        android:text="@string/motion_selectMotionMode"
+        android:gravity="center_vertical"
+        android:background="#00000000"/>
+
+
+
+</LinearLayout>
