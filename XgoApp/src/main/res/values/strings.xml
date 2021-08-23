@@ -118,4 +118,9 @@
     <string name="seek">找食物</string>
     <string name="handshake">握手</string>
     <string name="actor">表演模式</string>
+    <string name="xyz">XYZ-轴</string>
+    <string name="pry">Roll/Pitch/Yaw</string>
+    <string name="battery">电量</string>
+    <string name="speed">速度</string>
+    <string name="resetheight">重置高度</string>
 </resources>

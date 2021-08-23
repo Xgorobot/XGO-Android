@@ -20,7 +20,7 @@
     <string name="selectDevice">Select the device to connect</string>
     <string name="searching">Searching, please wait a moment... \nif you can\'t search continuously or can\'t connect for many times, please try to restart the motherboard or mobile Bluetooth</string>
     <string name="normal">Normal</string>
-    <string name="superior">Superior</string>
+    <string name="superior">Advance</string>
     <string name="executing">Executing</string>
     <string name="calibration">Calibration Mode</string>
     <string name="calibrationMode">Calibrate</string>
@@ -57,7 +57,7 @@
     <string name="autoPowerOn">Auto Power On</string>
     <string name="attitudeGyroscope">Attitude:gyroscope</string>
     <string name="motion_selectMotionMode">Motion:select motion mode</string>
-    <string name="carousel">Carousel:</string>
+    <string name="carousel">Rotation:</string>
     <string name="liedown">lie down</string>
     <string name="standup">stand up</string>
     <string name="crawl">crawl</string>
@@ -78,4 +78,9 @@
     <string name="seek">seek</string>
     <string name="handshake">handshake</string>
     <string name="actor">Performance Mode</string>
+    <string name="xyz">XYZ-axis</string>
+    <string name="pry">Roll/Pitch/Yaw</string>
+    <string name="battery">battery</string>
+    <string name="speed">speed</string>
+    <string name="resetheight">Reset Height</string>
 </resources>
