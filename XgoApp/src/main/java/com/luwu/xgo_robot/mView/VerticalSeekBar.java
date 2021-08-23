@@ -60,6 +60,16 @@ public class VerticalSeekBar extends View {
         } else if (mProgress < 0) {
             mProgress = 0;
         }
+        com.luwu.xgo_robot.mActivity.ControlActivity.progress = mProgress;
+    }
+
+    /**
+     * update progress with view
+     * @param progress
+     */
+    public void updateProgress(int progress) {
+        setProgress(progress);
+        invalidate();//view重绘
     }
 
     public void setListener(ISeekBarListener listener) {
@@ -154,9 +164,9 @@ public class VerticalSeekBar extends View {
                 break;
             default:
                 mWordPaint.setTextAlign(Paint.Align.LEFT);
-                canvas.drawText("low",0,0.75f*measuredHeight,mWordPaint);
+                canvas.drawText("Low",0,0.75f*measuredHeight,mWordPaint);
                 mWordPaint.setTextAlign(Paint.Align.RIGHT);
-                canvas.drawText("high",measuredWidth,0.75f*measuredHeight,mWordPaint);
+                canvas.drawText("High",measuredWidth,0.75f*measuredHeight,mWordPaint);
         }
         //绘制背景
         Rect src = new Rect(0, 0, mBackgroundBitmap.getWidth(), mBackgroundBitmap.getHeight());
