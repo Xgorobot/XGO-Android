@@ -24,27 +24,108 @@
         android:textSize="18sp"
         android:checked="false"
         android:visibility="gone"/>
-    <Button
-        android:id="@+id/popIMUBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:padding="5dp"
-        android:textSize="18sp"
-        android:text="@string/attitudeGyroscope"
-        android:gravity="center_vertical"
-        android:background="#00000000"/>
 
-    <Button
-        android:id="@+id/popSpeedModeBtn"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:padding="5dp"
-        android:textSize="18sp"
-        android:text="@string/motion_selectMotionMode"
-        android:gravity="center_vertical"
-        android:background="#00000000"/>
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/popIMUTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:text="@string/gyroscope"
+            android:gravity="center"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/popIMUOnBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:padding="5dp"
+            android:textSize="18sp"
+            android:text="@string/gyroscopeOn"
+            android:gravity="center"
+            android:background="@drawable/button_press"
+            android:paddingHorizontal="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/popIMUOffBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:padding="5dp"
+            android:textSize="18sp"
+            android:text="@string/gyroscopeOff"
+            android:gravity="center"
+            android:background="@drawable/button_press"
+            android:paddingHorizontal="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/popSpeedTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:text="@string/motion"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <Button
+            android:id="@+id/popSpeedLowBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/button_press"
+            android:gravity="center"
+            android:padding="5dp"
+            android:paddingHorizontal="5dp"
+            android:text="@string/lowspeed"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/popSpeedNormalBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_press"
+            android:gravity="center"
+            android:padding="5dp"
+            android:paddingHorizontal="5dp"
+            android:text="@string/normalspeed"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/popSpeedHighBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:padding="5dp"
+            android:textSize="18sp"
+            android:text="@string/highspeed"
+            android:gravity="center"
+            android:background="@drawable/button_press"
+            android:paddingHorizontal="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
 
 
 

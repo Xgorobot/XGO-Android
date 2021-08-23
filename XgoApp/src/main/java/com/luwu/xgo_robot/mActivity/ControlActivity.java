@@ -378,122 +378,197 @@ public class ControlActivity extends AppCompatActivity {
                 }
             }
         });
-        Button IMUBtn = popView.findViewById(R.id.popIMUBtn);//陀螺仪控制
-        IMUBtn.setOnClickListener(new View.OnClickListener() {
+        //陀螺仪开启
+        Button IMUOnBtn = popView.findViewById(R.id.popIMUOnBtn);//陀螺仪控制
+        IMUOnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ControlActivity.this);
-                AlertDialog dialog = builder.create();
-                //为了解决onResume不调用的问题
-                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        hideBottomUIMenu(ControlActivity.this);
-                    }
-                });
-                hideBottomUIDialog(dialog);
-                switch(localeLanguage){
+                MainActivity.addMessage(new byte[]{0x61, 0x01});
+                switch (localeLanguage) {
                     case "zh":
-                        builder.setMessage("姿态：请选择陀螺仪控制模式：").setNegativeButton("自稳定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                MainActivity.addMessage(new byte[]{0x61, 0x01});
-                                mToast.show(ControlActivity.this, "自稳定模式已开启");
-                            }
-                        }).setNeutralButton("关闭", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                MainActivity.addMessage(new byte[]{0x61, 0x00});
-                                mToast.show(ControlActivity.this, "陀螺仪已关闭");
-                            }
-                        })/*.setPositiveButton("柔顺", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //MainActivity.addMessage(new byte[]{0x61, 0x02});
-                                //mToast.show(ControlActivity.this, "柔顺模式已开启");
-                                mToast.show(ControlActivity.this, "柔顺模式暂未开放");
-                            }
-                        })*/.show();
+                        mToast.show(ControlActivity.this, "自稳定模式已开启");
                         break;
                     default:
-                        builder.setMessage("Attitude:Select gyro control mode:").setNegativeButton("Self stable", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                MainActivity.addMessage(new byte[]{0x61, 0x01});
-                                mToast.show(ControlActivity.this, "Self stable mode on");
-                            }
-                        }).setNeutralButton("Close", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                MainActivity.addMessage(new byte[]{0x61, 0x00});
-                                mToast.show(ControlActivity.this, "Gyroscope off");
-                            }
-                        })/*.setPositiveButton("柔顺", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //MainActivity.addMessage(new byte[]{0x61, 0x02});
-                                //mToast.show(ControlActivity.this, "柔顺模式已开启");
-                                mToast.show(ControlActivity.this, "Compliance mode is not open yet");
-                            }
-                        })*/.show();
-
+                        mToast.show(ControlActivity.this, "Self stable mode on");
                 }
-                mPop.dismiss();
             }
         });
-        Button speedModeBtn = popView.findViewById(R.id.popSpeedModeBtn);//运动模式控制
-        speedModeBtn.setOnClickListener(new View.OnClickListener() {
+        //陀螺仪关闭
+        Button IMUOffBtn = popView.findViewById(R.id.popIMUOffBtn);//陀螺仪控制
+        IMUOffBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ControlActivity.this);
-                switch(localeLanguage){
+                MainActivity.addMessage(new byte[]{0x61, 0x00});
+                switch (localeLanguage) {
                     case "zh":
-                        builder.setMessage("请选择模式：").setNegativeButton("高速模式", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                MainActivity.addMessage(new byte[]{0x3D, 0x02});
-                                mToast.show(ControlActivity.this, "高速运动模式已开启");
-                            }
-                        }).setNeutralButton("普通模式", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                MainActivity.addMessage(new byte[]{0x3D, 0x00});
-                                mToast.show(ControlActivity.this, "常速运动模式已开启");
-                            }
-                        }).setPositiveButton("低速模式", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                MainActivity.addMessage(new byte[]{0x3D, 0x01});
-                                mToast.show(ControlActivity.this, "低速运动模式已开启");
-                            }
-                        }).show();
+                        mToast.show(ControlActivity.this, "陀螺仪已关闭");
                         break;
                     default:
-                        builder.setMessage("Select mode:").setNegativeButton("High speed", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                MainActivity.addMessage(new byte[]{0x3D, 0x02});
-                                mToast.show(ControlActivity.this, "High speed mode on");
-                            }
-                        }).setNeutralButton("Normal speed", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                MainActivity.addMessage(new byte[]{0x3D, 0x00});
-                                mToast.show(ControlActivity.this, "Normal speed mode on");
-                            }
-                        }).setPositiveButton("Low speed", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                MainActivity.addMessage(new byte[]{0x3D, 0x01});
-                                mToast.show(ControlActivity.this, "Low speed mode on");
-                            }
-                        }).show();
+                        mToast.show(ControlActivity.this, "Gyroscope off");
                 }
-
-                mPop.dismiss();
             }
         });
-        mPop = new PopupWindow(popView, controlBtnMore.getWidth() * 5, ViewGroup.LayoutParams.WRAP_CONTENT);
+        //低速模式
+        Button ModeLowBtn = popView.findViewById(R.id.popSpeedLowBtn);//陀螺仪控制
+        ModeLowBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.addMessage(new byte[]{0x3D, 0x01});
+                switch (localeLanguage) {
+                    case "zh":
+                        mToast.show(ControlActivity.this, "低速运动模式已开启");
+                        break;
+                    default:
+                        mToast.show(ControlActivity.this, "Low speed mode on");
+                }
+            }
+        });
+        //常速模式
+        Button ModeNormalBtn = popView.findViewById(R.id.popSpeedNormalBtn);//陀螺仪控制
+        ModeNormalBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.addMessage(new byte[]{0x3D, 0x00});
+                switch (localeLanguage) {
+                    case "zh":
+                        mToast.show(ControlActivity.this, "常速运动模式已开启");
+                        break;
+                    default:
+                        mToast.show(ControlActivity.this, "Normal speed mode on");
+                }
+            }
+        });
+        //高速模式
+        Button ModeHighBtn = popView.findViewById(R.id.popSpeedHighBtn);//陀螺仪控制
+        ModeHighBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.addMessage(new byte[]{0x3D, 0x02});
+                switch (localeLanguage) {
+                    case "zh":
+                        mToast.show(ControlActivity.this, "高速运动模式已开启");
+                        break;
+                    default:
+                        mToast.show(ControlActivity.this, "High speed mode on");
+                }
+            }
+        });
+//        Button IMUBtn = popView.findViewById(R.id.popIMUBtn);//陀螺仪控制
+//        IMUBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(ControlActivity.this);
+//                AlertDialog dialog = builder.create();
+//                //为了解决onResume不调用的问题
+//                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                    @Override
+//                    public void onDismiss(DialogInterface dialog) {
+//                        hideBottomUIMenu(ControlActivity.this);
+//                    }
+//                });
+//                hideBottomUIDialog(dialog);
+//                switch(localeLanguage){
+//                    case "zh":
+//                        builder.setMessage("姿态：请选择陀螺仪控制模式：").setNegativeButton("自稳定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                MainActivity.addMessage(new byte[]{0x61, 0x01});
+//                                mToast.show(ControlActivity.this, "自稳定模式已开启");
+//                            }
+//                        }).setNeutralButton("关闭", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                MainActivity.addMessage(new byte[]{0x61, 0x00});
+//                                mToast.show(ControlActivity.this, "陀螺仪已关闭");
+//                            }
+//                        })/*.setPositiveButton("柔顺", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                //MainActivity.addMessage(new byte[]{0x61, 0x02});
+//                                //mToast.show(ControlActivity.this, "柔顺模式已开启");
+//                                mToast.show(ControlActivity.this, "柔顺模式暂未开放");
+//                            }
+//                        })*/.show();
+//                        break;
+//                    default:
+//                        builder.setMessage("Attitude:Select gyro control mode:").setNegativeButton("Self stable", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                MainActivity.addMessage(new byte[]{0x61, 0x01});
+//                                mToast.show(ControlActivity.this, "Self stable mode on");
+//                            }
+//                        }).setNeutralButton("Close", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                MainActivity.addMessage(new byte[]{0x61, 0x00});
+//                                mToast.show(ControlActivity.this, "Gyroscope off");
+//                            }
+//                        })/*.setPositiveButton("柔顺", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                //MainActivity.addMessage(new byte[]{0x61, 0x02});
+//                                //mToast.show(ControlActivity.this, "柔顺模式已开启");
+//                                mToast.show(ControlActivity.this, "Compliance mode is not open yet");
+//                            }
+//                        })*/.show();
+//
+//                }
+//                mPop.dismiss();
+//            }
+//        });
+//        Button speedModeBtn = popView.findViewById(R.id.popSpeedModeBtn);//运动模式控制
+//        speedModeBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(ControlActivity.this);
+//                switch(localeLanguage){
+//                    case "zh":
+//                        builder.setMessage("请选择模式：").setNegativeButton("高速模式", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                MainActivity.addMessage(new byte[]{0x3D, 0x02});
+//                                mToast.show(ControlActivity.this, "高速运动模式已开启");
+//                            }
+//                        }).setNeutralButton("普通模式", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                MainActivity.addMessage(new byte[]{0x3D, 0x00});
+//                                mToast.show(ControlActivity.this, "常速运动模式已开启");
+//                            }
+//                        }).setPositiveButton("低速模式", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                MainActivity.addMessage(new byte[]{0x3D, 0x01});
+//                                mToast.show(ControlActivity.this, "低速运动模式已开启");
+//                            }
+//                        }).show();
+//                        break;
+//                    default:
+//                        builder.setMessage("Select mode:").setNegativeButton("High speed", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                MainActivity.addMessage(new byte[]{0x3D, 0x02});
+//                                mToast.show(ControlActivity.this, "High speed mode on");
+//                            }
+//                        }).setNeutralButton("Normal speed", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                MainActivity.addMessage(new byte[]{0x3D, 0x00});
+//                                mToast.show(ControlActivity.this, "Normal speed mode on");
+//                            }
+//                        }).setPositiveButton("Low speed", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                MainActivity.addMessage(new byte[]{0x3D, 0x01});
+//                                mToast.show(ControlActivity.this, "Low speed mode on");
+//                            }
+//                        }).show();
+//                }
+//
+//                mPop.dismiss();
+//            }
+//        });
+        mPop = new PopupWindow(popView, controlBtnMore.getWidth() * 12, ViewGroup.LayoutParams.WRAP_CONTENT);
         mPop.setOutsideTouchable(true);
         mPop.setFocusable(false);
         mPop.showAsDropDown(controlBtnMore);

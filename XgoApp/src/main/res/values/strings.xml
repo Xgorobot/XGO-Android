@@ -51,7 +51,7 @@
     <string name="developyes">是</string>
     <string name="developno">否</string>
     <string name="developer">以开发者身份运行此项目</string>
-    <string name="version" translatable="false">version 2.2.2</string>
+    <string name="version" translatable="false">version 2.3.0</string>
     <string name="btShake">请打开蓝牙和定位\n摇一摇手机，蓝牙将自动连接</string>
     <string name="btConnected">连接成功</string>
     <string name="btDisconnect">断开连接</string>
@@ -94,8 +94,6 @@
     <string name="myProject">我的程序</string>
     <string name="morefc">更多功能</string>
     <string name="autoPowerOn">开机动作自启动：</string>
-    <string name="attitudeGyroscope">姿态：陀螺仪</string>
-    <string name="motion_selectMotionMode">运动：选择运动模式</string>
     <string name="carousel">动作轮播：</string>
     <string name="reset_high" translatable="false">RESET</string>
     <string name="liedown">趴下</string>
@@ -123,4 +121,11 @@
     <string name="battery">电量</string>
     <string name="speed">速度</string>
     <string name="resetheight">重置高度</string>
+    <string name="gyroscope">陀螺仪</string>
+    <string name="gyroscopeOn">打开</string>
+    <string name="gyroscopeOff">关闭</string>
+    <string name="motion">整机速度</string>
+    <string name="lowspeed">低速</string>
+    <string name="normalspeed">普通</string>
+    <string name="highspeed">高速</string>
 </resources>
