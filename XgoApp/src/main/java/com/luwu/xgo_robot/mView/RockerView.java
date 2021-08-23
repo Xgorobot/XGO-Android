@@ -43,9 +43,11 @@ public class RockerView extends View {
 
     private IRockViewListener mListener;
     private Point speedPersent;
+    //降低机器狗运动速度
+    private float speedRatio = 0.8f;
     //提供给外部的数据 -100< .x <100  -100< .y <100
     public Point getSpeed(){
-        return this.speedPersent;
+        return new Point((int)(this.speedPersent.x*speedRatio), (int)(this.speedPersent.y*speedRatio));
     }
     //提供给外部的事件接口
     public void setRockViewListener(IRockViewListener mListener) {

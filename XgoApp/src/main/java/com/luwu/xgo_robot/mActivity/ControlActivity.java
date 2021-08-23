@@ -16,6 +16,7 @@ import android.widget.Switch;
 import com.luwu.xgo_robot.R;
 import com.luwu.xgo_robot.mFragment.ButtonFragment;
 import com.luwu.xgo_robot.mFragment.RockerFragment;
+import com.luwu.xgo_robot.mFragment.RockerLeftFragment;
 import com.luwu.xgo_robot.mMothed.mToast;
 
 import static com.luwu.xgo_robot.mMothed.PublicMethod.hideBottomUIDialog;
@@ -25,6 +26,7 @@ import static com.luwu.xgo_robot.mMothed.PublicMethod.localeLanguage;
 
 public class ControlActivity extends AppCompatActivity {
     public static int progress = 60;//身高滑杆控制
+    public static final int progressInit = 60;//身高滑杆控制
     public static int WHOLEDEFAULT = 0,WHOLESELF = 1,SINGLEDEFAULT = 2,SINGLESELF = 3;//用来区分添加到控制界面的编程的常量 已弃用
     private Button controlBtnNormal, controlBtnSuperior, controlBtnXYZ, controlBtnPRY;
     private ImageButton controlBtnProgram, controlBtnMore, controlBtnExit;
@@ -35,6 +37,7 @@ public class ControlActivity extends AppCompatActivity {
 
     private RockerFragment rockerFragment;
     private ButtonFragment buttonFragment;
+    private RockerLeftFragment rockerLeftFragment;
 //    private PostureFragment postureFragment;
     private final int NORMALFRAGMENT = 0, SUPERIORFRAGMENT = 1, XYZFRAGMENT = 2, PRYFRAGMENT = 3;
 //    private Handler mHandler;
@@ -175,10 +178,10 @@ public class ControlActivity extends AppCompatActivity {
                     if (nowFragment != XYZFRAGMENT) {
                         nowFragment = XYZFRAGMENT;
                         flagRockModeBtn = 2;
-                        if (rockerFragment == null) {
-                            rockerFragment = new RockerFragment();
+                        if (rockerLeftFragment == null) {
+                            rockerLeftFragment = new RockerLeftFragment();
                         }
-                        getSupportFragmentManager().beginTransaction().replace(R.id.controlFrame, rockerFragment).commitAllowingStateLoss();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.controlFrame, rockerLeftFragment).commitAllowingStateLoss();
                         controlBtnXYZ.setBackgroundResource(R.drawable.control_fragment_check);
                         controlBtnXYZ.setTextColor(getResources().getColor(R.color.colorWhite));
                         controlBtnSuperior.setBackgroundResource(R.color.transparent);

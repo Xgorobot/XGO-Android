@@ -11,13 +11,18 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.luwu.xgo_robot.R;
+import com.luwu.xgo_robot.mActivity.LegActivity;
 import com.luwu.xgo_robot.mActivity.MainActivity;
+import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mView.ButtonView;
 import com.luwu.xgo_robot.mView.VerticalSeekBar;
 
+import static com.luwu.xgo_robot.mActivity.ControlActivity.progressInit;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.toOrderRange;
 import static com.luwu.xgo_robot.mActivity.ControlActivity.progress;
 import static com.luwu.xgo_robot.mView.ButtonView.DOWNPRESS;
@@ -34,12 +39,15 @@ public class ButtonFragment extends Fragment {
     private ButtonView buttonBtnLeft, buttonBtnRight;
     private VerticalSeekBar seekBar;
     private ImageView buttonTxtBattery, buttonTxtSpeed;
+    private Button btnReset;
+    private TextView textHeight;
     private static boolean flagLoop = false;//循环查询电量
     private getBatteryThread batteryThread;
     private Handler mHandler;
     private long saveTime = 0;
     private long nowTime = 0;
     private int speedLeft, speedRight;
+
 
     public ButtonFragment() {
     }
@@ -62,12 +70,16 @@ public class ButtonFragment extends Fragment {
         seekBar = view.findViewById(R.id.buttonSeekBar);
         seekBar.setProgress(progress);
 
+        btnReset = view.findViewById(R.id.buttonBtnReset);
+        textHeight = view.findViewById(R.id.textHeight);
+        textHeight.setText(String.valueOf(progress));
+
         mViewListener();
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == 0) {
-                    changeBatteryView(XGORAM_VALUE.battery * 100 / 256);
+                    changeBatteryView(XGORAM_VALUE.battery);
                 } else if (msg.what == 1) {
                     speedLeft = msg.arg1;
                     changeSpeedView((int) sqrt(speedLeft * speedLeft + speedRight * speedRight));
@@ -95,6 +107,14 @@ public class ButtonFragment extends Fragment {
 
     //自定义控件设置监听事件
     private void mViewListener() {
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.action, (byte)0xff});
+                seekBar.updateProgress(progressInit);
+                textHeight.setText(String.valueOf(progressInit));
+            }
+        });
         seekBar.setListener(new VerticalSeekBar.ISeekBarListener() {
             @Override
             public void actionDown() {
@@ -108,6 +128,7 @@ public class ButtonFragment extends Fragment {
             public void actionMove() {
                 nowTime = System.currentTimeMillis();
                 progress = seekBar.getProgress();
+                textHeight.setText(String.valueOf(progress));
                 if ((nowTime - saveTime) > 200) {
                     MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progress, 0, 100)});
                     saveTime = nowTime;

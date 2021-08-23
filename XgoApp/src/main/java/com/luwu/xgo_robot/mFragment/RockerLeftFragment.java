@@ -1,12 +1,15 @@
 package com.luwu.xgo_robot.mFragment;
 
+import static com.luwu.xgo_robot.mActivity.ControlActivity.progress;
+import static com.luwu.xgo_robot.mActivity.ControlActivity.progressInit;
+import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_ADDR;
+import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_VALUE;
+import static com.luwu.xgo_robot.mMothed.PublicMethod.toOrderRange;
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
+
 import android.graphics.Point;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -16,6 +19,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.luwu.xgo_robot.R;
 import com.luwu.xgo_robot.mActivity.ControlActivity;
 import com.luwu.xgo_robot.mActivity.MainActivity;
@@ -23,16 +30,8 @@ import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mView.RockerView;
 import com.luwu.xgo_robot.mView.VerticalSeekBar;
 
-import static com.luwu.xgo_robot.mActivity.ControlActivity.progressInit;
-import static com.luwu.xgo_robot.mMothed.PublicMethod.toOrderRange;
-import static com.luwu.xgo_robot.mActivity.ControlActivity.progress;
-import static java.lang.Math.abs;
-import static java.lang.Math.sqrt;
-import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_ADDR;
-import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_VALUE;
-
-public class RockerFragment extends Fragment {
-    private RockerView rockerViewLeft, rockerViewRight;
+public class RockerLeftFragment extends Fragment {
+    private RockerView rockerViewLeft;
     private VerticalSeekBar seekBar;
     private ImageView rockerTxtBattery, rockerTxtSpeed;
     private Button btnReset;
@@ -43,13 +42,13 @@ public class RockerFragment extends Fragment {
     private long saveTime1 = 0, saveTime2 = 0, saveTime3 = 0;
     private long nowTime = 0;
     private int speedLeft, speedRight;
-    public RockerFragment() {
+    public RockerLeftFragment() {
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_rocker, container, false);
+        return inflater.inflate(R.layout.fragment_rockerleft, container, false);
     }
 
     @Override
@@ -59,10 +58,9 @@ public class RockerFragment extends Fragment {
         rockerTxtBattery = view.findViewById(R.id.rockerTxtBattery);
         rockerTxtSpeed = view.findViewById(R.id.rockerTxtSpeed);
         rockerViewLeft = view.findViewById(R.id.controlRockViewLeft);
-        rockerViewRight = view.findViewById(R.id.controlRockViewRight);
         seekBar = view.findViewById(R.id.rockerSeekBar);
         seekBar.setProgress(progress);
-        btnReset = view.findViewById(R.id.rockerBtnReset);
+        btnReset = view.findViewById(R.id.rockerLeftBtnReset);
         textHeight = view.findViewById(R.id.textHeight);
         textHeight.setText(String.valueOf(progress));
         mViewListener();
@@ -161,47 +159,7 @@ public class RockerFragment extends Fragment {
                 mHandler.sendMessage(msg);
             }
         });
-        rockerViewRight.setRockViewListener(new RockerView.IRockViewListener() {
-            @Override
-            public void actionDown() {
-            }
 
-            @Override
-            public void actionUp() {
-                if (ControlActivity.flagRockModeBtn == 0) {//全向移动
-                    MainActivity.addMessage(new byte[]{XGORAM_ADDR.speedVy, (byte) 0x80});
-                } else if (ControlActivity.flagRockModeBtn == 1) {//xyz转动
-                    MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyYaw, (byte) 0x80});
-                } else if (ControlActivity.flagRockModeBtn == 2) {//xyz平动
-                }
-                Message msg = new Message();
-                msg.what = 2;
-                msg.arg1 = 0;
-                mHandler.sendMessage(msg);
-            }
-
-            @Override
-            public void actionMove() {
-                nowTime = System.currentTimeMillis();
-                if ((nowTime - saveTime2) > 300) {
-                    Point speed = rockerViewRight.getSpeed();
-                    if (ControlActivity.flagRockModeBtn == 0) {//全向移动
-                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.speedVy, toOrderRange(-speed.x, -100, 100)});
-                    } else if (ControlActivity.flagRockModeBtn == 1) {//xyz转动
-                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyYaw, toOrderRange(-speed.x, -100, 100)});
-                    } else if (ControlActivity.flagRockModeBtn == 2) {//xyz平动
-                    }
-                    saveTime2 = nowTime;
-                }
-
-                Message msg = new Message();
-                msg.what = 2;
-                int x = rockerViewRight.getSpeed().x;
-                int y = 0;
-                msg.arg1 = (int) abs(sqrt(x * x + y * y));
-                mHandler.sendMessage(msg);
-            }
-        });
         seekBar.setListener(new VerticalSeekBar.ISeekBarListener() {
             @Override
             public void actionDown() {
@@ -216,7 +174,7 @@ public class RockerFragment extends Fragment {
             public void actionMove() {
                 nowTime = System.currentTimeMillis();
                 progress = seekBar.getProgress();
-                textHeight.setText(String.valueOf(progressInit));
+                textHeight.setText(String.valueOf(progress));
                 if ((nowTime - saveTime3) > 200) {//200ms刷新
                     MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progress, 0, 100)});
                     saveTime3 = nowTime;
