@@ -71,13 +71,28 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_weight="2"
-            android:scaleType="fitCenter"
-            android:src="@drawable/robot_leg" />
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/robot_leg" />
+
+            <TextView
+                android:id="@+id/textViewLegInit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="X:0mm Y:0mm Z:90mm"
+                android:textColor="#ffffff"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="0dp"
@@ -157,6 +172,7 @@
 
                 <SeekBar
                     android:id="@+id/legSeekBarX"
+                    style="@style/Widget.AppCompat.SeekBar"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
