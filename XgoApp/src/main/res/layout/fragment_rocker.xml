@@ -153,7 +153,6 @@
             android:id="@+id/textHeight"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="right"
             android:text="60"
             android:textColor="#ffffff"
