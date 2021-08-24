@@ -216,7 +216,7 @@ public class RockerFragment extends Fragment {
             public void actionMove() {
                 nowTime = System.currentTimeMillis();
                 progress = seekBar.getProgress();
-                textHeight.setText(String.valueOf(progressInit));
+                textHeight.setText(String.valueOf(progress));
                 if ((nowTime - saveTime3) > 200) {//200ms刷新
                     MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progress, 0, 100)});
                     saveTime3 = nowTime;
