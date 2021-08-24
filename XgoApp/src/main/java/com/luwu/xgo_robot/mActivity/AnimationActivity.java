@@ -55,6 +55,9 @@ public class AnimationActivity extends AppCompatActivity {
             localeLanguage = "en";
         } else {//auto
             localeLanguage = Locale.getDefault().getLanguage();
+            if (!localeLanguage.equals("zh")){
+                localeLanguage = "en";
+            }
         }
         Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();

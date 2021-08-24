@@ -336,10 +336,14 @@ public class SettingActivity extends AppCompatActivity {
         } else if(setting_language.equals("en")) {
             localeLanguage = "en";
         } else {//auto
-            localeLanguage = Locale.getDefault().getLanguage();
+            localeLanguage = Locale.getDefault().getLanguage(); //系统语言
+            if (!localeLanguage.equals("zh")){
+                localeLanguage = "en";
+            }
         }
         Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();
+        System.out.println("！！！！！应用语言： "+configuration.locale.getLanguage());
         if (configuration.locale.getLanguage() != localeLanguage){
             if (localeLanguage.equals("zh")) {
                 configuration.setLocale(Locale.CHINESE); // 设置为中文
