@@ -378,42 +378,74 @@ public class ControlActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Switch IMUSwitch = popView.findViewById(R.id.IMUSwitch);//动作自启动开关
+        IMUSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    MainActivity.addMessage(new byte[]{0x61, 0x01});
+                    switch (localeLanguage) {
+                        case "zh":
+                            mToast.show(ControlActivity.this, "自稳定模式已开启");
+                            break;
+                        default:
+                            mToast.show(ControlActivity.this, "Self stable mode on");
+                    }
+                } else {
+                    MainActivity.addMessage(new byte[]{0x61, 0x00});
+                    switch (localeLanguage) {
+                        case "zh":
+                            mToast.show(ControlActivity.this, "陀螺仪已关闭");
+                            break;
+                        default:
+                            mToast.show(ControlActivity.this, "Gyroscope off");
+                    }
+                }
+            }
+        });
         //陀螺仪开启
-        Button IMUOnBtn = popView.findViewById(R.id.popIMUOnBtn);//陀螺仪控制
-        IMUOnBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.addMessage(new byte[]{0x61, 0x01});
-                switch (localeLanguage) {
-                    case "zh":
-                        mToast.show(ControlActivity.this, "自稳定模式已开启");
-                        break;
-                    default:
-                        mToast.show(ControlActivity.this, "Self stable mode on");
-                }
-            }
-        });
-        //陀螺仪关闭
-        Button IMUOffBtn = popView.findViewById(R.id.popIMUOffBtn);//陀螺仪控制
-        IMUOffBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.addMessage(new byte[]{0x61, 0x00});
-                switch (localeLanguage) {
-                    case "zh":
-                        mToast.show(ControlActivity.this, "陀螺仪已关闭");
-                        break;
-                    default:
-                        mToast.show(ControlActivity.this, "Gyroscope off");
-                }
-            }
-        });
+//        Button IMUOnBtn = popView.findViewById(R.id.popIMUOnBtn);//陀螺仪控制
+//        IMUOnBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                MainActivity.addMessage(new byte[]{0x61, 0x01});
+//                switch (localeLanguage) {
+//                    case "zh":
+//                        mToast.show(ControlActivity.this, "自稳定模式已开启");
+//                        break;
+//                    default:
+//                        mToast.show(ControlActivity.this, "Self stable mode on");
+//                }
+//            }
+//        });
+//        //陀螺仪关闭
+//        Button IMUOffBtn = popView.findViewById(R.id.popIMUOffBtn);//陀螺仪控制
+//        IMUOffBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                MainActivity.addMessage(new byte[]{0x61, 0x00});
+//                switch (localeLanguage) {
+//                    case "zh":
+//                        mToast.show(ControlActivity.this, "陀螺仪已关闭");
+//                        break;
+//                    default:
+//                        mToast.show(ControlActivity.this, "Gyroscope off");
+//                }
+//            }
+//        });
+        final Button ModeLowBtn = popView.findViewById(R.id.popSpeedLowBtn);//陀螺仪控制
+        final Button ModeNormalBtn = popView.findViewById(R.id.popSpeedNormalBtn);//陀螺仪控制
+        final Button ModeHighBtn = popView.findViewById(R.id.popSpeedHighBtn);//陀螺仪控制
+        ModeNormalBtn.setActivated(true);
         //低速模式
-        Button ModeLowBtn = popView.findViewById(R.id.popSpeedLowBtn);//陀螺仪控制
         ModeLowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.addMessage(new byte[]{0x3D, 0x01});
+                ModeLowBtn.setActivated(true);
+                ModeNormalBtn.setActivated(false);
+                ModeHighBtn.setActivated(false);
                 switch (localeLanguage) {
                     case "zh":
                         mToast.show(ControlActivity.this, "低速运动模式已开启");
@@ -424,11 +456,13 @@ public class ControlActivity extends AppCompatActivity {
             }
         });
         //常速模式
-        Button ModeNormalBtn = popView.findViewById(R.id.popSpeedNormalBtn);//陀螺仪控制
         ModeNormalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.addMessage(new byte[]{0x3D, 0x00});
+                ModeLowBtn.setActivated(false);
+                ModeNormalBtn.setActivated(true);
+                ModeHighBtn.setActivated(false);
                 switch (localeLanguage) {
                     case "zh":
                         mToast.show(ControlActivity.this, "常速运动模式已开启");
@@ -439,11 +473,13 @@ public class ControlActivity extends AppCompatActivity {
             }
         });
         //高速模式
-        Button ModeHighBtn = popView.findViewById(R.id.popSpeedHighBtn);//陀螺仪控制
         ModeHighBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.addMessage(new byte[]{0x3D, 0x02});
+                ModeLowBtn.setActivated(false);
+                ModeNormalBtn.setActivated(false);
+                ModeHighBtn.setActivated(true);
                 switch (localeLanguage) {
                     case "zh":
                         mToast.show(ControlActivity.this, "高速运动模式已开启");
