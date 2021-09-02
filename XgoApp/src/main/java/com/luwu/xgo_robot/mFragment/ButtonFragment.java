@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.luwu.xgo_robot.R;
-import com.luwu.xgo_robot.mActivity.LegActivity;
 import com.luwu.xgo_robot.mActivity.MainActivity;
 import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mView.ButtonView;
@@ -67,7 +66,7 @@ public class ButtonFragment extends Fragment {
         buttonTxtBattery = view.findViewById(R.id.buttonTxtBattery);
         buttonTxtSpeed = view.findViewById(R.id.buttonTxtSpeed);
 
-        seekBar = view.findViewById(R.id.buttonSeekBar);
+        seekBar = view.findViewById(R.id.heightSeekBar);
         seekBar.setProgress(progress);
 
         btnReset = view.findViewById(R.id.buttonBtnReset);
@@ -213,6 +212,14 @@ public class ButtonFragment extends Fragment {
                 mHandler.sendMessage(msg);
             }
         });
+    }
+
+    /**
+     * 手动更新（非seekbar）progress
+     */
+    public void updateProgress(){
+        seekBar.updateProgress(progress);
+        textHeight.setText(String.valueOf(progress));
     }
 
     private class getBatteryThread extends Thread {

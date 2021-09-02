@@ -45,8 +45,9 @@
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:checked="false"
+            android:gravity="right|center"
             android:layout_marginRight="15dp"
-            android:gravity="right"
+            android:switchMinWidth="60dp"
             android:layout_weight="2"/>
         <!--
         <Button
@@ -83,7 +84,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="15dp">
         <TextView
             android:id="@+id/popSpeedTxt"
             android:layout_width="wrap_content"
@@ -97,7 +98,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right">
-
             <Button
                 android:id="@+id/popSpeedLowBtn"
                 android:layout_width="wrap_content"

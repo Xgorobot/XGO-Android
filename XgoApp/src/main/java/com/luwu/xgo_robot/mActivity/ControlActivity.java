@@ -10,24 +10,31 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.luwu.xgo_robot.R;
 import com.luwu.xgo_robot.mFragment.ButtonFragment;
 import com.luwu.xgo_robot.mFragment.RockerFragment;
 import com.luwu.xgo_robot.mFragment.RockerLeftFragment;
+import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mMothed.mToast;
+import com.luwu.xgo_robot.mView.VerticalSeekBar;
 
 import static com.luwu.xgo_robot.mMothed.PublicMethod.hideBottomUIDialog;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.hideBottomUIMenu;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.isBluetoothConnect;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.localeLanguage;
+import static com.luwu.xgo_robot.mMothed.PublicMethod.toOrderRange;
 
 public class ControlActivity extends AppCompatActivity {
     public static int progress = 60;//身高滑杆控制
-    public static final int progressInit = 60;//身高滑杆控制
+    public static final int progressInit = 60;//身高滑杆控制初始位置
     public static int WHOLEDEFAULT = 0,WHOLESELF = 1,SINGLEDEFAULT = 2,SINGLESELF = 3;//用来区分添加到控制界面的编程的常量 已弃用
+    private static int IMUChecked = 0; //0陀螺仪未开启，1开启
+    private static int SpeedMode = 0;  //0常速，1低速，2高速
     private Button controlBtnNormal, controlBtnSuperior, controlBtnXYZ, controlBtnPRY;
     private ImageButton controlBtnProgram, controlBtnMore, controlBtnExit;
     private ImageButton controlBtnConnect;
@@ -70,6 +77,7 @@ public class ControlActivity extends AppCompatActivity {
         controlBtnMore.setOnClickListener(mlistener);
 //        controlFrameCover = findViewById(R.id.controlFrameCover);
 //        controlFrameCover.setVisibility(View.GONE);
+
         //默认添加动作Fragment
         nowFragment = NORMALFRAGMENT;
         if (buttonFragment == null) {
@@ -380,10 +388,19 @@ public class ControlActivity extends AppCompatActivity {
         });
 
         Switch IMUSwitch = popView.findViewById(R.id.IMUSwitch);//动作自启动开关
+        switch(IMUChecked){
+            case 0:
+                IMUSwitch.setChecked(false);
+                break;
+            case 1:
+                IMUSwitch.setChecked(true);
+                break;
+        }
         IMUSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    IMUChecked = 1;
                     MainActivity.addMessage(new byte[]{0x61, 0x01});
                     switch (localeLanguage) {
                         case "zh":
@@ -393,6 +410,7 @@ public class ControlActivity extends AppCompatActivity {
                             mToast.show(ControlActivity.this, "Self stable mode on");
                     }
                 } else {
+                    IMUChecked = 0;
                     MainActivity.addMessage(new byte[]{0x61, 0x00});
                     switch (localeLanguage) {
                         case "zh":
@@ -437,15 +455,42 @@ public class ControlActivity extends AppCompatActivity {
         final Button ModeLowBtn = popView.findViewById(R.id.popSpeedLowBtn);//陀螺仪控制
         final Button ModeNormalBtn = popView.findViewById(R.id.popSpeedNormalBtn);//陀螺仪控制
         final Button ModeHighBtn = popView.findViewById(R.id.popSpeedHighBtn);//陀螺仪控制
-        ModeNormalBtn.setActivated(true);
+        switch(SpeedMode){
+            case 0:
+                ModeNormalBtn.setActivated(true);
+                break;
+            case 1:
+                ModeLowBtn.setActivated(true);
+                break;
+            case 2:
+                ModeHighBtn.setActivated(true);
+                break;
+        }
         //低速模式
         ModeLowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.addMessage(new byte[]{0x3D, 0x01});
+                SpeedMode = 1;
                 ModeLowBtn.setActivated(true);
                 ModeNormalBtn.setActivated(false);
                 ModeHighBtn.setActivated(false);
+                progress = 0;
+                MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.bodyZ, toOrderRange(progress, 0, 100)});
+                switch (nowFragment){
+                    case NORMALFRAGMENT:
+                        buttonFragment.updateProgress();
+                        break;
+                    case SUPERIORFRAGMENT:
+                        rockerFragment.updateProgress();
+                        break;
+                    case XYZFRAGMENT:
+                        rockerLeftFragment.updateProgress();
+                        break;
+                    case PRYFRAGMENT:
+                        rockerFragment.updateProgress();
+                        break;
+                }
                 switch (localeLanguage) {
                     case "zh":
                         mToast.show(ControlActivity.this, "低速运动模式已开启");
@@ -460,9 +505,26 @@ public class ControlActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MainActivity.addMessage(new byte[]{0x3D, 0x00});
+                SpeedMode = 0;
                 ModeLowBtn.setActivated(false);
                 ModeNormalBtn.setActivated(true);
                 ModeHighBtn.setActivated(false);
+                progress = progressInit;
+                MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.bodyZ, toOrderRange(progressInit, 0, 100)});
+                switch (nowFragment){
+                    case NORMALFRAGMENT:
+                        buttonFragment.updateProgress();
+                        break;
+                    case SUPERIORFRAGMENT:
+                        rockerFragment.updateProgress();
+                        break;
+                    case XYZFRAGMENT:
+                        rockerLeftFragment.updateProgress();
+                        break;
+                    case PRYFRAGMENT:
+                        rockerFragment.updateProgress();
+                        break;
+                }
                 switch (localeLanguage) {
                     case "zh":
                         mToast.show(ControlActivity.this, "常速运动模式已开启");
@@ -477,9 +539,26 @@ public class ControlActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MainActivity.addMessage(new byte[]{0x3D, 0x02});
+                SpeedMode = 2;
                 ModeLowBtn.setActivated(false);
                 ModeNormalBtn.setActivated(false);
                 ModeHighBtn.setActivated(true);
+                progress = 80;
+                MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.bodyZ, toOrderRange(progress, 0, 100)});
+                switch (nowFragment){
+                    case NORMALFRAGMENT:
+                        buttonFragment.updateProgress();
+                        break;
+                    case SUPERIORFRAGMENT:
+                        rockerFragment.updateProgress();
+                        break;
+                    case XYZFRAGMENT:
+                        rockerLeftFragment.updateProgress();
+                        break;
+                    case PRYFRAGMENT:
+                        rockerFragment.updateProgress();
+                        break;
+                }
                 switch (localeLanguage) {
                     case "zh":
                         mToast.show(ControlActivity.this, "高速运动模式已开启");

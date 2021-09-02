@@ -40,27 +40,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.83" />
-    <!--for battery and speed-->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/buttonLineVer1.5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.45" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/buttonLineVer2.5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.50" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/buttonLineHor1.5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="156dp" />
 
     <ImageView
         android:id="@+id/buttonTxtBattery"
@@ -89,8 +69,10 @@
         android:text="@string/battery"
         android:textColor="@color/green"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor1.5"
-        app:layout_constraintEnd_toEndOf="@+id/buttonLineVer1.5" />
+        app:layout_constraintTop_toBottomOf="@id/buttonTxtBattery"
+        app:layout_constraintStart_toStartOf="@id/buttonTxtBattery"
+        app:layout_constraintEnd_toEndOf="@id/buttonTxtBattery"
+         />
 
     <TextView
         android:layout_width="wrap_content"
@@ -100,10 +82,10 @@
         android:gravity="bottom|center"
         android:text="@string/speed"
         android:textColor="@color/colorRed"
-
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor1.5"
-        app:layout_constraintStart_toEndOf="@+id/buttonLineVer2.5" />
+        app:layout_constraintTop_toBottomOf="@id/buttonTxtSpeed"
+        app:layout_constraintStart_toStartOf="@id/buttonTxtSpeed"
+        app:layout_constraintEnd_toEndOf="@id/buttonTxtSpeed" />
 
     <com.luwu.xgo_robot.mView.ButtonView
         android:id="@+id/buttonButtonLeft"
@@ -128,7 +110,7 @@
         app:rightPress="@drawable/button2_right_press" />
 
     <com.luwu.xgo_robot.mView.VerticalSeekBar
-        android:id="@+id/buttonSeekBar"
+        android:id="@+id/heightSeekBar"
         android:layout_width="260dp"
         android:layout_height="40dp"
         app:allBackground="@drawable/seekbar_background"
@@ -145,24 +127,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/buttonLineHor2">
-        <Button
-            android:id="@+id/buttonBtnReset"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_press"
-            android:textColor="#ffffff"
-            android:text="@string/resetheight"
-             />
 
         <TextView
             android:id="@+id/textHeight"
-            android:layout_width="40dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
+            android:gravity="center"
             android:text="60"
             android:textColor="#ffffff"
             android:textSize="20sp" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonBtnReset"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_press"
+        android:text="@string/resetheight"
+        android:textColor="#ffffff"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLineHor2"
+        app:layout_constraintLeft_toRightOf="@+id/heightSeekBar"
+        android:layout_marginHorizontal="10dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -58,7 +58,7 @@ public class RockerLeftFragment extends Fragment {
         rockerTxtBattery = view.findViewById(R.id.rockerTxtBattery);
         rockerTxtSpeed = view.findViewById(R.id.rockerTxtSpeed);
         rockerViewLeft = view.findViewById(R.id.controlRockViewLeft);
-        seekBar = view.findViewById(R.id.rockerSeekBar);
+        seekBar = view.findViewById(R.id.heightSeekBar);
         seekBar.setProgress(progress);
         btnReset = view.findViewById(R.id.rockerLeftBtnReset);
         textHeight = view.findViewById(R.id.textHeight);
@@ -183,6 +183,10 @@ public class RockerLeftFragment extends Fragment {
         });
     }
 
+    public void updateProgress(){
+        seekBar.updateProgress(progress);
+        textHeight.setText(String.valueOf(progress));
+    }
 
     private class getBatteryThread extends Thread {
         @Override
