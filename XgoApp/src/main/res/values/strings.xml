@@ -94,8 +94,7 @@
     <string name="myProject">我的程序</string>
     <string name="morefc">更多功能</string>
     <string name="autoPowerOn">开机动作自启动：</string>
-    <string name="carousel">动作轮播：</string>
-    <string name="reset_high" translatable="false">RESET</string>
+    <string name="carousel">动作轮播</string>
     <string name="liedown">趴下</string>
     <string name="standup">站起</string>
     <string name="crawl">匍匐前进</string>

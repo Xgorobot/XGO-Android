@@ -55,7 +55,7 @@
     <string name="myProject">My project</string>
     <string name="morefc">More function</string>
     <string name="autoPowerOn">Auto Power On</string>
-    <string name="carousel">Rotation:</string>
+    <string name="carousel">Rotation</string>
     <string name="liedown">lie down</string>
     <string name="standup">stand up</string>
     <string name="crawl">crawl</string>
@@ -78,7 +78,7 @@
     <string name="actor">Performance Mode</string>
     <string name="xyz">XYZ-axis</string>
     <string name="pry">Roll/Pitch/Yaw</string>
-    <string name="battery">battery</string>
+    <string name="battery">Battery</string>
     <string name="speed">speed</string>
     <string name="resetheight">Reset Height</string>
     <string name="gyroscope">Gyroscope</string>
