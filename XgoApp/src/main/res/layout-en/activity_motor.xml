@@ -164,8 +164,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="4"
-                    android:min="-60"
-                    android:max="60"
+                    android:min="-31"
+                    android:max="31"
                     android:progress="0"
                     android:scrollbarStyle="outsideOverlay" />
 
@@ -214,9 +214,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="4"
-                    android:min="-90"
-                    android:max="90"
-                    android:progress="0"
+                    android:min="-66"
+                    android:max="93"
+                    android:progress="43"
                     android:scrollbarStyle="outsideOverlay" />
 
                 <TextView
@@ -225,7 +225,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="0"
+                    android:text="43"
                     android:textColor="#ffffff"
                     android:textSize="25sp" />
 
@@ -263,9 +263,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="4"
-                    android:min="-90"
-                    android:max="50"
-                    android:progress="0"
+                    android:min="-65"
+                    android:max="73"
+                    android:progress="20"
                     android:scrollbarStyle="outsideOverlay" />
 
                 <TextView
@@ -274,7 +274,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="0"
+                    android:text="20"
                     android:textColor="#ffffff"
                     android:textSize="25sp" />
 

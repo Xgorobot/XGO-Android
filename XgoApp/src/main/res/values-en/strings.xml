@@ -55,7 +55,7 @@
     <string name="myProject">My project</string>
     <string name="morefc">More function</string>
     <string name="autoPowerOn">Auto Power On</string>
-    <string name="carousel">Rotation</string>
+    <string name="carousel">Repeat</string>
     <string name="liedown">lie down</string>
     <string name="standup">stand up</string>
     <string name="crawl">crawl</string>
@@ -79,7 +79,7 @@
     <string name="xyz">XYZ-axis</string>
     <string name="pry">Roll/Pitch/Yaw</string>
     <string name="battery">Battery</string>
-    <string name="speed">speed</string>
+    <string name="speed">Speed</string>
     <string name="resetheight">Reset Height</string>
     <string name="gyroscope">Gyroscope</string>
     <string name="gyroscopeOn">on</string>
@@ -88,4 +88,14 @@
     <string name="lowspeed">low</string>
     <string name="normalspeed">normal</string>
     <string name="highspeed">high</string>
+    <string name="privacy_policy">《Privacy Policy》</string>
+    <string name="updatehex">Update hex</string>
+    <string name="updatehexbtn">update</string>
+    <string name="hexversion">Latest version 2.3.2</string>
+    <string name="rename">Give_a_new_name</string>
+    <string name="only_supports_english_and_numbers">Only_supports_English_and_Numbers</string>
+    <string name="confim">confim</string>
+    <string name="cancel">cancel</string>
+    <string name="renameText">Up to 4 Chinese characters or 13 English characters</string>
+    <string name="all_rights_reserved">Luwu Dynamics. All Rights Reserved.</string>
 </resources>

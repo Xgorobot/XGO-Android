@@ -4,6 +4,11 @@ import android.bluetooth.BluetoothDevice;
 
 import androidx.annotation.NonNull;
 
+import com.luwu.xgo_robot.mActivity.MainActivity;
+
+import java.nio.charset.StandardCharsets;
+
+
 public class BleDeviceEntity implements Comparable<BleDeviceEntity> {
 
     private String name;
@@ -60,7 +65,11 @@ public class BleDeviceEntity implements Comparable<BleDeviceEntity> {
     }
 
     public static void changeBleName(String bleName)  {
-
+        byte[] bleNameBytes = bleName.getBytes(StandardCharsets.US_ASCII);
+        byte[] bleNameBytesAll = new byte[bleNameBytes.length + 1];
+        bleNameBytesAll[0] = 0x13;  //指令类型
+        System.arraycopy(bleNameBytes, 0, bleNameBytesAll, 1, bleNameBytesAll.length - 1);
+        MainActivity.addMessage(bleNameBytesAll);
 //        String lenth = UnicodeUtil.toHexString(String.valueOf(bleName.length()));
 //        String nameHex = UnicodeUtil.stringToAscii(bleName);
 //        String msg = "04 02 F3 00 00 " + lenth + nameHex;

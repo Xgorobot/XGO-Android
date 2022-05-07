@@ -105,7 +105,7 @@ public class LegActivity extends AppCompatActivity {
                     MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.action, (byte)0xff});
                     legSeekBarX.setProgress(0);
                     legSeekBarY.setProgress(0);
-                    legSeekBarZ.setProgress(90);
+                    legSeekBarZ.setProgress(105);
                     break;
             }
         }
@@ -137,13 +137,13 @@ public class LegActivity extends AppCompatActivity {
                     nowTime = System.currentTimeMillis();
                     if ((nowTime - saveTime2) > 200) {//200ms刷新
                         if (legChioce == 0) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_1, (byte) toOrderRange(progress, -20, 20)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_1, (byte) toOrderRange(progress, -18, 18)});
                         } else if (legChioce == 1) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_2, (byte) toOrderRange(progress, -20, 20)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_2, (byte) toOrderRange(progress, -18, 18)});
                         } else if (legChioce == 2) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_3, (byte) toOrderRange(progress, -20, 20)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_3, (byte) toOrderRange(progress, -18, 18)});
                         } else if (legChioce == 3) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_4, (byte) toOrderRange(progress, -20, 20)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_4, (byte) toOrderRange(progress, -18, 18)});
                         }
                         saveTime2 = nowTime;
                     }
@@ -153,13 +153,13 @@ public class LegActivity extends AppCompatActivity {
                     nowTime = System.currentTimeMillis();
                     if ((nowTime - saveTime3) > 200) {//200ms刷新
                         if (legChioce == 0) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_1, (byte) toOrderRange(progress, 110, 60)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_1, (byte) toOrderRange(progress, 75, 115)});
                         } else if (legChioce == 1) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_2, (byte) toOrderRange(progress, 110, 60)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_2, (byte) toOrderRange(progress, 75, 115)});
                         } else if (legChioce == 2) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_3, (byte) toOrderRange(progress, 110, 60)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_3, (byte) toOrderRange(progress, 75, 115)});
                         } else if (legChioce == 3) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_4, (byte) toOrderRange(progress, 110, 60)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_4, (byte) toOrderRange(progress, 75, 115)});
                         }
                         saveTime3 = nowTime;
                     }

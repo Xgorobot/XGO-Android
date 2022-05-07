@@ -70,14 +70,32 @@
             android:textColor="#ffffff"
             android:gravity="top|center"
             android:text="@string/version"/>
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:textSize="20sp"
-            android:textColor="#ffffff"
+            android:orientation="vertical"
             android:gravity="bottom|center"
-            android:text="陆吾智能 版权所有\nAll Rights Reserved."/>
+            android:layout_margin="10dp">
+            <TextView
+                android:id="@+id/privacyPolicy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/blue"
+                android:gravity="bottom|center"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:text="@string/privacy_policy"
+                android:focusable="true" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:textSize="20sp"
+                android:textColor="#ffffff"
+                android:gravity="bottom|center"
+                android:text="@string/all_rights_reserved"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

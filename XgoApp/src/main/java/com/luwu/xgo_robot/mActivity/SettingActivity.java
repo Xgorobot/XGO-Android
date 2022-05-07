@@ -2,25 +2,35 @@ package com.luwu.xgo_robot.mActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
+import com.luwu.xgo_robot.BlueTooth.BleActivity;
+import com.luwu.xgo_robot.BlueTooth.BleClient;
 import com.luwu.xgo_robot.R;
+import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mMothed.mToast;
 import com.luwu.xgo_robot.mView.XRadioGroup;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Locale;
 
 import static com.luwu.xgo_robot.mMothed.PublicMethod.hideBottomUIMenu;
+import static com.luwu.xgo_robot.mMothed.PublicMethod.isBluetoothConnect;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.localeLanguage;
 
 public class SettingActivity extends AppCompatActivity {
@@ -33,6 +43,8 @@ public class SettingActivity extends AppCompatActivity {
     private RadioButton settingRadioClose,settingRadioNoClose;
     private RadioButton settingRadioDevelop, settingRadioAntiDevelop;
     private RadioButton settingLanWithSystem, settingLanChinese, settingLanEnglish;
+    private Button hexBtn;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +75,8 @@ public class SettingActivity extends AppCompatActivity {
         settingLanWithSystem = findViewById(R.id.settingLanWithSystem);
         settingLanChinese = findViewById(R.id.settingLanChinese);
         settingLanEnglish = findViewById(R.id.settingLanEnglish);
+
+//        hexBtn = findViewById(R.id.hexBtn);
 
         setSelected();//设置监听之前调用
         setListener();//监听事件
@@ -300,6 +314,81 @@ public class SettingActivity extends AppCompatActivity {
                 updateLocale();
             }
         });
+
+//        hexBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (MainActivity.getMsgListState() == -1){
+//                    switch(localeLanguage){
+//                        case "zh":
+//                            mToast.show(SettingActivity.this, "蓝牙连接出错");
+//                            break;
+//                        default:
+//                            mToast.show(SettingActivity.this, "Bluetooth connect false");
+//                    }
+//                } else {
+//                    MessageThread messageThread = new MessageThread();
+//                    if ("zh".equals(localeLanguage)) {
+//                        progressDialog = ProgressDialog.show(SettingActivity.this,
+//                                "固件传输中...",
+//                                "请勿操作...",
+//                                true);//显示加载框
+//                        messageThread.start();
+//                    } else {
+//                        progressDialog = ProgressDialog.show(SettingActivity.this,
+//                                "Updating...",
+//                                "wait a minute...",
+//                                true);//显示加载框
+//                        messageThread.start();
+//                    }
+//                }
+//            }
+//
+//
+//        });
+    }
+
+    private class MessageThread extends Thread{
+        public MessageThread() {
+
+        }
+
+        @Override
+        public void run() {
+            updateHex();
+        }
+    }
+    private void updateHex(){
+        while(true){
+            if (MainActivity.getMsgListState() == 0){
+                MainActivity.addMessage(new byte[]{0x05, 0x01});
+                try {
+                    Thread.sleep(10);
+                    MainActivity.MsgThreadStop();
+                    Thread.sleep(5000);
+                    //System.out.println("no");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    InputStream inputStream = getResources().openRawResource(R.raw.xgomini);
+                    byte[] data = new byte[20];
+                    int n = -1;
+                    int i = -1;
+                    while ((n = inputStream.read(data,0,20)) != -1) {
+                        System.out.println(String.valueOf(i++));
+                        MainActivity.sendHugeMessage(data);
+                    }
+                    inputStream.close();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                MainActivity.MsgThreadWork();
+                progressDialog.dismiss();
+                break;
+            }
+
+        }
     }
 
     private void setUncheckedColor(int i) {
@@ -343,7 +432,7 @@ public class SettingActivity extends AppCompatActivity {
         }
         Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();
-        System.out.println("！！！！！应用语言： "+configuration.locale.getLanguage());
+        //System.out.println("！！！！！应用语言： "+configuration.locale.getLanguage());
         if (configuration.locale.getLanguage() != localeLanguage){
             if (localeLanguage.equals("zh")) {
                 configuration.setLocale(Locale.CHINESE); // 设置为中文

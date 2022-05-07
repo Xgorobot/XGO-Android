@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static android.content.Context.BIND_AUTO_CREATE;
+import static com.luwu.xgo_robot.BlueTooth.BluetoothLeService.MTU_SIZE;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.isBluetoothConnect;
 
 public class BleClient {
@@ -115,6 +116,14 @@ public class BleClient {
     public void onDestroy() {
         mContext.unregisterReceiver(mGattUpdateReceiver);
         runFlag = false;//停止发送线程
+    }
+
+    public void MsgThreadStop(){
+        runFlag = false;//停止发送线程
+    }
+
+    public void MsgThreadWork(){
+        runFlag = true;//继续发送线程
     }
 
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -298,6 +307,47 @@ public class BleClient {
         return mBluetoothDevice.getAddress();
     }
 
+    //查看消息队列的状态
+    public int getMsgListLength(){
+        if (isBluetoothConnect && (mBluetoothDevice != null)) {
+            return msgList.size();
+        } else {
+            return -1;  //表示未连接
+        }
+    }
+
+    //分段发送
+    public void sendHugeMessage(byte[] msg){
+        if (isBluetoothConnect && (mBluetoothDevice != null)) {
+            int mtu = MTU_SIZE - 3;
+            int i = 0, j = 0;
+            byte[] temp;
+            for (; i < msg.length/mtu; i++){
+                temp = new byte[mtu];
+                System.arraycopy(msg, j, temp, 0, mtu);
+                write(temp);
+                j += mtu;
+                try {
+                    System.out.println(temp);
+                    Thread.sleep(9);//最高10ms发送一次
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (j < msg.length) {
+                temp = new byte[msg.length - j];
+                System.arraycopy(msg, j, temp, 0, msg.length -j);
+                write(temp);
+                try {
+                    System.out.println(temp);
+                    Thread.sleep(9);//最高10ms发送一次
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     //发送数据指令 无应答
     public void addMessage(byte[] msg) {//msg含首地址及数据
         long nowTime = System.currentTimeMillis();
@@ -411,7 +461,6 @@ public class BleClient {
             }
         }
     }
-
 
     private void sendMessage(byte[] wholeMsg) {
         if (isBluetoothConnect && (mBluetoothDevice != null)) {

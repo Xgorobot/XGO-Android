@@ -98,8 +98,8 @@ public class MotorActivity extends AppCompatActivity {
                 case R.id.motorBtnReset:
                     MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.action, (byte)0xff});
                     motorSeekBarX.setProgress(0);
-                    motorSeekBarY.setProgress(0);
-                    motorSeekBarZ.setProgress(0);
+                    motorSeekBarY.setProgress(43);
+                    motorSeekBarZ.setProgress(20);
                     break;
             }
         }
@@ -114,13 +114,13 @@ public class MotorActivity extends AppCompatActivity {
                     nowTime = System.currentTimeMillis();
                     if ((nowTime - saveTime1) > 200) {//200ms刷新
                         if (motorChioce == 0) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_13, (byte) toOrderRange(progress, -60, 60)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_13, (byte) toOrderRange(progress, -31, 31)});
                         } else if (motorChioce == 1) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_23, (byte) toOrderRange(progress, -60, 60)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_23, (byte) toOrderRange(progress, -31, 31)});
                         } else if (motorChioce == 2) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_33, (byte) toOrderRange(progress, -60, 60)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_33, (byte) toOrderRange(progress, -31, 31)});
                         } else if (motorChioce == 3) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_43, (byte) toOrderRange(progress, -60, 60)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_43, (byte) toOrderRange(progress, -31, 31)});
                         }
                         saveTime1 = nowTime;
                     }
@@ -130,13 +130,13 @@ public class MotorActivity extends AppCompatActivity {
                     nowTime = System.currentTimeMillis();
                     if ((nowTime - saveTime2) > 200) {//200ms刷新
                         if (motorChioce == 0) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_12, (byte) toOrderRange(progress, -90, 90)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_12, (byte) toOrderRange(progress, -66, 93)});
                         } else if (motorChioce == 1) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_22, (byte) toOrderRange(progress, -90, 90)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_22, (byte) toOrderRange(progress, -66, 93)});
                         } else if (motorChioce == 2) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_32, (byte) toOrderRange(progress, -90, 90)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_32, (byte) toOrderRange(progress, -66, 93)});
                         } else if (motorChioce == 3) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_42, (byte) toOrderRange(progress, -90, 90)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_42, (byte) toOrderRange(progress, -66, 93)});
                         }
                         saveTime2 = nowTime;
                     }
@@ -146,13 +146,13 @@ public class MotorActivity extends AppCompatActivity {
                     nowTime = System.currentTimeMillis();
                     if ((nowTime - saveTime3) > 200) {//200ms刷新
                         if (motorChioce == 0) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_11, (byte) toOrderRange(progress, -90, 50)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_11, (byte) toOrderRange(progress, -65, 73)});
                         } else if (motorChioce == 1) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_21, (byte) toOrderRange(progress, -90, 50)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_21, (byte) toOrderRange(progress, -65, 73)});
                         } else if (motorChioce == 2) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_31, (byte) toOrderRange(progress, -90, 50)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_31, (byte) toOrderRange(progress, -65, 73)});
                         } else if (motorChioce == 3) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_41, (byte) toOrderRange(progress, -90, 50)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.motor_41, (byte) toOrderRange(progress, -65, 73)});
                         }
                         saveTime3 = nowTime;
                     }

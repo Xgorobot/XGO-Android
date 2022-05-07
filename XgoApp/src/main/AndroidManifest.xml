@@ -14,11 +14,11 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
+    <!--Android 12的蓝牙权限-->
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-
-    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name="com.luwu.xgo_robot.AppContext"
@@ -75,11 +75,15 @@
             android:name="com.luwu.xgo_robot.mActivity.AboutActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
+            android:name="com.luwu.xgo_robot.mActivity.PrivacyActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
             android:name="com.luwu.xgo_robot.mActivity.SettingActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.luwu.xgo_robot.mActivity.AnimationActivity"
-            android:screenOrientation="sensorLandscape">
+            android:screenOrientation="sensorLandscape"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

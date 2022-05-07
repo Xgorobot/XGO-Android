@@ -88,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="X:0mm Y:0mm Z:90mm"
+                android:text="X:0mm Y:0mm Z:105mm"
                 android:textColor="#ffffff"
                 android:textSize="20sp"/>
         </LinearLayout>
@@ -228,8 +228,8 @@
                     android:layout_marginBottom="10dp"
                     android:layout_weight="4"
                     android:progress="0"
-                    android:max="20"
-                    android:min="-20"
+                    android:max="18"
+                    android:min="-18"
                     android:scrollbarStyle="outsideOverlay" />
 
                 <TextView
@@ -276,9 +276,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="4"
-                    android:progress="90"
-                    android:max="110"
-                    android:min="60"
+                    android:progress="105"
+                    android:max="115"
+                    android:min="75"
                     android:scrollbarStyle="outsideOverlay" />
 
                 <TextView
@@ -287,7 +287,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="90"
+                    android:text="105"
                     android:textColor="#ffffff"
                     android:textSize="25sp" />
 

@@ -1,5 +1,6 @@
 package com.luwu.xgo_robot.mActivity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -11,10 +12,15 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.luwu.xgo_robot.AppContext;
 import com.luwu.xgo_robot.BlueTooth.BleActivity;
@@ -31,6 +37,8 @@ import java.util.Locale;
 import yoop.bannerlayout.BannerViewLayout;
 import yoop.bannerlayout.PageIndicator;
 
+import static com.luwu.xgo_robot.mActivity.PrivacyActivity.HTML_TEXT;
+import static com.luwu.xgo_robot.mActivity.PrivacyActivity.HTML_TEXT_TITLE;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.hideBottomUIMenu;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.isBluetoothConnect;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.localeLanguage;
@@ -56,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         InitView();
+        privacyFirst();
     }
 
     @Override
@@ -155,13 +164,16 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     if (!AppContext.getmBleClient().isConnected()) {
-                        if (DeviceUtil.isTabletDevice(MainActivity.this)) {
-                            Intent intent3 = new Intent(MainActivity.this, BleSearchActivity.class);
-                            startActivity(intent3);
-                        } else {
-                            Intent intent3 = new Intent(MainActivity.this, BleActivity.class);
-                            startActivity(intent3);
-                        }
+//                        if (DeviceUtil.isTabletDevice(MainActivity.this)) {
+//                            Intent intent3 = new Intent(MainActivity.this, BleSearchActivity.class);
+//                            startActivity(intent3);
+//                        } else {
+//                            Intent intent3 = new Intent(MainActivity.this, BleActivity.class);
+//                            startActivity(intent3);
+//                        }
+                        // 在ble_activity中进行权限申请，再根据需求进入ble_search
+                        Intent intent3 = new Intent(MainActivity.this, BleActivity.class);
+                        startActivity(intent3);
                     } else {
                         Intent intent4 = new Intent(MainActivity.this, BleConnectedActivity.class);
                         startActivity(intent4);
@@ -186,7 +198,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     //供外界调用
+    public static void MsgThreadStop(){
+        AppContext.getmBleClient().MsgThreadStop();
+    }
+
+    public static void MsgThreadWork(){
+        AppContext.getmBleClient().MsgThreadWork();
+    }
+    public static int getMsgListState(){
+        return AppContext.getmBleClient().getMsgListLength();
+    }
+    public static void sendHugeMessage(byte[] msg){AppContext.getmBleClient().sendHugeMessage(msg);}
     public static void addMessage(byte[] msg) {
         AppContext.getmBleClient().addMessage(msg);
     }
@@ -349,6 +373,49 @@ public class MainActivity extends AppCompatActivity {
             resources.updateConfiguration(configuration, metrics); // 更新配置文件
         } else {
 
+        }
+    }
+
+
+
+    private void privacyFirst(){
+        SharedPreferences info = getSharedPreferences("xgo_setting", MODE_PRIVATE);
+        String privacy_first = info.getString("privacy_first","yes");
+        if (privacy_first.equals("yes")){
+            final SharedPreferences.Editor edit = info.edit();
+            final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.show();
+            alertDialog.setCancelable(false);
+            Window window = alertDialog.getWindow();
+            if (window != null) {
+                window.setContentView(R.layout.layout_privacy_first);
+                window.setGravity(Gravity.CENTER);
+                Button btnCancel = window.findViewById(R.id.privacyCancelBtn);
+                TextView btnAgree = window.findViewById(R.id.privacyAgreeBtn);
+                TextView privacyFirstTextTitle = window.findViewById(R.id.privacyFirstTextTitle);
+                TextView privacyFirstText = window.findViewById(R.id.privacyFirstText);
+                privacyFirstTextTitle.setText(Html.fromHtml(HTML_TEXT_TITLE));
+                privacyFirstText.setText(Html.fromHtml(HTML_TEXT));
+
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        edit.putString("privacy_first", "yes");
+                        edit.commit();
+                        alertDialog.cancel();
+                        finish();
+                    }
+                });
+
+                btnAgree.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        edit.putString("privacy_first", "no");
+                        edit.commit();
+                        alertDialog.cancel();
+                    }
+                });
+            }
         }
     }
 }

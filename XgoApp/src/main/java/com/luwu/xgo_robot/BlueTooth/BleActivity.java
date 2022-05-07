@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
+import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -106,6 +107,13 @@ public class BleActivity extends AppCompatActivity implements View.OnClickListen
     private void initBluetooth() {
         //申请定位权限，才能用蓝牙
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                if (this.checkSelfPermission(Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED ||
+                        this.checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                    String[] list =new String[]{Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_CONNECT};
+                    requestPermissions(list, 123);
+                }
+            }
             if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 123);
             }else {
@@ -384,7 +392,6 @@ public class BleActivity extends AppCompatActivity implements View.OnClickListen
 //            });
 //        }
 //        scanner.stopScan(leCallback);
-
         if (enable) {
 //             Stops scanning after a pre-defined scan period.
             new Handler().postDelayed(new Runnable() {
