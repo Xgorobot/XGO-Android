@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -25,12 +26,12 @@ import android.widget.TextView;
 import com.luwu.xgo_robot.AppContext;
 import com.luwu.xgo_robot.BlueTooth.BleActivity;
 import com.luwu.xgo_robot.BlueTooth.BleConnectedActivity;
-import com.luwu.xgo_robot.BlueTooth.BleSearchActivity;
 import com.luwu.xgo_robot.R;
-import com.luwu.xgo_robot.mMothed.DeviceUtil;
+import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mMothed.mToast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private MyBtnListener myBtnListener;
     private long mExitTime = 0;//点击两次返回键返回
     private String mainLanguage;
+//    private Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void addMessageRead(byte[] msg) {
+//        System.out.println(Arrays.toString(msg));
         AppContext.getmBleClient().addMessageRead(msg);
     }
 

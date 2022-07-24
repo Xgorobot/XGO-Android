@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -15,6 +16,9 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.luwu.xgo_robot.Product.Lite;
+import com.luwu.xgo_robot.Product.Mini;
+import com.luwu.xgo_robot.Product.Product;
 import com.luwu.xgo_robot.R;
 import com.luwu.xgo_robot.mMothed.PublicMethod;
 
@@ -36,6 +40,7 @@ public class LegActivity extends AppCompatActivity {
     private SeekBar legSeekBarX, legSeekBarY, legSeekBarZ;
     private TextView legTextX, legTextY, legTextZ;
     private SeekBarListener mSeekBarListener;
+    protected Product product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +60,34 @@ public class LegActivity extends AppCompatActivity {
         setRadioGropListener();
         mSeekBarListener = new SeekBarListener();
         legSeekBarX = findViewById(R.id.legSeekBarX);
-        legSeekBarX.setOnSeekBarChangeListener(mSeekBarListener);
         legSeekBarY = findViewById(R.id.legSeekBarY);
-        legSeekBarY.setOnSeekBarChangeListener(mSeekBarListener);
         legSeekBarZ = findViewById(R.id.legSeekBarZ);
+        setSeekBar();
+        legSeekBarX.setOnSeekBarChangeListener(mSeekBarListener);
+        legSeekBarY.setOnSeekBarChangeListener(mSeekBarListener);
         legSeekBarZ.setOnSeekBarChangeListener(mSeekBarListener);
         legTextX = findViewById(R.id.legTextX);
         legTextY = findViewById(R.id.legTextY);
         legTextZ = findViewById(R.id.legTextZ);
+        legSeekBarZ.setProgress(this.product.getLEG_LIMIT_Z_DEFAULT());
+//        legVersion = findViewById(R.id.textViewLegInit);
+    }
+
+    private void setSeekBar(){
+        switch (PublicMethod.XGORAM_VALUE.versions){
+            case 0: this.product = new Mini(); break;
+            case 1: this.product = new Lite(); break;
+            default: this.product = new Mini(); break;
+        }
+
+        legSeekBarX.setMax(this.product.getLEG_LIMIT_X());
+        legSeekBarY.setMax(this.product.getLEG_LIMIT_Y());
+        legSeekBarZ.setMax(this.product.getLEG_LIMIT_Z_MAX());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            legSeekBarX.setMin( - this.product.getLEG_LIMIT_X());
+            legSeekBarY.setMin( - this.product.getLEG_LIMIT_Y());
+            legSeekBarZ.setMin(this.product.getLEG_LIMIT_Z_MIN());
+        }
     }
 
     @Override
@@ -105,7 +130,7 @@ public class LegActivity extends AppCompatActivity {
                     MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.action, (byte)0xff});
                     legSeekBarX.setProgress(0);
                     legSeekBarY.setProgress(0);
-                    legSeekBarZ.setProgress(105);
+                    legSeekBarZ.setProgress(product.getLEG_LIMIT_Z_DEFAULT());
                     break;
             }
         }
@@ -121,13 +146,13 @@ public class LegActivity extends AppCompatActivity {
                     nowTime = System.currentTimeMillis();
                     if ((nowTime - saveTime1) > 200) {//200ms刷新
                         if (legChioce == 0) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legX_1, (byte) toOrderRange(progress, -35, 35)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legX_1, (byte) toOrderRange(progress, - product.getLEG_LIMIT_X(), product.getLEG_LIMIT_X())});
                         } else if (legChioce == 1) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legX_2, (byte) toOrderRange(progress, -35, 35)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legX_2, (byte) toOrderRange(progress, - product.getLEG_LIMIT_X(), product.getLEG_LIMIT_X())});
                         } else if (legChioce == 2) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legX_3, (byte) toOrderRange(progress, -35, 35)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legX_3, (byte) toOrderRange(progress, - product.getLEG_LIMIT_X(), product.getLEG_LIMIT_X())});
                         } else if (legChioce == 3) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legX_4, (byte) toOrderRange(progress, -35, 35)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legX_4, (byte) toOrderRange(progress, - product.getLEG_LIMIT_X(), product.getLEG_LIMIT_X())});
                         }
                         saveTime1 = nowTime;
                     }
@@ -137,13 +162,13 @@ public class LegActivity extends AppCompatActivity {
                     nowTime = System.currentTimeMillis();
                     if ((nowTime - saveTime2) > 200) {//200ms刷新
                         if (legChioce == 0) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_1, (byte) toOrderRange(progress, -18, 18)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_1, (byte) toOrderRange(progress, - product.getLEG_LIMIT_Y(), product.getLEG_LIMIT_Y())});
                         } else if (legChioce == 1) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_2, (byte) toOrderRange(progress, -18, 18)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_2, (byte) toOrderRange(progress, - product.getLEG_LIMIT_Y(), product.getLEG_LIMIT_Y())});
                         } else if (legChioce == 2) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_3, (byte) toOrderRange(progress, -18, 18)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_3, (byte) toOrderRange(progress, - product.getLEG_LIMIT_Y(), product.getLEG_LIMIT_Y())});
                         } else if (legChioce == 3) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_4, (byte) toOrderRange(progress, -18, 18)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legY_4, (byte) toOrderRange(progress, - product.getLEG_LIMIT_Y(), product.getLEG_LIMIT_Y())});
                         }
                         saveTime2 = nowTime;
                     }
@@ -153,13 +178,13 @@ public class LegActivity extends AppCompatActivity {
                     nowTime = System.currentTimeMillis();
                     if ((nowTime - saveTime3) > 200) {//200ms刷新
                         if (legChioce == 0) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_1, (byte) toOrderRange(progress, 75, 115)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_1, (byte) toOrderRange(progress, product.getLEG_LIMIT_Z_MIN(), product.getLEG_LIMIT_Z_MAX())});
                         } else if (legChioce == 1) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_2, (byte) toOrderRange(progress, 75, 115)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_2, (byte) toOrderRange(progress, product.getLEG_LIMIT_Z_MIN(), product.getLEG_LIMIT_Z_MAX())});
                         } else if (legChioce == 2) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_3, (byte) toOrderRange(progress, 75, 115)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_3, (byte) toOrderRange(progress, product.getLEG_LIMIT_Z_MIN(), product.getLEG_LIMIT_Z_MAX())});
                         } else if (legChioce == 3) {
-                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_4, (byte) toOrderRange(progress, 75, 115)});
+                            MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.legZ_4, (byte) toOrderRange(progress, product.getLEG_LIMIT_Z_MIN(), product.getLEG_LIMIT_Z_MAX())});
                         }
                         saveTime3 = nowTime;
                     }

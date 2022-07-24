@@ -21,6 +21,7 @@ public class DebugActivity extends AppCompatActivity {
 
     private Button debugBtnConfirm, debugBtnFinish;
     private ImageButton debugBtnBack,debugImgMsg;
+    private long mlastClickTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,13 +115,15 @@ public class DebugActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.debugBtnFinish:
-                    MainActivity.addMessage(new byte[]{0x04, (byte) 0x00});//记录位置
-                    switch(localeLanguage){
-                        case "zh":
-                            mToast.show(DebugActivity.this,"完成标定");
-                            break;
-                        default:
-                            mToast.show(DebugActivity.this,"Calibrated");
+                    if(!isFastDoubleClick()){
+                        MainActivity.addMessage(new byte[]{0x04, (byte) 0x00});//记录位置
+                        switch(localeLanguage){
+                            case "zh":
+                                mToast.show(DebugActivity.this,"完成标定");
+                                break;
+                            default:
+                                mToast.show(DebugActivity.this,"Calibrated");
+                        }
                     }
                     break;
                 case R.id.debugImgMsg:
@@ -132,5 +135,15 @@ public class DebugActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+    //标定点击间隔为1s
+    private boolean isFastDoubleClick(){
+        long time = System.currentTimeMillis();
+        long timeD = time - this.mlastClickTime;
+        if (0 < timeD && timeD < 1000) {
+            return true;   }
+        this.mlastClickTime = time;
+        return false;
     }
 }

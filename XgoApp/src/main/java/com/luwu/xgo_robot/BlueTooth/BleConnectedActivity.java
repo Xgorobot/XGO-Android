@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.luwu.xgo_robot.AppContext;
 import com.luwu.xgo_robot.R;
+import com.luwu.xgo_robot.mActivity.MainActivity;
 import com.luwu.xgo_robot.mMothed.DeviceUtil;
 import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mMothed.mToast;
@@ -44,6 +46,9 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
     private ProgressDialog progressDialog;
     Long startTime = 0L;
     boolean isSearching = false;
+    private static boolean flagLoop = false;
+    private getProductTypeThread getProductType; //处理产品型号读取线程
+    private Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,10 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         hideBottomUIMenu(BleConnectedActivity.this);
         setContentView(R.layout.activity_ble_connected);
+        mHandler = new Handler();
+        flagLoop = true;
+        getProductType = new getProductTypeThread();
+        getProductType.start();
         initView();
     }
 
@@ -68,6 +77,7 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
     protected void onResume() {
         super.onResume();
 //        mBtConnectState.setText(getResources().getString(R.string.conectedsuccess) + AppContext.getmBleClient().getBleNameConected());
+        flagLoop = true;
         String connectState;
         switch(PublicMethod.localeLanguage){
             case "zh":
@@ -78,6 +88,8 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
         }
 
         mBtConnectState.setText(connectState);
+//        getProductType = new getProductTypeThread();
+//        getProductType.start();
     }
 
     @Override
@@ -107,6 +119,12 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        flagLoop = false;
     }
 
     private void changeNameDialog() {
@@ -279,6 +297,24 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
                 break;
             default:
                 break;
+        }
+    }
+
+    // 读取设备类型
+    private class getProductTypeThread extends Thread {
+        @Override
+        public void run() {
+            while (currentThread().isAlive() && flagLoop) {
+                MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.versions, 0x01});
+                Message message = new Message();
+//                message.what = 0;
+                mHandler.sendMessageDelayed(message, 200);//200ms以后拿结果
+                try {
+                    sleep(5000);//5s更新一次
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

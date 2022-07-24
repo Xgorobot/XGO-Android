@@ -228,6 +228,7 @@ public class ButtonFragment extends Fragment {
             while (flagLoop) {
                 //查询电池电量并更新
                 MainActivity.addMessageRead(new byte[]{XGORAM_ADDR.battery, 0x01});
+//                MainActivity.addMessageRead(new byte[]{XGORAM_ADDR.versions, 0x01});
                 Message message = new Message();
                 message.what = 0;
                 mHandler.sendMessageDelayed(message, 200);//200ms以后拿结果

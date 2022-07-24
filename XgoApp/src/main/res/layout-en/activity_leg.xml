@@ -88,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="X:0mm Y:0mm Z:105mm"
+                android:text="X:0mm Y:0mm Z:108mm"
                 android:textColor="#ffffff"
                 android:textSize="20sp"/>
         </LinearLayout>
@@ -276,7 +276,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="4"
-                    android:progress="105"
+                    android:progress="108"
                     android:max="115"
                     android:min="75"
                     android:scrollbarStyle="outsideOverlay" />
@@ -287,7 +287,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="105"
+                    android:text="108"
                     android:textColor="#ffffff"
                     android:textSize="25sp" />
 

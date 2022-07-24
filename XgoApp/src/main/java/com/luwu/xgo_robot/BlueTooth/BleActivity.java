@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.Service;
@@ -189,7 +190,10 @@ public class BleActivity extends AppCompatActivity implements View.OnClickListen
             if (bluetoothList.size() == 0) {
                 Long currentTime = System.currentTimeMillis();
                 if (currentTime - startTime > 5000) {
-                    progressDialog.dismiss();
+                    if(progressDialog != null && progressDialog.isShowing()){
+                        progressDialog.dismiss();
+                    }
+
                     switch(PublicMethod.localeLanguage){
                         case "zh":
                             progressDialog = ProgressDialog.show(BleActivity.this, "未找到蓝牙设备-_-", "请重新尝试", true);//显示加载框
