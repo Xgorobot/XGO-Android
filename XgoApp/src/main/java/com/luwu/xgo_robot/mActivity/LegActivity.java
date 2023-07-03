@@ -16,9 +16,9 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.luwu.xgo_robot.Product.Lite;
-import com.luwu.xgo_robot.Product.Mini;
-import com.luwu.xgo_robot.Product.Product;
+import com.luwu.xgo_robot.mMothed.Product.Lite;
+import com.luwu.xgo_robot.mMothed.Product.Mini;
+import com.luwu.xgo_robot.mMothed.Product.Product;
 import com.luwu.xgo_robot.R;
 import com.luwu.xgo_robot.mMothed.PublicMethod;
 
@@ -74,7 +74,7 @@ public class LegActivity extends AppCompatActivity {
     }
 
     private void setSeekBar(){
-        switch (PublicMethod.XGORAM_VALUE.versions){
+        switch (PublicMethod.XGORAM_VALUE.productType){
             case 0: this.product = new Mini(); break;
             case 1: this.product = new Lite(); break;
             default: this.product = new Mini(); break;

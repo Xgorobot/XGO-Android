@@ -166,10 +166,10 @@ public class BleSearchActivity extends Activity {
             if ("BleActivity".equals(getClass().getSimpleName())) {
                 switch(PublicMethod.localeLanguage){
                     case "zh":
-                        progressDialogChangeName = ProgressDialog.show(BleSearchActivity.this, "蓝牙已被重命名", "请重新连接", true);//显示加载框
+                        progressDialogChangeName = ProgressDialog.show(BleSearchActivity.this, "蓝牙已被重命名", "请重启机器狗", true);//显示加载框
                         break;
                     default:
-                        progressDialogChangeName = ProgressDialog.show(BleSearchActivity.this, "Renamed", "Please reconnect", true);//显示加载框
+                        progressDialogChangeName = ProgressDialog.show(BleSearchActivity.this, "Renamed", "Please restart XGO", true);//显示加载框
 
                 }
                 new Handler().postDelayed(new Runnable() {
@@ -182,10 +182,10 @@ public class BleSearchActivity extends Activity {
         } else {
             switch(PublicMethod.localeLanguage){
                 case "zh":
-                    Toast.makeText(BleSearchActivity.this, "名字不可为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BleSearchActivity.this, "请输入正确格式", Toast.LENGTH_SHORT).show();
                     break;
                 default:
-                    Toast.makeText(BleSearchActivity.this, "Name cannot be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BleSearchActivity.this, "Name is not correct", Toast.LENGTH_SHORT).show();
             }
         }
     }

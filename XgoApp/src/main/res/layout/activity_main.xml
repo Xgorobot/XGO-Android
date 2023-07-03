@@ -40,6 +40,16 @@
             android:orientation="horizontal">
 
             <ImageButton
+                android:id="@+id/mainBtnDownload"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="27dp"
+                android:background="#00000000"
+                android:scaleType="centerInside"
+                android:src="@drawable/main_debug"
+                android:visibility="gone" />
+
+            <ImageButton
                 android:id="@+id/mainBtnDebug"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

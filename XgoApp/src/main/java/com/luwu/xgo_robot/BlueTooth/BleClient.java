@@ -19,11 +19,12 @@ import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mMothed.mToast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 import static android.content.Context.BIND_AUTO_CREATE;
-import static com.luwu.xgo_robot.BlueTooth.BluetoothLeService.MTU_SIZE;
+import static com.luwu.xgo_robot.BlueTooth.BluetoothLeService.MTU_SIZE_HUGE;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.isBluetoothConnect;
 
 public class BleClient {
@@ -36,8 +37,11 @@ public class BleClient {
     private final static byte READ_READBACK = 0x12;
     private final static byte[] WORD_END = {0x00, (byte) 0xAA};
     private List<byte[]> msgList = new ArrayList<byte[]>();//储存要发送出去的命令
+    private List<byte[]> hexList = new ArrayList<byte[]>();//hex传输专用
     private boolean runFlag = true;//线程循环指示变量
+    private boolean hexFlag = false;//线程循环指示变量
     private MessageThread messageThread;//发送信息的线程
+    private HexMessageThread hexthread;
 
 
     private final static String TAG = BleClient.class.getSimpleName();
@@ -72,6 +76,7 @@ public class BleClient {
         init(context);
         messageThread = new MessageThread();//蓝牙无误则启动发送线程
         messageThread.start();
+        hexthread = new HexMessageThread();
     }
 
     private ConnectionRequest mConnectRequest;
@@ -124,6 +129,34 @@ public class BleClient {
 
     public void MsgThreadWork(){
         runFlag = true;//继续发送线程
+    }
+
+    public void HexThreadStop()  {
+        if (isBluetoothConnect && (mBluetoothDevice != null)) {
+            if (hexthread.isAlive()){
+                while(true){
+                    if (hexList.size() == 0){
+                        hexthread.interrupt();
+                        hexFlag = false;//停止发送hex线程
+                        break;
+                    } else {
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            } else {
+                hexFlag = false;//停止发送hex线程
+            }
+        }
+    }
+
+    public void HexThreadWork(){
+        hexthread = new HexMessageThread();
+        hexthread.start();
+        hexFlag = true;//发送hex线程
     }
 
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -316,10 +349,37 @@ public class BleClient {
         }
     }
 
+    public int getHexListLength(){
+        if (isBluetoothConnect && (mBluetoothDevice != null)) {
+            return hexList.size();
+        } else {
+            return -1;  //表示未连接
+        }
+    }
+
     //分段发送
     public void sendHugeMessage(byte[] msg){
+//        if (isBluetoothConnect && (mBluetoothDevice != null)) {
+///*            int mtu = MTU_SIZE_HUGE - 3;
+//            int i = 0, j = 0;
+//            byte[] temp;
+//            for (; i < msg.length/mtu; i++){
+//                temp = new byte[mtu];
+//                System.arraycopy(msg, j, temp, 0, mtu);
+//                System.out.println(index + " : " + temp.length);
+//                j += mtu;
+//            }
+//            if (j < msg.length) {
+//                temp = new byte[msg.length - j];
+//                System.arraycopy(msg, j, temp, 0, msg.length -j);
+////                write(temp);
+//                System.out.println(index + " : " + temp.length);
+////                System.out.println();
+//            }*/
+//        }
+
         if (isBluetoothConnect && (mBluetoothDevice != null)) {
-            int mtu = MTU_SIZE - 3;
+            int mtu = MTU_SIZE_HUGE - 3;
             int i = 0, j = 0;
             byte[] temp;
             for (; i < msg.length/mtu; i++){
@@ -328,8 +388,8 @@ public class BleClient {
                 write(temp);
                 j += mtu;
                 try {
-                    System.out.println(temp);
-                    Thread.sleep(9);//最高10ms发送一次
+//                    System.out.println(temp.length);
+                    Thread.sleep(12);//最高10ms发送一次
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -339,8 +399,8 @@ public class BleClient {
                 System.arraycopy(msg, j, temp, 0, msg.length -j);
                 write(temp);
                 try {
-                    System.out.println(temp);
-                    Thread.sleep(9);//最高10ms发送一次
+//                    System.out.println(temp.length);
+                    Thread.sleep(12);//最高10ms发送一次
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -380,6 +440,44 @@ public class BleClient {
                 wholemsg[length - 2] = WORD_END[0];
                 wholemsg[length - 1] = WORD_END[1];
                 sendMessage(wholemsg);
+            } catch (Exception e) {
+                Log.d("Tag", "addMessage: 数组越界");
+            }
+        }
+    }
+
+    //发送数据hex指令
+    public void addHexMessage(byte[] msg) {//msg含首地址及数据
+        long nowTime = System.currentTimeMillis();
+//        if ((nowTime - saveTime) < 100) {//改为用队列储存命令间隔发送
+//            return;
+//        }
+        if (isBluetoothConnect && (mBluetoothDevice != null)) {
+            byte length = (byte) (msg.length + 7);
+            byte order = ORDER_WRITE;
+            byte[] message = msg;
+            int tempLength = ((int) length) < 0 ? ((int) length) + 256 : ((int) length);//处理byte的有符号
+            int tempSum = tempLength + (int) order;
+            for (byte a : message) {
+                tempSum = tempSum + (((int) a) < 0 ? ((int) a) + 256 : ((int) a));//处理byte的有符号
+            }
+            if (tempSum > 255) {
+                tempSum = tempSum % 256;
+            }
+            byte checksum = (byte) (255 - tempSum);//取反
+            byte[] wholemsg = new byte[((int) length) < 0 ? ((int) length) + 256 : (int) length];
+            try {
+                wholemsg[0] = WORD_BEGIN[0];
+                wholemsg[1] = WORD_BEGIN[1];
+                wholemsg[2] = length;
+                wholemsg[3] = order;
+                for (int i = 0; i < message.length; i++) {
+                    wholemsg[4 + i] = message[i];
+                }
+                wholemsg[length - 3] = checksum;
+                wholemsg[length - 2] = WORD_END[0];
+                wholemsg[length - 1] = WORD_END[1];
+                sendHexMessage(wholemsg);
             } catch (Exception e) {
                 Log.d("Tag", "addMessage: 数组越界");
             }
@@ -468,6 +566,12 @@ public class BleClient {
         }
     }
 
+    private void sendHexMessage(byte[] wholeMsg) {
+        if (isBluetoothConnect && (mBluetoothDevice != null)) {
+            hexList.add(wholeMsg);//将消息添加到最后一个
+        }
+    }
+
     //定义发送线程 一直循环
     private class MessageThread extends Thread {
         public MessageThread() {
@@ -485,6 +589,33 @@ public class BleClient {
                             Log.d(TAG,"Error with sendMessage");
                         }
                         msgList.remove(0);//发送之后移除该对象
+                    }
+                }
+                try {
+                    Thread.sleep(10);//最高10ms发送一次
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private class HexMessageThread extends Thread {
+        public HexMessageThread() {
+
+        }
+
+        @Override
+        public void run() {
+            while (hexFlag && !isInterrupted()) {
+                if (hexList.size() > 0) {
+                    if (isBluetoothConnect && (mBluetoothDevice != null)) {
+                        try {
+                            write(hexList.get(0));
+                        }catch (Exception e){
+                            Log.d(TAG,"Error with sendMessage");
+                        }
+                        hexList.remove(0);//发送之后移除该对象
                     }
                 }
                 try {
@@ -583,7 +714,8 @@ public class BleClient {
         return messageRead;
     }
 
-    //处理收到的数据
+
+    //处理收到的数据W
     private void dealMessage(List<Byte> wholeMsg) {
         if ((wholeMsg.get(0) == 0x55) && (wholeMsg.get(1) == 0x00) && (wholeMsg.get(wholeMsg.size() - 2) == 0x00) && (wholeMsg.get(wholeMsg.size() - 1) == -86)) {//字头字尾正确 -86代表0xAA
             int length = (((int) wholeMsg.get(2)) < 0 ? ((int) wholeMsg.get(2)) + 256 : ((int) wholeMsg.get(2)));
@@ -600,6 +732,7 @@ public class BleClient {
             if (tempSum > 255) {
                 tempSum = tempSum % 256;
             }
+
             if (checksum == (byte) (255 - tempSum)) {//校验和正确
                 if (order == WRITE_RESPOND) {//写入指令应答包
                     messageRespond = msg;
@@ -630,8 +763,15 @@ public class BleClient {
                     case PublicMethod.XGORAM_ADDR.battery:
                         PublicMethod.XGORAM_VALUE.battery = PublicMethod.byteToInt(msg[i_msg]);
                         break;
-                    case PublicMethod.XGORAM_ADDR.versions:
-                        PublicMethod.XGORAM_VALUE.versions = PublicMethod.byteToInt(msg[i_msg]);
+                    case PublicMethod.XGORAM_ADDR.productType:
+                        PublicMethod.XGORAM_VALUE.productType = PublicMethod.byteToInt(msg[i_msg]);
+                        break;
+                    case PublicMethod.XGORAM_ADDR.versionNumber:
+                        PublicMethod.XGORAM_VALUE.versionNumber = new String(Arrays.copyOfRange(msg, i_msg, i_msg+10));
+                        i_msg += 9;
+                        break;
+                    case PublicMethod.XGORAM_ADDR.updateHex:
+                        PublicMethod.XGORAM_VALUE.updateHex = PublicMethod.byteToInt(msg[i_msg]);
                         break;
                     case PublicMethod.XGORAM_ADDR.connectBt:
                         PublicMethod.XGORAM_VALUE.connectBt = PublicMethod.byteToInt(msg[i_msg]);

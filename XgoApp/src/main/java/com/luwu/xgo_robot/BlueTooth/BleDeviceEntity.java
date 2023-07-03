@@ -1,5 +1,7 @@
 package com.luwu.xgo_robot.BlueTooth;
 
+import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_ADDR.nameBt;
+
 import android.bluetooth.BluetoothDevice;
 
 import androidx.annotation.NonNull;
@@ -67,7 +69,7 @@ public class BleDeviceEntity implements Comparable<BleDeviceEntity> {
     public static void changeBleName(String bleName)  {
         byte[] bleNameBytes = bleName.getBytes(StandardCharsets.US_ASCII);
         byte[] bleNameBytesAll = new byte[bleNameBytes.length + 1];
-        bleNameBytesAll[0] = 0x13;  //指令类型
+        bleNameBytesAll[0] = nameBt;  //指令类型
         System.arraycopy(bleNameBytes, 0, bleNameBytesAll, 1, bleNameBytesAll.length - 1);
         MainActivity.addMessage(bleNameBytesAll);
 //        String lenth = UnicodeUtil.toHexString(String.valueOf(bleName.length()));

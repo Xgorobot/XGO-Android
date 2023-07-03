@@ -42,6 +42,7 @@ public class RockerLeftFragment extends Fragment {
     private long saveTime1 = 0, saveTime2 = 0, saveTime3 = 0;
     private long nowTime = 0;
     private int speedLeft, speedRight;
+    private int speedRange = 87;
     public RockerLeftFragment() {
     }
 
@@ -56,7 +57,7 @@ public class RockerLeftFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rockerTxtBattery = view.findViewById(R.id.rockerTxtBattery);
-        rockerTxtSpeed = view.findViewById(R.id.rockerTxtSpeed);
+//        rockerTxtSpeed = view.findViewById(R.id.rockerTxtSpeed);
         rockerViewLeft = view.findViewById(R.id.controlRockViewLeft);
         seekBar = view.findViewById(R.id.heightSeekBar);
         seekBar.setProgress(progress);
@@ -71,10 +72,10 @@ public class RockerLeftFragment extends Fragment {
                     changeBatteryView(XGORAM_VALUE.battery);
                 } else if (msg.what == 1) {
                     speedLeft = msg.arg1;
-                    changeSpeedView((int) sqrt(speedLeft * speedLeft + speedRight * speedRight));
+//                    changeSpeedView((int) sqrt(speedLeft * speedLeft + speedRight * speedRight));
                 } else if (msg.what == 2) {
                     speedRight = msg.arg1;
-                    changeSpeedView((int) sqrt(speedLeft * speedLeft + speedRight * speedRight));
+//                    changeSpeedView((int) sqrt(speedLeft * speedLeft + speedRight * speedRight));
                 }
             }
         };
@@ -139,14 +140,14 @@ public class RockerLeftFragment extends Fragment {
                 if ((nowTime - saveTime1) > 300) {//500
                     Point speed = rockerViewLeft.getSpeed();
                     if (ControlActivity.flagRockModeBtn == 0) {//全向移动
-                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.speedVx, toOrderRange(-speed.y, -100, 100)});
-                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.speedVyaw, toOrderRange(-speed.x, -100, 100)});
+                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.speedVx, toOrderRange(-speed.y, speedRange, speedRange)});
+                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.speedVyaw, toOrderRange(-speed.x, speedRange, speedRange)});
                     } else if (ControlActivity.flagRockModeBtn == 1) {//xyz转动
-                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyPitch, toOrderRange(-speed.y, -100, 100)});
-                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyRoll, toOrderRange(speed.x, -100, 100)});
+                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyPitch, toOrderRange(-speed.y, -speedRange, speedRange)});
+                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyRoll, toOrderRange(speed.x, -speedRange, speedRange)});
                     } else if (ControlActivity.flagRockModeBtn == 2) {//xyz平动
-                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyX, toOrderRange(-speed.y, -100, 100)});
-                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyY, toOrderRange(-speed.x, -100, 100)});
+                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyX, toOrderRange(-speed.y, -speedRange, speedRange)});
+                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyY, toOrderRange(-speed.x, -speedRange, speedRange)});
                     }
                     saveTime1 = nowTime;
 //                    leftRockPoint = rockerViewLeft.getSpeed();

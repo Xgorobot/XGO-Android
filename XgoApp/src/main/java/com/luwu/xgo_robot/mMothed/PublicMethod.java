@@ -19,7 +19,10 @@ public class PublicMethod {
     public static class XGORAM_ADDR {
         public final static byte workstate = 0x00;
         public final static byte battery = 0x01;
-        public final static byte versions = 0x02;
+        public final static byte productType = 0x02;
+        public final static byte versionNumber = 0x07;
+
+        public final static byte updateHex = 0x05;
 
         public final static byte connectBt = 0x10;
         public final static byte baudrateBt = 0x11;
@@ -83,6 +86,12 @@ public class PublicMethod {
         public final static byte sensorLedG = 0x67;
         public final static byte sensorLedB = 0x68;
         public final static byte sensorMagnet = 0x69;
+
+        // 机械臂
+        public final static byte armJaw = 0x71;
+        public final static byte armRef = 0x72;
+        public final static byte armX = 0x73;
+        public final static byte armZ = 0x74;
     }
 
     //定义XGO读回的数据
@@ -90,7 +99,10 @@ public class PublicMethod {
 
         public static int workstate = 0;
         public static int battery = 0;
-        public static int versions = 0;
+        public static int productType = -1;  //0 mini, 1 lite
+        public static String versionNumber = "";
+
+        public static int updateHex = 0;
 
         public static int connectBt = 0;
         public static int baudrateBt = 0;
@@ -153,6 +165,11 @@ public class PublicMethod {
         public static int sensorLedG = 0;
         public static int sensorLedB = 0;
         public static int sensorMagnet = 0;
+
+        public static int armJaw = 0;
+        public static int armRef = 0;
+        public static int armX = 0;
+        public static int armZ = 0;
     }
 
     public static void hideBottomUIMenu(Context mcontext) {// 隐藏虚拟按键，并且全屏
@@ -204,4 +221,5 @@ public class PublicMethod {
         int temp = ((int) value) < 0 ? ((int) value) + 256 : ((int) value);
         return temp;
     }
+
 }

@@ -11,12 +11,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.luwu.xgo_robot.R;
+import com.luwu.xgo_robot.mMothed.PublicMethod;
 
 public class PrivacyActivity extends AppCompatActivity {
     private ImageButton privacyBtnBack;
     private TextView privacyHtmlText;
     private TextView privacyHtmlTextTitle;
     protected final static String HTML_TEXT_TITLE="<h1 align=\"center\">隐私政策</h1>";
+    protected final static String HTML_TEXT_TITLE_EN="<h1 align=\"center\">PRIVACY POLICY</h1>";
     protected final static String HTML_TEXT=
 //            "<p>&nbsp;&nbsp;&nbsp;&nbsp;本隐私政策详细说明了哈尔滨陆吾智能科技有限公司（“陆吾智能”、“我们”或“我们的”）通过我们的应用程序收集的信息，以及我们将如何使用这些信息。</p>\n" +
 //            "<h3>1.陆吾智能不会通过我们的应用程序收集用户的信息</h3>\n" +
@@ -151,6 +153,128 @@ public class PrivacyActivity extends AppCompatActivity {
             "<p>我们设立了个人信息保护专职部门(或个人信息保护专员)，您可以通过以下方式与其联系：hello@xgorobot.com。</p>\n" +
             "<p>如果您对我们的回复不满意，特别是我们的个人信息处理行为损害了您的合法权益，您还可以通过以下外部途径寻求解决方案：向【陆吾智能住所地有管辖权的法院提起诉讼】。</p>";
 
+    protected final static String HTML_TEXT_EN =
+            "<p>Harbin Luwu Intelligent Technology Co., Ltd. (“LuWu Intelligent” or “we,” including its subsidiaries, parent company and affiliates) is a limited liability company established in accordance with the laws of the People's Republic of China. We value the protection and privacy of our users' personal information. When you use LuWu Intelligent's products or services (including the website https://www.xgorobot.com/and its subdomains), we may collect and use your personal information. This Privacy Policy aims to explain how we collect, store, use, and share your personal information. We hope that you carefully read this Privacy Policy so that you can make appropriate choices when needed.</p>\n" +
+                    "<p>Your use or continued use of LuWu Intelligent's products or services implies that you agree to the collection, storage, use, and sharing of your personal information in accordance with this Privacy Policy.</p>\n" +
+                    "<p>Last Updated: November 3, 2021.</p>\n" +
+                    "<p>Address of LuWu Intelligent: Room 203, 2nd Floor, Harbin Institute of Technology Science Park Building, No. 434 Postal Street, Nangang District, Harbin City</p>\n" +
+                    "<p>If you have any questions, comments, or suggestions, please contact us through the following:</p>\n" +
+                    "<p>Email: hello@xgorobot.com</p>\n" +
+                    "<p>This policy will help you understand the following:</p>\n" +
+                    "<p>1. How we collect and use your personal information</p>\n" +
+                    "<p>2. How we use cookies and similar technologies</p>\n" +
+                    "<p>3. How we share, transfer, and disclose your personal information</p>\n" +
+                    "<p>4. How we protect your personal information</p>\n" +
+                    "<p>5. Your rights</p>\n" +
+                    "<p>6. How we handle children's personal information</p>\n" +
+                    "<p>7. How your personal information is transferred globally</p>\n" +
+                    "<p>8. How this policy is updated</p>\n" +
+                    "<p>9. How to contact us</p>\n" +
+                    "<p>LuWu Intelligent recognizes the importance of personal information to you, and will do its best to protect the security and reliability of your personal information. We are committed to maintaining your trust in us and adhering to the following principles to protect your personal information: principle of consistent responsibility, clear purpose principle, choice and consent principle, minimum necessary principle, ensuring security principle, principle of subject participation, and principle of transparency. At the same time, LuWu Intelligent promises that we will adopt appropriate security protection measures according to the corresponding security standards to protect your personal information.</p>\n" +
+                    "<p>Please read and understand this Privacy Policy carefully before using our products (or services).</p>\n" +
+                    "<h3>I. How we collect and use your personal information</h3>\n" +
+                    "<p>Personal information refers to various information recorded electronically or by other means that can identify a specific natural person's identity or reflect specific natural person activities, either individually or in combination with other information.</p>\n" +
+                    "<p>LuWu Intelligent only collects and uses your personal information for the following purposes as described in this policy:</p>\n" +
+                    "<p>(I) To provide you with software programming services</p>\n" +
+                    "<p>1.  Information you provided when registering for an account. When you use our products or services, you can log in directly through email, or you can provide us with personal information, including your username and password. You can also choose to add your email, phone number, third-party accounts (WeChat and QQ), or student ID to register and log in to the website or app.</p>\n" +
+                    "<p>2.  Information you submitted when contacting our customer service or participating in activities held by LuWu Intelligent. The survey questionnaire that you filled out when participating in online activities may include your name, phone number, email address, and student ID.</p>\n" +
+                    "<p>3.  Information you submitted through other means. When you use our services, you can voluntarily fill in nickname, gender, birthday, and location information. This information may be used to build user profiles so that we can provide you with more accurate and personalized product services.</p>\n" +
+                    "<p>4.  Operation log information. When you use Landasoft's online products or services, the system may automatically collect certain information as network log storage through cookies or other means. The purpose of collecting such information is to improve and optimize the product experience through data statistics, ensure service stability and network security. Such information includes: detailed usage when you use the app, browsing information when you log in to the website, your product service usage records, network status, Bluetooth permissions, language used, access date and time, location permissions, storage permissions, voice permissions, image acquisition.</p>\n" +
+                    "<p>(II) Push and display customized content for you</p>\n" +
+                    "<p>Based on the collected information, we can recommend content that you may be interested in, including but not limited to recommending and displaying your programming content, user questionnaires, personalized advertisements, etc.</p>\n" +
+                    "<p>(III) Continuous development and optimization of product services</p>\n" +
+                    "<p>We use the collected information to ensure our business operations, such as evaluating, maintaining and improving the performance of products and services. When a software system fails, the Landasoft open platform will record and analyze the information generated during the system failure to optimize relevant services of the platform. For iteration and development of new products and services, we may use the collected information to conduct statistical analysis to assist in decision-making, but the resulting data analysis results do not contain any identifying information about you. When we want to use the information for other purposes not stated in this policy, we will seek your consent in advance. When we want to use the information collected for specific purposes for other purposes, we will seek your consent in advance.</p>\n" +
+                    "<h3>II. How we use Cookies and Similar Technologies</h3>\n" +
+                    "<p>(I) Cookies</p>\n" +
+                    "<p>To ensure the operation of the software, we will store small data files called cookies on your computer or mobile device. Cookies usually contain identifiers, site names, and some numbers and characters. With the help of cookies, websites can store data such as your preferences. We will not use cookies for any purpose other than those stated in this policy.</p>\n" +
+                    "<p>(II) Website beacons and pixel tags</p>\n" +
+                    "<p>In addition to cookies, we also use website beacons and pixel tags and other similar technologies on websites and apps. For example, emails we send to you may contain click-through URLs linking to content on our website.</p>\n" +
+                    "<p>(III) Bluetooth and positioning</p>\n" +
+                    "<p>Bluetooth technology is a global standard for wireless data and voice communication that is open and low-cost, and is a special short-range wireless technology connection based on low-cost fixed and mobile devices to establish a communication environment. When you use Landasoft's products or services, you need to turn on device Bluetooth and location permissions to connect to the product.</p>\n" +
+                    "<h3>III. How we share, transfer, and publicly disclose your personal information</h3>\n" +
+                    "<p>(I) Sharing</p>\n" +
+                    "<p>We will not share your personal information with any company, organization or individual outside of Landasoft,</p>\n" +
+                    "<p>except in the following situations:</p>\n" +
+                    "<p>1.  Sharing with explicit consent: After obtaining your explicit consent, we will share your personal information with other parties.</p>\n" +
+                    "<p>2.  We may share your personal information with external parties in accordance with legal regulations or mandatory requirements from government regulatory agencies.</p>\n" +
+                    "<p>3.  Sharing with our affiliates: Your personal information may be shared with Landasoft's affiliates. We will only share the necessary personal information and are bound by the purposes declared in this privacy policy. If an affiliate company wants to change the purpose of processing personal information, your authorized consent will be sought again.</p>\n"+
+                    "<p>For companies, organizations, and individuals with whom we share personal information, we will sign strict confidentiality agreements with them, requiring them to handle personal information in accordance with our instructions, this privacy policy, and any other relevant confidentiality and security measures.</p>\n" +
+                    "<p>(II) Transfer</p>\n" +
+                    "<p>We will not transfer your personal information to any company, organization, or individual, except for the following:</p>\n" +
+                    "<p>1.  Transferred with explicit consent: After obtaining your explicit consent, we will transfer your personal information to other parties;</p>\n" +
+                    "<p>2.  In the event of a merger, acquisition, or bankruptcy liquidation, if it involves the transfer of personal information, we will require the new company or organization that holds your personal information to continue to be bound by this privacy policy. Otherwise, we will ask the company or organization to obtain your authorization again.</p>\n" +
+                    "<p>(III) Public Disclosure</p>\n" +
+                    "<p>We will only disclose your personal information in the following circumstances:</p>\n" +
+                    "<p>1.  After obtaining your explicit consent;</p>\n" +
+                    "<p>2.  Based on legal disclosure: In the event of a mandatory request from law, legal procedures, litigation, or government authorities, we may publicly disclose your personal information.</p>\n" +
+                    "<h3>IV. How We Protect Your Personal Information</h3>\n" +
+                    "<p>1.  We have used security measures to protect the personal information you provide us to prevent unauthorized access, public disclosure, use, modification, damage, or loss of data. We will take all reasonable and feasible measures to protect your personal information. For example, when exchanging data (such as credit card information) between your browser and the \"Service,\" it is protected by SSL encryption; we also provide a secure browsing mode for the software APP; we use encryption technology to ensure data confidentiality; we use trusted protection mechanisms to prevent malicious attacks on data; we deploy access control mechanisms to ensure that only authorized personnel can access personal information; and we hold security and privacy protection training courses to enhance employee awareness of the importance of protecting personal information.</p>\n" +
+                    "<p>2.  We will take all reasonable and feasible measures to ensure that irrelevant personal information is not collected. We will only retain your personal information for the period necessary to achieve the purposes stated in this policy, unless it is necessary to extend the retention period or permitted by law.</p>\n" +
+                    "<p>3.  The Internet is not an absolutely secure environment, and email, instant messaging, and communication with other APP users are not encrypted. We strongly recommend that you do not send personal information through such means. Please use complex passwords to help us ensure the security of your account.</p>\n" +
+                    "<p>4.  The Internet environment is not 100% secure, and we will do our best to ensure or guarantee the security of any information you send to us. We remind you that possible Internet risks may include: damage to our physical, technical, or managerial protection facilities, which may result in unauthorized access, public disclosure, modification, or destruction of information.</p>\n" +
+                    "<p>5.  In the event of a personal information security incident, we will promptly inform you in accordance with legal requirements: the basic situation and possible impact of the security incident, the disposal measures we have taken or will take, your suggestions for self-prevention and risk reduction, and your remedies. We will inform you of the relevant information of the event through email, letter, telephone, push notification, etc. When it is difficult to inform each individual data subject one by one, we will adopt reasonable and effective methods to publish announcements.</p>\n" +
+                    "<p>At the same time, we will actively report the disposal of personal information security incidents according to regulatory requirements.</p>\n" +
+                    "<h3>V. Your Rights</h3>\n" +
+                    "<p>In accordance with relevant Chinese laws, regulations, standards, and common practices in other countries and regions, we guarantee your right to exercise the following rights regarding your personal information:</p>\n" +
+                    "<p>(I) Access your personal information</p>\n" +
+                    "<p>You have the right to access your personal information, except as provided by laws and regulations. If you want to exercise your data access rights, you can access them on the APP's main page by editing your account information, changing your password, adding security information, or closing your account.</p>\n" +
+                    "<p>For other personal information generated during your use of our products or services, we will provide it to you as long as it does not require too much input from us. If you want to exercise your data access rights, please send an email to hello@xgorobot.com.</p>\n" +
+                    "<p>(II) Correct your personal information</p>\n" +
+                    "<p>If you find that the personal information we process about you is incorrect, you have the right to request correction. You can contact us at any time using our web form or send an email to hello@xgorobot.com to request a correction. We will respond to your correction request within 15 days.</p>\n" +
+                    "<p>(III) Delete your personal information</p>\n" +
+                    "<p>You can request that we delete your personal information in the following circumstances:</p>\n" +
+                    "<p>1.  If our handling of personal information violates laws and regulations;</p>\n" +
+                    "<p>2.  If we collect and use your personal information without obtaining your consent;</p>\n" +
+                    "<p>3.  If our processing of personal information violates our agreement with you;</p>\n" +
+                    "<p>4.  If you no longer use our products or services, or if you cancel your account;</p>\n" +
+                    "<p>5.  If we no longer provide products or services to you.</p>\n" +
+                    "<p>If we decide to respond to your deletion request, we will also notify entities that obtained your personal information from us to timely delete it, unless otherwise provided by laws and regulations or these entities obtained your independent authorization.</p>\n" +
+                    "<p>After you delete information from our service, we may not immediately delete the corresponding information from our backup system, but we will delete it when the backup is updated.</p>\n" +
+                    "<p>(IV) Change the scope of your authorized consent</p>\n" +
+                    "<p>Each business function requires some basic personal information to be completed (see \"Part I\" of this policy). For additional personal information collected and used, you can give or withdraw your consent at any time. You can inform us of your authorization by sending a message to hello@xgorobot.com.</p>\n" +
+                    "<p>Once you withdraw your consent, we will no longer process the corresponding personal information. However, your decision to withdraw consent does not affect personal information processing based on your authorization before such withdrawal.</p>\n" +
+                    "<p>(V) Personal information subject obtains personal information copy</p>\n" +
+                    "<p>You have the right to obtain a copy of your personal information. You can obtain your information by emailing hello@xgorobot.com.</p>\n" +
+                    "<p>(VI) Restrict information system automatic decision-making</p>\n" +
+                    "<p>In certain business functions, we may only make decisions based on non-human automated decision-making mechanisms such as information systems and algorithms. If these decisions significantly affect your legitimate rights and interests, you have the right to request an explanation from us, and we will also provide appropriate remedies.</p>\n" +
+                    "<p>(VII) Respond to your above requests</p>\n" +
+                    "<p>To ensure security, you may need to provide a written request or other proof of your identity. We may first ask you to verify your identity before processing your request.</p>\n" +
+                    "<p>We will respond within 15 days. If you are not satisfied, you can also complain by sending an email to hello@xgorobot.com.</p>\n" +
+                    "<p>For your reasonable requests, we do not charge any fees. For requests that are groundlessly repetitive, require too much technical means (such as the need to develop new systems or fundamentally change current practices), pose risks to the legitimate rights and interests of others, or are highly impractical (such as involving information stored on backup tapes), we may refuse.</p>\n" +
+                    "<p>In the following circumstances, we will be unable to respond to your request as required by laws and regulations:</p>\n" +
+                    "<p>1.  Directly related to national security or national defense security;</p>\n" +
+                    "<p>2.  Directly related to public safety, public health, and major public interests;</p>\n" +
+                    "<p>3.  Directly related to criminal investigation, prosecution, trial, and enforcement of judgments;</p>\n" +
+                    "<p>4.  There is sufficient evidence to show that you have subjective malice or abuse of rights;</p>\n" +
+                    "<p>5.  Responding to your request will cause serious damage to your or other individuals' or organizations' legitimate rights and interests; </p>\n" +
+                    "<p>6.  Involving trade secrets.</p>\n" +
+                    "<h3>VI. How We Handle Children's Personal Information</h3>\n" +
+                    "<p>Our products, websites, and services are also designed for students. Children cannot create their own user accounts without the consent of their parents or guardians.</p>\n" +
+                    "<p>For cases where children's personal information is collected with the consent of parents, we will only use or disclose this information when permitted by law, when explicitly agreed upon by parents or guardians, or when necessary to protect children.</p>\n" +
+                    "<p>Although the definitions of \"children\" vary under local laws and customs, we will treat anyone under the age of 14 as a child.</p>\n" +
+                    "<p>If we find that we have collected children's personal information without prior verifiable parental consent, we will delete relevant data as soon as possible.</p>\n" +
+                    "<h3>VII. How Your Personal Information Is Transferred Globally</h3>\n" +
+                    "<p>In principle, we collect and generate personal information within the territory of the People's Republic of China and store it within the territory of the People's Republic of China.</p>\n" +
+                    "<p>Because we provide products or services through resources and servers around the world, this means that with your authorized consent, your personal information may be transferred to overseas jurisdictions where you use our products or services or may be accessed by these jurisdictions.</p>\n" +
+                    "<p>Such jurisdictions may have different data protection laws or even no relevant laws. In such cases, we will ensure that your personal information receives sufficient and equivalent protection within the territory of the People's Republic of China. For example, we may request your consent for cross-border transfer of personal information or implement security measures such as data de-identification before cross-border data transfers occur.</p>\n" +
+                    "<h3>VIII. How This Policy is Updated</h3>\n" +
+                    "<p>Our privacy policy may change.</p>\n" +
+                    "<p>We will not reduce your rights under this privacy policy without your explicit consent. We will publish any changes to this policy on this page.</p>\n" +
+                    "<p>For significant changes, we will also provide more prominent notice (including for certain services, we will send an email notification stating the specific changes to the privacy policy).</p>\n" +
+                    "<p>Significant changes referred to in this policy include but are not limited to:</p>\n" +
+                    "<p>1.  Our service model undergoes significant changes, such as the purpose of personal information processing, types of personal information processed, and methods of using personal information;</p>\n" +
+                    "<p>2.  We undergo significant changes in ownership structure, organizational structure, etc., such as business adjustments, bankruptcy mergers, and owner changes caused by them;</p>\n" +
+                    "<p>3.  The main objects of personal information sharing, transfer or public disclosure change;</p>\n" +
+                    "<p>4.  Your participation rights in personal information processing and their exercise methods undergo significant changes;</p>\n" +
+                    "<p>5.  When the department responsible for personal information security, contact information, and complaint channels change;</p>\n" +
+                    "<p>6.  When the personal information security impact assessment report shows high risks.</p>\n" +
+                    "<p>We will also archive previous versions of this policy for your reference.</p>\n" +
+                    "<h3>IX. How to Contact Us</h3>\n" +
+                    "<p>If you have any questions, opinions, or suggestions about this privacy policy, please contact us by email: hello@xgorobot.com.</p>\n" +
+                    "<p>We have established a dedicated department (or personal information protection officer) for personal information protection, and you can contact them through the following methods: hello@xgorobot.com.</p>\n" +
+                    "<p>If you are not satisfied with our response, especially if our personal information processing activities have harmed your legitimate rights and interests, you can seek a solution through external means: file a lawsuit with the court having jurisdiction over XGORobot's domicile.</p>";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,9 +289,17 @@ public class PrivacyActivity extends AppCompatActivity {
             }
         });
         privacyHtmlTextTitle = findViewById(R.id.privacyHtmlTextTitle);
-        privacyHtmlTextTitle.setText(Html.fromHtml(HTML_TEXT_TITLE));
         privacyHtmlText = findViewById(R.id.privacyHtmlText);
-        privacyHtmlText.setText(Html.fromHtml(HTML_TEXT));
+        switch(PublicMethod.localeLanguage){
+            case "zh":
+                privacyHtmlTextTitle.setText(Html.fromHtml(HTML_TEXT_TITLE));
+                privacyHtmlText.setText(Html.fromHtml(HTML_TEXT));
+                break;
+            default:
+                privacyHtmlTextTitle.setText(Html.fromHtml(HTML_TEXT_TITLE_EN));
+                privacyHtmlText.setText(Html.fromHtml(HTML_TEXT_EN));
+        }
+
     }
 
     protected void onResume() {

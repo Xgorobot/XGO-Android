@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -39,7 +40,9 @@ import yoop.bannerlayout.BannerViewLayout;
 import yoop.bannerlayout.PageIndicator;
 
 import static com.luwu.xgo_robot.mActivity.PrivacyActivity.HTML_TEXT;
+import static com.luwu.xgo_robot.mActivity.PrivacyActivity.HTML_TEXT_EN;
 import static com.luwu.xgo_robot.mActivity.PrivacyActivity.HTML_TEXT_TITLE;
+import static com.luwu.xgo_robot.mActivity.PrivacyActivity.HTML_TEXT_TITLE_EN;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.hideBottomUIMenu;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.isBluetoothConnect;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.localeLanguage;
@@ -52,10 +55,13 @@ public class MainActivity extends AppCompatActivity {
     OnPageChangeListener mOnPageChangeListener = new OnPageChangeListener();
 
     private ImageButton mainBtnConnect, mainBtnSetting, mainBtnAbout;
-    private ImageButton mainBtnDebug;
+    private ImageButton mainBtnDebug, mainBtnDownload;
     private MyBtnListener myBtnListener;
     private long mExitTime = 0;//点击两次返回键返回
     private String mainLanguage;
+    private Handler mHandler;
+    private static getProductTypeThread getProductType; //处理产品型号读取线程
+    private static getVersionNumberThread getVersionNumber;; //处理版本号读取线程
 //    private Handler mHandler;
 
     @Override
@@ -65,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        mHandler = new Handler();
         InitView();
         privacyFirst();
     }
@@ -77,8 +84,10 @@ public class MainActivity extends AppCompatActivity {
         String setting_develop = info.getString("setting_develop", "no");
         if (setting_develop.equals("yes")) {
             mainBtnDebug.setVisibility(View.VISIBLE);
+            mainBtnDownload.setVisibility(View.VISIBLE);
         } else {
             mainBtnDebug.setVisibility(View.GONE);
+            mainBtnDownload.setVisibility(View.GONE);
         }
         if(!mainLanguage.equals(localeLanguage)){
             new Handler().postDelayed(new Runnable() {
@@ -90,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             },0);
         }
+        getProductType = new getProductTypeThread();
+        getProductType.start();
+        getVersionNumber = new getVersionNumberThread();
+        getVersionNumber.start();
     }
 
     @Override
@@ -111,11 +124,13 @@ public class MainActivity extends AppCompatActivity {
         mainBtnSetting = findViewById(R.id.mainBtnSetting);
         mainBtnAbout = findViewById(R.id.mainBtnAbout);
         mainBtnDebug = findViewById(R.id.mainBtnDebug);
+        mainBtnDownload = findViewById(R.id.mainBtnDownload);
 
         mainBtnConnect.setOnClickListener(myBtnListener);
         mainBtnSetting.setOnClickListener(myBtnListener);
         mainBtnAbout.setOnClickListener(myBtnListener);
         mainBtnDebug.setOnClickListener(myBtnListener);
+        mainBtnDownload.setOnClickListener(myBtnListener);
 
         mBanner = findViewById(R.id.main_banner);
         mIndicator = findViewById(R.id.main_indicator);
@@ -130,14 +145,14 @@ public class MainActivity extends AppCompatActivity {
                 url.add(this.getResources().getDrawable(R.drawable.main_actor));
                 url.add(this.getResources().getDrawable(R.drawable.main_body));
                 url.add(this.getResources().getDrawable(R.drawable.main_leg));
-                url.add(this.getResources().getDrawable(R.drawable.main_motor));
+//                url.add(this.getResources().getDrawable(R.drawable.main_motor));
                 break;
             default:
                 mainLanguage = "en";
                 url.add(this.getResources().getDrawable(R.drawable.main_actor_en));
                 url.add(this.getResources().getDrawable(R.drawable.main_body_en));
                 url.add(this.getResources().getDrawable(R.drawable.main_leg_en));
-                url.add(this.getResources().getDrawable(R.drawable.main_motor_en));
+//                url.add(this.getResources().getDrawable(R.drawable.main_motor_en));
         }
         int current = (url.size() - 1)/2;
         mBanner.setBannerView(url).setStartView(current).start();
@@ -192,6 +207,11 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.mainBtnDebug:
                     intent = new Intent(MainActivity.this, DebugActivity.class);
                     startActivity(intent);
+                    break;
+                case R.id.mainBtnDownload:
+                    intent = new Intent(MainActivity.this, DownloadActivity.class);
+                    startActivity(intent);
+                    break;
                 default:
                     break;
             }
@@ -208,11 +228,31 @@ public class MainActivity extends AppCompatActivity {
 
     public static void MsgThreadWork(){
         AppContext.getmBleClient().MsgThreadWork();
+
     }
+
+    public static void HexThreadStop(){
+        AppContext.getmBleClient().HexThreadStop();
+    }
+
+    public static void HexThreadWork(){
+        AppContext.getmBleClient().HexThreadWork();
+
+    }
+
+
     public static int getMsgListState(){
         return AppContext.getmBleClient().getMsgListLength();
     }
+
+    public static int getHexListState(){
+        return AppContext.getmBleClient().getHexListLength();
+    }
+
     public static void sendHugeMessage(byte[] msg){AppContext.getmBleClient().sendHugeMessage(msg);}
+
+    public static void addHexMessage(byte[] msg){AppContext.getmBleClient().addHexMessage(msg);}
+
     public static void addMessage(byte[] msg) {
         AppContext.getmBleClient().addMessage(msg);
     }
@@ -235,6 +275,8 @@ public class MainActivity extends AppCompatActivity {
     public static byte[] getMessageRead() {
         return AppContext.getmBleClient().getMessageRead();
     }
+
+
 
 
     @Override
@@ -397,8 +439,16 @@ public class MainActivity extends AppCompatActivity {
                 TextView btnAgree = window.findViewById(R.id.privacyAgreeBtn);
                 TextView privacyFirstTextTitle = window.findViewById(R.id.privacyFirstTextTitle);
                 TextView privacyFirstText = window.findViewById(R.id.privacyFirstText);
-                privacyFirstTextTitle.setText(Html.fromHtml(HTML_TEXT_TITLE));
-                privacyFirstText.setText(Html.fromHtml(HTML_TEXT));
+                switch(PublicMethod.localeLanguage){
+                    case "zh":
+                        privacyFirstTextTitle.setText(Html.fromHtml(HTML_TEXT_TITLE));
+                        privacyFirstText.setText(Html.fromHtml(HTML_TEXT));
+                        break;
+                    default:
+                        privacyFirstTextTitle.setText(Html.fromHtml(HTML_TEXT_TITLE_EN));
+                        privacyFirstText.setText(Html.fromHtml(HTML_TEXT_EN));
+                }
+
 
                 btnCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -418,6 +468,42 @@ public class MainActivity extends AppCompatActivity {
                         alertDialog.cancel();
                     }
                 });
+            }
+        }
+    }
+
+    // 读取设备类型
+    private class getProductTypeThread extends Thread {
+        @Override
+        public void run() {
+            while (currentThread().isAlive()) {
+                MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.productType, 0x01});
+                Message message = new Message();
+//                message.what = 0;
+                mHandler.sendMessageDelayed(message, 200);//200ms以后拿结果
+                try {
+                    sleep(5000);//5s更新一次
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    // 读取版本号
+    private class getVersionNumberThread extends Thread {
+        @Override
+        public void run() {
+            while (currentThread().isAlive()) {
+                MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.versionNumber, 0x01});
+                Message message = new Message();
+//                message.what = 0;
+                mHandler.sendMessageDelayed(message, 200);//200ms以后拿结果
+                try {
+                    sleep(5000);//5s更新一次
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

@@ -2,10 +2,12 @@ package com.luwu.xgo_robot.mActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -14,10 +16,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.content.Context;
 
 import com.luwu.xgo_robot.BlueTooth.BleActivity;
 import com.luwu.xgo_robot.BlueTooth.BleClient;
 import com.luwu.xgo_robot.R;
+import com.luwu.xgo_robot.WebService.DownloadListener;
+import com.luwu.xgo_robot.WebService.DownloadUtil;
 import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mMothed.mToast;
 import com.luwu.xgo_robot.mView.XRadioGroup;
@@ -43,7 +48,7 @@ public class SettingActivity extends AppCompatActivity {
     private RadioButton settingRadioClose,settingRadioNoClose;
     private RadioButton settingRadioDevelop, settingRadioAntiDevelop;
     private RadioButton settingLanWithSystem, settingLanChinese, settingLanEnglish;
-    private Button hexBtn;
+//    private Button hexBtn;
     private ProgressDialog progressDialog;
 
     @Override
@@ -194,6 +199,7 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
+
 
         settingGroupMode.setOnCheckedChangeListener(new XRadioGroup.OnCheckedChangeListener() {
             @Override
@@ -348,48 +354,6 @@ public class SettingActivity extends AppCompatActivity {
 //        });
     }
 
-    private class MessageThread extends Thread{
-        public MessageThread() {
-
-        }
-
-        @Override
-        public void run() {
-            updateHex();
-        }
-    }
-    private void updateHex(){
-        while(true){
-            if (MainActivity.getMsgListState() == 0){
-                MainActivity.addMessage(new byte[]{0x05, 0x01});
-                try {
-                    Thread.sleep(10);
-                    MainActivity.MsgThreadStop();
-                    Thread.sleep(5000);
-                    //System.out.println("no");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    InputStream inputStream = getResources().openRawResource(R.raw.xgomini);
-                    byte[] data = new byte[20];
-                    int n = -1;
-                    int i = -1;
-                    while ((n = inputStream.read(data,0,20)) != -1) {
-                        System.out.println(String.valueOf(i++));
-                        MainActivity.sendHugeMessage(data);
-                    }
-                    inputStream.close();
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-                MainActivity.MsgThreadWork();
-                progressDialog.dismiss();
-                break;
-            }
-
-        }
-    }
 
     private void setUncheckedColor(int i) {
         switch (i) {
@@ -416,6 +380,8 @@ public class SettingActivity extends AppCompatActivity {
                 break;
         }
     }
+
+
     //更新语言设置
     private void updateLocale(){
         SharedPreferences languageInfo = getSharedPreferences("xgo_setting", MODE_PRIVATE);

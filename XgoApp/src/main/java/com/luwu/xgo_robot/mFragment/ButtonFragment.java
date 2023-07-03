@@ -64,7 +64,7 @@ public class ButtonFragment extends Fragment {
         buttonBtnRight = view.findViewById(R.id.buttonButtonRight);
 
         buttonTxtBattery = view.findViewById(R.id.buttonTxtBattery);
-        buttonTxtSpeed = view.findViewById(R.id.buttonTxtSpeed);
+//        buttonTxtSpeed = view.findViewById(R.id.buttonTxtSpeed);
 
         seekBar = view.findViewById(R.id.heightSeekBar);
         seekBar.setProgress(progress);
@@ -81,10 +81,10 @@ public class ButtonFragment extends Fragment {
                     changeBatteryView(XGORAM_VALUE.battery);
                 } else if (msg.what == 1) {
                     speedLeft = msg.arg1;
-                    changeSpeedView((int) sqrt(speedLeft * speedLeft + speedRight * speedRight));
+//                    changeSpeedView((int) sqrt(speedLeft * speedLeft + speedRight * speedRight));
                 } else if (msg.what == 2) {
                     speedRight = msg.arg1;
-                    changeSpeedView((int) sqrt(speedLeft * speedLeft + speedRight * speedRight));
+//                    changeSpeedView((int) sqrt(speedLeft * speedLeft + speedRight * speedRight));
                 }
             }
         };

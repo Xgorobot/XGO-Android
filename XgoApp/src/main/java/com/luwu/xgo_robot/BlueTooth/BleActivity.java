@@ -40,6 +40,7 @@ import android.widget.Toast;
 
 import com.luwu.xgo_robot.AppContext;
 import com.luwu.xgo_robot.R;
+import com.luwu.xgo_robot.mActivity.MainActivity;
 import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mMothed.mToast;
 
@@ -69,6 +70,7 @@ public class BleActivity extends AppCompatActivity implements View.OnClickListen
     MyHandler mHandler = new MyHandler();
     private SensorManager sensorManager;  //定义传感器管理器
     private Vibrator vibrator;            //定义振动器
+
 
 
 
@@ -333,7 +335,9 @@ public class BleActivity extends AppCompatActivity implements View.OnClickListen
 
     //********************************蓝牙改名**********************************//
     public void changeName(Dialog dialog, EditText items_name_edit) {
-        if (!"".equals(items_name_edit.getText().toString().trim())) {
+        String name_string = items_name_edit.getText().toString().trim();
+        String regex = "^[a-z0-9A-Z]+$"; // 只含有数字和字母
+        if (name_string.matches(regex) & !"".equals(name_string) & name_string.length() <= 20) { //不超过20个
             AppContext.getmBleClient().setBleName(String.valueOf(items_name_edit.getText()));
             //改名指令
             new Thread(new Runnable() {
@@ -355,10 +359,10 @@ public class BleActivity extends AppCompatActivity implements View.OnClickListen
             if ("BleActivity".equals(getClass().getSimpleName())) {
                 switch(PublicMethod.localeLanguage){
                     case "zh":
-                        progressDialog = ProgressDialog.show(BleActivity.this, "蓝牙已被重命名", "请重新连接", true);//显示加载框
+                        progressDialog = ProgressDialog.show(BleActivity.this, "蓝牙已被重命名", "请重启机器狗", true);//显示加载框
                         break;
                     default:
-                        progressDialog = ProgressDialog.show(BleActivity.this, "Renamed", "Please reconnect", true);//显示加载框
+                        progressDialog = ProgressDialog.show(BleActivity.this, "Renamed", "Please restart XGO", true);//显示加载框
                 }
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -370,10 +374,10 @@ public class BleActivity extends AppCompatActivity implements View.OnClickListen
         } else {
             switch(PublicMethod.localeLanguage){
                 case "zh":
-                    Toast.makeText(BleActivity.this, "名字不可为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BleActivity.this, "名字格式不规范", Toast.LENGTH_SHORT).show();
                     break;
                 default:
-                    Toast.makeText(BleActivity.this, "Name cannot be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BleActivity.this, "Name is not correct", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -645,4 +649,5 @@ public class BleActivity extends AppCompatActivity implements View.OnClickListen
         scanLeDevice(false);
         Log.d("ble", "Ble,Pause");
     }
+
 }

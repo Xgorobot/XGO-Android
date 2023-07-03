@@ -13,12 +13,12 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.1" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/buttonLineVer2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.47" />
+<!--    <androidx.constraintlayout.widget.Guideline-->
+<!--        android:id="@+id/buttonLineVer2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintGuide_percent="0.47" />-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/buttonLineVer3"
@@ -44,21 +44,24 @@
 
     <ImageView
         android:id="@+id/buttonTxtBattery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerInside"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/buttery0"
         app:layout_constraintBottom_toTopOf="@+id/buttonLineHor1"
-        app:layout_constraintEnd_toEndOf="@+id/buttonLineVer2" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
-    <ImageView
-        android:id="@+id/buttonTxtSpeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerInside"
-        android:src="@drawable/speed0"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor1"
-        app:layout_constraintStart_toEndOf="@+id/buttonTxtBattery" />
+<!--    <ImageView-->
+<!--        android:id="@+id/buttonTxtSpeed"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:scaleType="centerInside"-->
+<!--        android:src="@drawable/speed0"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor1"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/buttonTxtBattery"-->
+<!--        android:visibility="invisible"/>-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -74,18 +77,19 @@
         app:layout_constraintEnd_toEndOf="@id/buttonTxtBattery"
          />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:fontFamily="sans-serif-black"
-        android:gravity="bottom|center"
-        android:text="@string/speed"
-        android:textColor="@color/colorRed"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/buttonTxtSpeed"
-        app:layout_constraintStart_toStartOf="@id/buttonTxtSpeed"
-        app:layout_constraintEnd_toEndOf="@id/buttonTxtSpeed" />
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="1"-->
+<!--        android:fontFamily="sans-serif-black"-->
+<!--        android:gravity="bottom|center"-->
+<!--        android:text="@string/speed"-->
+<!--        android:textColor="@color/colorRed"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/buttonTxtSpeed"-->
+<!--        app:layout_constraintStart_toStartOf="@id/buttonTxtSpeed"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/buttonTxtSpeed"-->
+<!--        android:visibility="invisible"/>-->
 
     <com.luwu.xgo_robot.mView.ButtonView
         android:id="@+id/buttonButtonLeft"

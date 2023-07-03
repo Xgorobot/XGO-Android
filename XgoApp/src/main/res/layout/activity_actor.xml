@@ -42,6 +42,7 @@
             app:layout_constraintTop_toTopOf="parent"-->
 
             <TextView
+                android:id="@+id/actorTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/actor"
@@ -113,7 +114,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/liedown"
+                        android:text="@string/actor_01_liedown"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue"/>
@@ -125,7 +126,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/standup"
+                        android:text="@string/actor_02_standup"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -137,7 +138,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/crawl"
+                        android:text="@string/actor_03_crawl"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -160,7 +161,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/turnAround"
+                        android:text="@string/actor_04_turnAround"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -172,7 +173,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/marktime"
+                        android:text="@string/actor_05_marktime"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -184,7 +185,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/squat"
+                        android:text="@string/actor_06_squat"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -207,7 +208,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/turnroll"
+                        android:text="@string/actor_07_turnroll"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -219,7 +220,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/turnpitch"
+                        android:text="@string/actor_08_turnpitch"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -230,7 +231,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/turnyaw"
+                        android:text="@string/actor_09_turnyaw"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -254,7 +255,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/threeAxis"
+                        android:text="@string/actor_10_threeAxis"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -265,7 +266,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/pee"
+                        android:text="@string/actor_11_pee"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -277,7 +278,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/sitdown"
+                        android:text="@string/actor_12_sitdown"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -299,7 +300,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/wavehand"
+                        android:text="@string/actor_13_wavehand"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -311,7 +312,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/stretch"
+                        android:text="@string/actor_14_stretch"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -323,7 +324,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/wavebody"
+                        android:text="@string/actor_15_wavebody"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -346,7 +347,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/swing"
+                        android:text="@string/actor_16_waveside"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -357,7 +358,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/pray"
+                        android:text="@string/actor_17_pray"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -369,7 +370,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="5dp"
                         android:layout_weight="1"
-                        android:text="@string/seek"
+                        android:text="@string/actor_18_happy"
                         android:textSize="25sp"
                         android:textColor="@drawable/button_text_press_blue"
                         android:background="@drawable/button_press_blue" />
@@ -389,7 +390,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginVertical="5dp"
                     android:layout_weight="1"
-                    android:text="@string/handshake"
+                    android:text="@string/actor_19_handshake"
                     android:textSize="25sp"
                     android:textColor="@drawable/button_text_press_blue"
                     android:background="@drawable/button_press_blue" />
@@ -401,11 +402,10 @@
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginVertical="5dp"
                     android:layout_weight="1"
-                    android:text=""
+                    android:text="@string/actor_20_chickenhead"
                     android:textSize="25sp"
                     android:textColor="@drawable/button_text_press_blue"
-                    android:background="@drawable/button_press_blue"
-                    android:visibility="invisible" />
+                    android:background="@drawable/button_press_blue" />
                 <Button
                     android:id="@+id/actorBtn21"
                     android:layout_width="0dp"
@@ -413,11 +413,97 @@
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginVertical="5dp"
                     android:layout_weight="1"
-                    android:text=""
+                    android:text="@string/actor_21_pushup"
                     android:textSize="25sp"
                     android:textColor="@drawable/button_text_press_blue"
-                    android:background="@drawable/button_press_blue"
-                    android:visibility="invisible" />
+                    android:background="@drawable/button_press_blue" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginVertical="5dp">
+                <Button
+                    android:id="@+id/actorBtn22"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/actor_22_seek"
+                    android:textSize="25sp"
+                    android:textColor="@drawable/button_text_press_blue"
+                    android:background="@drawable/button_press_blue" />
+
+                <Button
+                    android:id="@+id/actorBtn23"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/actor_23_dance"
+                    android:textSize="25sp"
+                    android:textColor="@drawable/button_text_press_blue"
+                    android:background="@drawable/button_press_blue" />
+
+                <Button
+                    android:id="@+id/actorBtn24"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/actor_24_naughty"
+                    android:textSize="25sp"
+                    android:textColor="@drawable/button_text_press_blue"
+                    android:background="@drawable/button_press_blue" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginVertical="5dp">
+                <Button
+                    android:id="@+id/actorBtn0x80"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/actor_0x80_grabhigh"
+                    android:textSize="25sp"
+                    android:textColor="@drawable/button_text_press_blue"
+                    android:background="@drawable/button_press_blue" />
+
+                <Button
+                    android:id="@+id/actorBtn0x81"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/actor_0x81_grabmiddle"
+                    android:textSize="25sp"
+                    android:textColor="@drawable/button_text_press_blue"
+                    android:background="@drawable/button_press_blue" />
+
+                <Button
+                    android:id="@+id/actorBtn0x82"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/actor_0x82_grablow"
+                    android:textSize="25sp"
+                    android:textColor="@drawable/button_text_press_blue"
+                    android:background="@drawable/button_press_blue" />
             </LinearLayout>
           </LinearLayout>
         </ScrollView>

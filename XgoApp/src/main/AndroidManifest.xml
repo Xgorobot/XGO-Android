@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.luwu.xgo_robot">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -20,6 +21,14 @@
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
 
+    <!--执行网络操作权限-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+
     <application
         android:name="com.luwu.xgo_robot.AppContext"
         android:allowBackup="true"
@@ -28,7 +37,9 @@
         android:roundIcon="@mipmap/xgo_icon_round"
         android:supportsRtl="true"
         android:testOnly="false"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+
         <service android:name="com.luwu.xgo_robot.BlueTooth.BluetoothLeService"/>
         <activity android:name="com.luwu.xgo_robot.BlueTooth.BleConnectedActivity"
             android:screenOrientation="sensorLandscape"/>
@@ -47,6 +58,9 @@
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.luwu.xgo_robot.mActivity.DebugActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name="com.luwu.xgo_robot.mActivity.DownloadActivity"
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.luwu.xgo_robot.mActivity.TestBtActivity"
@@ -99,6 +113,9 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="600" />
+
+
+
     </application>
 
 

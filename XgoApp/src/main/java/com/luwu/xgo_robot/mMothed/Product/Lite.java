@@ -1,4 +1,4 @@
-package com.luwu.xgo_robot.Product;
+package com.luwu.xgo_robot.mMothed.Product;
 
 public class Lite extends Product{
     public Lite() {

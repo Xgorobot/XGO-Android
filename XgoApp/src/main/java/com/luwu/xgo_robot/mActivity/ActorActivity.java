@@ -8,11 +8,17 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.luwu.xgo_robot.R;
 import com.luwu.xgo_robot.mMothed.PublicMethod;
 
+import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_ADDR.nameBt;
+import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_ADDR.versionNumber;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.hideBottomUIMenu;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 public class ActorActivity extends AppCompatActivity {
 
@@ -20,8 +26,16 @@ public class ActorActivity extends AppCompatActivity {
     private ImageButton actorBtnExit;
     private Switch actorWhileSwitch;
     private ButtonClickListener mButtonClickListener;
-    private Button actorBtn1, actorBtn2, actorBtn3, actorBtn4, actorBtn5, actorBtn6, actorBtn7, actorBtn8, actorBtn9, actorBtn10, actorBtn11, actorBtn12, actorBtn13, actorBtn14, actorBtn15, actorBtn16, actorBtn17, actorBtn18, actorBtn19, actorBtn20;
-    private byte[] action = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+    private Button actorBtn1, actorBtn2, actorBtn3, actorBtn4, actorBtn5, actorBtn6, actorBtn7, actorBtn8,
+            actorBtn9, actorBtn10, actorBtn11, actorBtn12, actorBtn13, actorBtn14, actorBtn15, actorBtn16,
+            actorBtn17, actorBtn18, actorBtn19, actorBtn20, actorBtn21, actorBtn22, actorBtn23, actorBtn24
+            ;
+    private byte[] action = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24};
+
+    private Button actorBtn0x80, actorBtn0x81, actorBtn0x82;
+    private byte[] actionAdditional = {(byte) 0x80, (byte) 0x81, (byte) 0x82};
+
+//    private TextView actorTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +53,7 @@ public class ActorActivity extends AppCompatActivity {
             }
         });
         mButtonClickListener = new ButtonClickListener();
+
         actorBtnExit = findViewById(R.id.actorBtnExit);
         actorBtnExit.setOnClickListener(mButtonClickListener);
         actorResetBtn = findViewById(R.id.actorResetBtn);
@@ -81,8 +96,54 @@ public class ActorActivity extends AppCompatActivity {
         actorBtn18.setOnClickListener(mButtonClickListener);
         actorBtn19 = findViewById(R.id.actorBtn19);
         actorBtn19.setOnClickListener(mButtonClickListener);
+
         actorBtn20 = findViewById(R.id.actorBtn20);
-        actorBtn20.setOnClickListener(mButtonClickListener);
+//        actorBtn20.setOnClickListener(mButtonClickListener);
+        actorBtn21 = findViewById(R.id.actorBtn21);
+//        actorBtn21.setOnClickListener(mButtonClickListener);
+        actorBtn22 = findViewById(R.id.actorBtn22);
+//        actorBtn22.setOnClickListener(mButtonClickListener);
+        actorBtn23 = findViewById(R.id.actorBtn23);
+//        actorBtn23.setOnClickListener(mButtonClickListener);
+        actorBtn24 = findViewById(R.id.actorBtn24);
+//        actorBtn24.setOnClickListener(mButtonClickListener);
+
+        actorBtn0x80 = findViewById(R.id.actorBtn0x80);
+//        actorBtn0x80.setOnClickListener(mButtonClickListener);
+        actorBtn0x81 = findViewById(R.id.actorBtn0x81);
+//        actorBtn0x81.setOnClickListener(mButtonClickListener);
+        actorBtn0x82 = findViewById(R.id.actorBtn0x82);
+//        actorBtn0x82.setOnClickListener(mButtonClickListener);
+        try {
+            if (PublicMethod.XGORAM_VALUE.versionNumber.equals("") || Integer.parseInt(PublicMethod.XGORAM_VALUE.versionNumber.substring(2,3)) < 3){
+                actorBtn20.setVisibility(View.INVISIBLE);
+                actorBtn21.setVisibility(View.INVISIBLE);
+                actorBtn22.setVisibility(View.INVISIBLE);
+                actorBtn23.setVisibility(View.INVISIBLE);
+                actorBtn24.setVisibility(View.INVISIBLE);
+                actorBtn0x80.setVisibility(View.INVISIBLE);
+                actorBtn0x81.setVisibility(View.INVISIBLE);
+                actorBtn0x82.setVisibility(View.INVISIBLE);
+            } else {
+                actorBtn20.setOnClickListener(mButtonClickListener);
+                actorBtn21.setOnClickListener(mButtonClickListener);
+                actorBtn22.setOnClickListener(mButtonClickListener);
+                actorBtn23.setOnClickListener(mButtonClickListener);
+                actorBtn24.setOnClickListener(mButtonClickListener);
+                actorBtn0x80.setOnClickListener(mButtonClickListener);
+                actorBtn0x81.setOnClickListener(mButtonClickListener);
+                actorBtn0x82.setOnClickListener(mButtonClickListener);
+            }
+        } catch (Exception ignored) {
+            actorBtn20.setVisibility(View.INVISIBLE);
+            actorBtn21.setVisibility(View.INVISIBLE);
+            actorBtn22.setVisibility(View.INVISIBLE);
+            actorBtn23.setVisibility(View.INVISIBLE);
+            actorBtn24.setVisibility(View.INVISIBLE);
+            actorBtn0x80.setVisibility(View.INVISIBLE);
+            actorBtn0x81.setVisibility(View.INVISIBLE);
+            actorBtn0x82.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -162,6 +223,28 @@ public class ActorActivity extends AppCompatActivity {
                     break;
                 case R.id.actorBtn20:
                     sendAction(action[19]);
+                    break;
+                case R.id.actorBtn21:
+                    sendAction(action[20]);
+                    break;
+                case R.id.actorBtn22:
+                    sendAction(action[21]);
+                    break;
+                case R.id.actorBtn23:
+                    sendAction(action[22]);
+                    break;
+                case R.id.actorBtn24:
+                    sendAction(action[23]);
+                    break;
+
+                case R.id.actorBtn0x80:
+                    sendAction(actionAdditional[0]);
+                    break;
+                case R.id.actorBtn0x81:
+                    sendAction(actionAdditional[1]);
+                    break;
+                case R.id.actorBtn0x82:
+                    sendAction(actionAdditional[2]);
                     break;
             }
         }

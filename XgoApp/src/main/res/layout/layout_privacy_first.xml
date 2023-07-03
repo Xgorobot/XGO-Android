@@ -46,7 +46,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="不同意"
+                android:text="@string/privacy_first_exit"
                 android:background="@color/colorWhite">
             </Button>
             <Button
@@ -54,7 +54,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="同意并继续"
+                android:text="@string/privacy_first_agree"
                 android:textColor="@color/colorRed"
                 android:background="@color/colorWhite">
             </Button>

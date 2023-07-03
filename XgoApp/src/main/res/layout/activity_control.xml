@@ -65,9 +65,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/control_fragment_check"
+                android:background="#00000000"
                 android:text="@string/xyz"
-                android:textColor="#ffffff"
+                android:textColor="#92a1b6"
                 android:textSize="20sp" />
 
             <Button
@@ -77,6 +77,15 @@
                 android:layout_weight="1"
                 android:background="#00000000"
                 android:text="@string/pry"
+                android:textColor="#92a1b6"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/controlBtnArm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:text="@string/arm"
                 android:textColor="#92a1b6"
                 android:textSize="20sp" />
         </LinearLayout>

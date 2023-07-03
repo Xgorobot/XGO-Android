@@ -35,6 +35,7 @@ public class BluetoothLeService extends Service {
     private static final int STATE_CONNECTED = 2;
 
     protected static final int MTU_SIZE = 23;   // 500 + 3，实际可用为500，为了传输固件文件 20210929
+    protected static final int MTU_SIZE_HUGE = 243;  // 传输大文件 sendHugeMessage()
 
     public final static String ACTION_GATT_CONNECTED =
             "com.example.bluetooth.le.ACTION_GATT_CONNECTED";
@@ -74,6 +75,7 @@ public class BluetoothLeService extends Service {
                     intentAction = ACTION_GATT_DISCONNECTED;
                     mConnectionState = STATE_DISCONNECTED;
                     //todo  ！！！这里把gatt断开试试
+                    disconnect();
                     refreshDeviceCache();
                     Log.i(TAG, "发现服务失败");
                     broadcastUpdate(intentAction);
@@ -83,6 +85,7 @@ public class BluetoothLeService extends Service {
                 intentAction = ACTION_GATT_DISCONNECTED;
                 mConnectionState = STATE_DISCONNECTED;
                 //todo  ！！！这里把gatt断开试试
+                disconnect();
                 refreshDeviceCache();
                 Log.i(TAG, "Disconnected from GATT server.");
                 broadcastUpdate(intentAction);
@@ -115,7 +118,7 @@ public class BluetoothLeService extends Service {
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             if (status == BluetoothGatt.GATT_SUCCESS) {
-                gatt.requestMtu(MTU_SIZE);
+                gatt.requestMtu(MTU_SIZE_HUGE);
                 broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
             } else {
                 Log.w(TAG, "onServicesDiscovered received: " + status);
@@ -310,7 +313,7 @@ public class BluetoothLeService extends Service {
      * After using a given BLE device, the app must call this method to ensure resources are
      * released properly.
      */
-    public void close() {
+    public synchronized void close() {
         if (mBluetoothGatt == null) {
             return;
         }

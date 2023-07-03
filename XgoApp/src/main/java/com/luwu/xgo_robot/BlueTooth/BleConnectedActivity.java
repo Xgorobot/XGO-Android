@@ -26,7 +26,6 @@ import com.luwu.xgo_robot.R;
 import com.luwu.xgo_robot.mActivity.MainActivity;
 import com.luwu.xgo_robot.mMothed.DeviceUtil;
 import com.luwu.xgo_robot.mMothed.PublicMethod;
-import com.luwu.xgo_robot.mMothed.mToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +46,6 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
     Long startTime = 0L;
     boolean isSearching = false;
     private static boolean flagLoop = false;
-    private getProductTypeThread getProductType; //处理产品型号读取线程
     private Handler mHandler;
 
     @Override
@@ -60,8 +58,6 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_ble_connected);
         mHandler = new Handler();
         flagLoop = true;
-        getProductType = new getProductTypeThread();
-        getProductType.start();
         initView();
     }
 
@@ -166,7 +162,9 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View v) {
                 //检查名称是否为空，再检查蓝牙是否连接
-                if (!"".equals(items_name_edit.getText().toString().trim())) {
+                String name_string = items_name_edit.getText().toString().trim();
+                String regex = "^[a-z0-9A-Z]+$"; // 只含有数字和字母
+                if (name_string.matches(regex) & !"".equals(name_string) & name_string.length() <= 20) { //不超过20个
                     final String bleName = String.valueOf(items_name_edit.getText());
                     //改名指令
                     if (AppContext.getmBleClient().isConnected()) {
@@ -185,36 +183,49 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
                         switch(PublicMethod.localeLanguage){
                             case "zh":
                                 Toast.makeText(BleConnectedActivity.this,
-                                        "蓝牙已被重命名" + "，" +
-                                                "请重新连接",
+                                        "蓝牙已被重命名，请重启机器狗",
                                         Toast.LENGTH_LONG).show();
                                 progressDialog = ProgressDialog.show(BleConnectedActivity.this, "蓝牙已被重命名",
-                                        "请重新连接", false, true);
+                                        "请重启机器狗", false, true);
+
+                                progressDialog.dismiss();
                                 break;
                             default:
                                 Toast.makeText(BleConnectedActivity.this,
-                                        "Renamed" + "," +
-                                                "please reconnect",
+                                        "Renamed, please restart XGO",
                                         Toast.LENGTH_LONG).show();
                                 progressDialog = ProgressDialog.show(BleConnectedActivity.this, "Renamed",
-                                        "please reconnect", false, true);
+                                        "Please restart XGO", false, true);
+
                         }
-
-
-                        new Handler().postDelayed(new Runnable() {
+                        Thread delay_dismiss = new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                progressDialog.dismiss();
-                                AppContext.getmBleClient().disConnect();
-                                if (DeviceUtil.isTabletDevice(BleConnectedActivity.this)){
-                                    Intent intent2 = new Intent(BleConnectedActivity.this, BleSearchActivity.class);
-                                    startActivity(intent2);
-                                }else {
-                                    Intent intent2 = new Intent(BleConnectedActivity.this, BleActivity.class);
-                                    startActivity(intent2);
+                                try {
+                                    Thread.sleep(3000);
+                                } catch (Exception exception){
+
                                 }
+                                progressDialog.dismiss();
                             }
-                        }, 4500);
+                        });
+                        delay_dismiss.start();
+
+                        // 重命名后不断开连接
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                progressDialog.dismiss();
+//                                AppContext.getmBleClient().disConnect();
+//                                if (DeviceUtil.isTabletDevice(BleConnectedActivity.this)){
+//                                    Intent intent2 = new Intent(BleConnectedActivity.this, BleSearchActivity.class);
+//                                    startActivity(intent2);
+//                                }else {
+//                                    Intent intent2 = new Intent(BleConnectedActivity.this, BleActivity.class);
+//                                    startActivity(intent2);
+//                                }
+//                            }
+//                        }, 4500);
 
                     } else {
                         switch(PublicMethod.localeLanguage){
@@ -271,10 +282,10 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
                 } else {
                     switch(PublicMethod.localeLanguage){
                         case "zh":
-                            Toast.makeText(BleConnectedActivity.this, "名字不可为空", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BleConnectedActivity.this, "请输入正确格式", Toast.LENGTH_SHORT).show();
                             break;
                         default:
-                            Toast.makeText(BleConnectedActivity.this, "Name cannot be empty", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BleConnectedActivity.this, "Name is not correct", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -304,8 +315,26 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
     private class getProductTypeThread extends Thread {
         @Override
         public void run() {
-            while (currentThread().isAlive() && flagLoop) {
-                MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.versions, 0x01});
+            while (currentThread().isAlive()) {
+                MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.productType, 0x01});
+                Message message = new Message();
+//                message.what = 0;
+                mHandler.sendMessageDelayed(message, 200);//200ms以后拿结果
+                try {
+                    sleep(5000);//5s更新一次
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    // 读取版本号
+    private class getVersionNumberThread extends Thread {
+        @Override
+        public void run() {
+            while (currentThread().isAlive()) {
+                MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.versionNumber, 0x01});
                 Message message = new Message();
 //                message.what = 0;
                 mHandler.sendMessageDelayed(message, 200);//200ms以后拿结果

@@ -1,4 +1,4 @@
-package com.luwu.xgo_robot.Product;
+package com.luwu.xgo_robot.mMothed.Product;
 
 public abstract class Product {
     // X Y Z 平移范围

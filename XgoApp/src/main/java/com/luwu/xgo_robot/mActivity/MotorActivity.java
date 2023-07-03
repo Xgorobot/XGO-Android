@@ -2,26 +2,23 @@ package com.luwu.xgo_robot.mActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.luwu.xgo_robot.Product.Lite;
-import com.luwu.xgo_robot.Product.Mini;
-import com.luwu.xgo_robot.Product.Product;
+import com.luwu.xgo_robot.mMothed.Product.Lite;
+import com.luwu.xgo_robot.mMothed.Product.Mini;
+import com.luwu.xgo_robot.mMothed.Product.Product;
 import com.luwu.xgo_robot.R;
 import com.luwu.xgo_robot.mMothed.PublicMethod;
 
 import static com.luwu.xgo_robot.mMothed.PublicMethod.hideBottomUIMenu;
-import static com.luwu.xgo_robot.mMothed.PublicMethod.localeLanguage;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.toOrderRange;
 
 public class MotorActivity extends AppCompatActivity {
@@ -66,7 +63,7 @@ public class MotorActivity extends AppCompatActivity {
         motorTextZ = findViewById(R.id.motorTextZ);
     }
     private void setSeekBar(){
-        switch (PublicMethod.XGORAM_VALUE.versions){
+        switch (PublicMethod.XGORAM_VALUE.productType){
             case 0: this.product = new Mini(); break;
             case 1: this.product = new Lite(); break;
             default: this.product = new Mini(); break;

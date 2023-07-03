@@ -16,6 +16,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.luwu.xgo_robot.R;
+import com.luwu.xgo_robot.mFragment.BarFragment;
 import com.luwu.xgo_robot.mFragment.ButtonFragment;
 import com.luwu.xgo_robot.mFragment.RockerFragment;
 import com.luwu.xgo_robot.mFragment.RockerLeftFragment;
@@ -36,6 +37,7 @@ public class ControlActivity extends AppCompatActivity {
     private static int IMUChecked = 0; //0陀螺仪未开启，1开启
     private static int SpeedMode = 0;  //0常速，1低速，2高速
     private Button controlBtnNormal, controlBtnSuperior, controlBtnXYZ, controlBtnPRY;
+    private Button controlBtnArm;
     private ImageButton controlBtnProgram, controlBtnMore, controlBtnExit;
     private ImageButton controlBtnConnect;
     private PopupWindow mPop;
@@ -45,8 +47,10 @@ public class ControlActivity extends AppCompatActivity {
     private RockerFragment rockerFragment;
     private ButtonFragment buttonFragment;
     private RockerLeftFragment rockerLeftFragment;
+    private BarFragment barFragment;
 //    private PostureFragment postureFragment;
     private final int NORMALFRAGMENT = 0, SUPERIORFRAGMENT = 1, XYZFRAGMENT = 2, PRYFRAGMENT = 3;
+    private final int ARMFRAGMENT = 4;
 //    private Handler mHandler;
 //    private TextView controlFrameCover;
     private int nowFragment = NORMALFRAGMENT;
@@ -71,6 +75,11 @@ public class ControlActivity extends AppCompatActivity {
         controlBtnXYZ.setOnClickListener(mlistener);
         controlBtnPRY = findViewById(R.id.controlBtnPRY);
         controlBtnPRY.setOnClickListener(mlistener);
+
+        // 机械臂
+        controlBtnArm = findViewById(R.id.controlBtnArm);
+        controlBtnArm.setOnClickListener(mlistener);
+
 //        controlBtnProgram = findViewById(R.id.controlBtnProgram);
 //        controlBtnProgram.setOnClickListener(mlistener);
         controlBtnMore = findViewById(R.id.controlBtnMore);
@@ -92,6 +101,9 @@ public class ControlActivity extends AppCompatActivity {
         controlBtnXYZ.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
         controlBtnPRY.setBackgroundResource(R.color.transparent);
         controlBtnPRY.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+
+        controlBtnArm.setBackgroundResource(R.color.transparent);
+        controlBtnArm.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
 //        ControlViewpagerAdapter adapter = new ControlViewpagerAdapter(getSupportFragmentManager(), 0);
 //        onPageChangedListener pageListener = new onPageChangedListener();
 //        viewPager = findViewById(R.id.controlViewPager);
@@ -160,6 +172,8 @@ public class ControlActivity extends AppCompatActivity {
                         controlBtnXYZ.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
                         controlBtnPRY.setBackgroundResource(R.color.transparent);
                         controlBtnPRY.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+                        controlBtnArm.setBackgroundResource(R.color.transparent);
+                        controlBtnArm.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
                     }
                     break;
                 case R.id.controlBtnSuperior:
@@ -179,6 +193,8 @@ public class ControlActivity extends AppCompatActivity {
                         controlBtnXYZ.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
                         controlBtnPRY.setBackgroundResource(R.color.transparent);
                         controlBtnPRY.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+                        controlBtnArm.setBackgroundResource(R.color.transparent);
+                        controlBtnArm.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
                     }
                     break;
                 case R.id.controlBtnXYZ:
@@ -198,6 +214,8 @@ public class ControlActivity extends AppCompatActivity {
                         controlBtnNormal.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
                         controlBtnPRY.setBackgroundResource(R.color.transparent);
                         controlBtnPRY.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+                        controlBtnArm.setBackgroundResource(R.color.transparent);
+                        controlBtnArm.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
                     }
                     break;
                 case R.id.controlBtnPRY:
@@ -217,6 +235,29 @@ public class ControlActivity extends AppCompatActivity {
                         controlBtnXYZ.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
                         controlBtnNormal.setBackgroundResource(R.color.transparent);
                         controlBtnNormal.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+                        controlBtnArm.setBackgroundResource(R.color.transparent);
+                        controlBtnArm.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+                    }
+                    break;
+                case R.id.controlBtnArm:
+//                    viewPager.setCurrentItem(2);
+                    if (nowFragment != ARMFRAGMENT) {
+                        nowFragment = ARMFRAGMENT;
+                        flagRockModeBtn = 1;
+                        if (barFragment == null) {
+                            barFragment = new BarFragment();
+                        }
+                        getSupportFragmentManager().beginTransaction().replace(R.id.controlFrame, barFragment).commitAllowingStateLoss();
+                        controlBtnArm.setBackgroundResource(R.drawable.control_fragment_check);
+                        controlBtnArm.setTextColor(getResources().getColor(R.color.colorWhite));
+                        controlBtnSuperior.setBackgroundResource(R.color.transparent);
+                        controlBtnSuperior.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+                        controlBtnXYZ.setBackgroundResource(R.color.transparent);
+                        controlBtnXYZ.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+                        controlBtnNormal.setBackgroundResource(R.color.transparent);
+                        controlBtnNormal.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+                        controlBtnPRY.setBackgroundResource(R.color.transparent);
+                        controlBtnPRY.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
                     }
                     break;
             }
