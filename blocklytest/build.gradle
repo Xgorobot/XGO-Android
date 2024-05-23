@@ -25,6 +25,7 @@ android {
     lintOptions {
           abortOnError false
     }
+    namespace 'com.google.blockly.android.test'
 }
 
 dependencies {

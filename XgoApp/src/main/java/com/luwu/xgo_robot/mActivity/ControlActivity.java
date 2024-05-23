@@ -2,79 +2,96 @@ package com.luwu.xgo_robot.mActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.luwu.xgo_robot.R;
-import com.luwu.xgo_robot.mFragment.BarFragment;
-import com.luwu.xgo_robot.mFragment.ButtonFragment;
-import com.luwu.xgo_robot.mFragment.RockerFragment;
-import com.luwu.xgo_robot.mFragment.RockerLeftFragment;
+import com.luwu.xgo_robot.mFragment.ArmFragment;
+import com.luwu.xgo_robot.mFragment.MultiFragment;
 import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mMothed.mToast;
-import com.luwu.xgo_robot.mView.VerticalSeekBar;
+import com.luwu.xgo_robot.mView.VerticalSeekBarArm;
 
-import static com.luwu.xgo_robot.mMothed.PublicMethod.hideBottomUIDialog;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.hideBottomUIMenu;
-import static com.luwu.xgo_robot.mMothed.PublicMethod.isBluetoothConnect;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.localeLanguage;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.toOrderRange;
 
 public class ControlActivity extends AppCompatActivity {
-    public static int progress = 60;//身高滑杆控制
-    public static final int progressInit = 60;//身高滑杆控制初始位置
+
+    private int controlProductType, controlVersionNumberFirst;
+    public static int progressHeight = 60;//身高滑杆控制
+    public static int progressStride = 70;
+    public static final int progressHeightInit = 60;//身高滑杆控制初始位置
+    private static final int progressStrideInit = 70;
     public static int WHOLEDEFAULT = 0,WHOLESELF = 1,SINGLEDEFAULT = 2,SINGLESELF = 3;//用来区分添加到控制界面的编程的常量 已弃用
     private static int IMUChecked = 0; //0陀螺仪未开启，1开启
     private static int SpeedMode = 0;  //0常速，1低速，2高速
-    private Button controlBtnNormal, controlBtnSuperior, controlBtnXYZ, controlBtnPRY;
-    private Button controlBtnArm;
+//    private Button controlBtnNormal, controlBtnSuperior, controlBtnXYZ, controlBtnPRY;
+    public static View mGrayLayout;
+    private Button controlBtnControl, controlBtnArm;
     private ImageButton controlBtnProgram, controlBtnMore, controlBtnExit;
+    private ImageButton controlBtnPro;
+    private boolean ProState = false;
     private ImageButton controlBtnConnect;
     private PopupWindow mPop;
 //    private String listChoice;
 //    private List<String> popType = new ArrayList<String>();//动作或动作组类型 0默认动作组 1自定义动作组 2默认动作 3自定义动作
 
-    private RockerFragment rockerFragment;
-    private ButtonFragment buttonFragment;
-    private RockerLeftFragment rockerLeftFragment;
-    private BarFragment barFragment;
+//    private RockerFragment rockerFragment;
+//    private ButtonFragment buttonFragment;
+//    private RockerLeftFragment rockerLeftFragment;
+//    private BarFragment barFragment;
+    private MultiFragment multiFragment;
+    private ArmFragment armFragment;
 //    private PostureFragment postureFragment;
-    private final int NORMALFRAGMENT = 0, SUPERIORFRAGMENT = 1, XYZFRAGMENT = 2, PRYFRAGMENT = 3;
-    private final int ARMFRAGMENT = 4;
+//    private final int NORMALFRAGMENT = 0, SUPERIORFRAGMENT = 1, XYZFRAGMENT = 2, PRYFRAGMENT = 3;
+    private final int CONTROLFRAGMENT = 0;
+    private final int ARMFRAGMENT = 1;
 //    private Handler mHandler;
 //    private TextView controlFrameCover;
-    private int nowFragment = NORMALFRAGMENT;
+    private int nowFragment = CONTROLFRAGMENT;
     public static int flagRockModeBtn = 0;//公开给摇杆的变量 0全向移动 1xyz转动 2xyz平动
 //    private ViewPager viewPager;//viewPage可实现fragment滑动效果 但可能对摇杆等控件产生干扰 暂时弃用
+    private long saveTime = 0;
+    private long nowTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control);
 
+        Intent intent = getIntent();
+        controlProductType = intent.getIntExtra("productType", -1);
+        controlVersionNumberFirst = intent.getIntExtra("versionNumberFirst", -1);
+
         onClickListener mlistener = new onClickListener();
 
-        controlBtnConnect=findViewById(R.id.controlBtnConnect);
+        mGrayLayout=findViewById(R.id.controlGrayBackground);
+        mGrayLayout.setOnClickListener(mlistener);
+
+//        controlBtnConnect=findViewById(R.id.controlBtnConnect);
         controlBtnExit = findViewById(R.id.controlBtnExit);
         controlBtnExit.setOnClickListener(mlistener);
-        controlBtnNormal = findViewById(R.id.controlBtnNormal);
-        controlBtnNormal.setOnClickListener(mlistener);
-        controlBtnSuperior = findViewById(R.id.controlBtnSuperior);
-        controlBtnSuperior.setOnClickListener(mlistener);
-        controlBtnXYZ = findViewById(R.id.controlBtnXYZ);
-        controlBtnXYZ.setOnClickListener(mlistener);
-        controlBtnPRY = findViewById(R.id.controlBtnPRY);
-        controlBtnPRY.setOnClickListener(mlistener);
+//        controlBtnNormal = findViewById(R.id.controlBtnNormal);
+//        controlBtnNormal.setOnClickListener(mlistener);
+//        controlBtnSuperior = findViewById(R.id.controlBtnSuperior);
+//        controlBtnSuperior.setOnClickListener(mlistener);
+//        controlBtnXYZ = findViewById(R.id.controlBtnXYZ);
+//        controlBtnXYZ.setOnClickListener(mlistener);
+//        controlBtnPRY = findViewById(R.id.controlBtnPRY);
+//        controlBtnPRY.setOnClickListener(mlistener);
+
+        controlBtnControl = findViewById(R.id.controlBtnControl);
+        controlBtnControl.setOnClickListener(mlistener);
 
         // 机械臂
         controlBtnArm = findViewById(R.id.controlBtnArm);
@@ -82,28 +99,33 @@ public class ControlActivity extends AppCompatActivity {
 
 //        controlBtnProgram = findViewById(R.id.controlBtnProgram);
 //        controlBtnProgram.setOnClickListener(mlistener);
+        controlBtnPro= findViewById(R.id.controlBtnPro);
+        controlBtnPro.setOnClickListener(mlistener);
+
         controlBtnMore = findViewById(R.id.controlBtnMore);
         controlBtnMore.setOnClickListener(mlistener);
 //        controlFrameCover = findViewById(R.id.controlFrameCover);
 //        controlFrameCover.setVisibility(View.GONE);
 
         //默认添加动作Fragment
-        nowFragment = NORMALFRAGMENT;
-        if (buttonFragment == null) {
-            buttonFragment = new ButtonFragment();
+        nowFragment = CONTROLFRAGMENT;
+        if (multiFragment == null) {
+            multiFragment = new MultiFragment(controlProductType, controlVersionNumberFirst);
         }
-        getSupportFragmentManager().beginTransaction().add(R.id.controlFrame, buttonFragment).commitAllowingStateLoss();
-        controlBtnNormal.setBackgroundResource(R.drawable.control_fragment_check);
-        controlBtnNormal.setTextColor(getResources().getColor(R.color.colorWhite));
-        controlBtnSuperior.setBackgroundResource(R.color.transparent);
-        controlBtnSuperior.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-        controlBtnXYZ.setBackgroundResource(R.color.transparent);
-        controlBtnXYZ.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-        controlBtnPRY.setBackgroundResource(R.color.transparent);
-        controlBtnPRY.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+        getSupportFragmentManager().beginTransaction().add(R.id.controlFrame, multiFragment).commitAllowingStateLoss();
+        controlBtnControl.setActivated(true);
+//        controlBtnNormal.setBackgroundResource(R.drawable.control_fragment_check);
+//        controlBtnNormal.setTextColor(getResources().getColor(R.color.colorWhite));
+//        controlBtnSuperior.setBackgroundResource(R.color.transparent);
+//        controlBtnSuperior.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//        controlBtnXYZ.setBackgroundResource(R.color.transparent);
+//        controlBtnXYZ.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//        controlBtnPRY.setBackgroundResource(R.color.transparent);
+//        controlBtnPRY.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//
+//        controlBtnArm.setBackgroundResource(R.color.transparent);
+//        controlBtnArm.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
 
-        controlBtnArm.setBackgroundResource(R.color.transparent);
-        controlBtnArm.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
 //        ControlViewpagerAdapter adapter = new ControlViewpagerAdapter(getSupportFragmentManager(), 0);
 //        onPageChangedListener pageListener = new onPageChangedListener();
 //        viewPager = findViewById(R.id.controlViewPager);
@@ -130,11 +152,11 @@ public class ControlActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (isBluetoothConnect) {
-            controlBtnConnect.setImageResource(R.drawable.bluetooth2);
-        } else {
-            controlBtnConnect.setImageResource(R.drawable.bluetooth);
-        }
+//        if (isBluetoothConnect) {
+//            controlBtnConnect.setImageResource(R.drawable.bluetooth2);
+//        } else {
+//            controlBtnConnect.setImageResource(R.drawable.bluetooth);
+//        }
         hideBottomUIMenu(ControlActivity.this);
     }
 
@@ -147,117 +169,116 @@ public class ControlActivity extends AppCompatActivity {
         @Override
         public void onClick(final View v) {
             switch (v.getId()) {
+                case R.id.controlGrayBackground:
+                    mGrayLayout.setVisibility(View.GONE);
+                    break;
                 case R.id.controlBtnExit:
                     finish();
                     break;
 //                case R.id.controlBtnProgram:
 //                    controlProgram();//配置popupWindow
 //                    break;
+                case R.id.controlBtnPro:
+                    ProState = !ProState;
+                    multiFragment.setPro(ProState);
+                    controlBtnPro.setActivated(ProState);
+                    break;
                 case R.id.controlBtnMore:
+                    mGrayLayout.setVisibility(View.VISIBLE);
+                    controlBtnMore.setActivated(true);
                     controlMore();
                     break;
-                case R.id.controlBtnNormal:
+                case R.id.controlBtnControl:
 //                    viewPager.setCurrentItem(0);
-                    if (nowFragment != NORMALFRAGMENT) {
-                        nowFragment = NORMALFRAGMENT;
-                        if (buttonFragment == null) {
-                            buttonFragment = new ButtonFragment();
+                    if (nowFragment != CONTROLFRAGMENT) {
+                        nowFragment = CONTROLFRAGMENT;
+                        if (multiFragment == null) {
+                            System.out.println("new one");
+                            multiFragment = new MultiFragment(controlProductType, controlVersionNumberFirst);
                         }
-                        getSupportFragmentManager().beginTransaction().replace(R.id.controlFrame, buttonFragment).commitAllowingStateLoss();
-                        controlBtnNormal.setBackgroundResource(R.drawable.control_fragment_check);
-                        controlBtnNormal.setTextColor(getResources().getColor(R.color.colorWhite));
-                        controlBtnSuperior.setBackgroundResource(R.color.transparent);
-                        controlBtnSuperior.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnXYZ.setBackgroundResource(R.color.transparent);
-                        controlBtnXYZ.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnPRY.setBackgroundResource(R.color.transparent);
-                        controlBtnPRY.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnArm.setBackgroundResource(R.color.transparent);
-                        controlBtnArm.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+                        getSupportFragmentManager().beginTransaction().replace(R.id.controlFrame, multiFragment).commitAllowingStateLoss();
+                        controlBtnControl.setActivated(true);
+                        controlBtnArm.setActivated(false);
+                        controlBtnPro.setVisibility(View.VISIBLE);
+                        controlBtnMore.setVisibility(View.VISIBLE);
+                        multiFragment.setPro(controlBtnPro.isActivated());
                     }
                     break;
-                case R.id.controlBtnSuperior:
-//                    viewPager.setCurrentItem(1);
-                    if (nowFragment != SUPERIORFRAGMENT) {
-                        nowFragment = SUPERIORFRAGMENT;
-                        flagRockModeBtn = 0;
-                        if (rockerFragment == null) {
-                            rockerFragment = new RockerFragment();
-                        }
-                        getSupportFragmentManager().beginTransaction().replace(R.id.controlFrame, rockerFragment).commitAllowingStateLoss();
-                        controlBtnSuperior.setBackgroundResource(R.drawable.control_fragment_check);
-                        controlBtnSuperior.setTextColor(getResources().getColor(R.color.colorWhite));
-                        controlBtnNormal.setBackgroundResource(R.color.transparent);
-                        controlBtnNormal.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnXYZ.setBackgroundResource(R.color.transparent);
-                        controlBtnXYZ.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnPRY.setBackgroundResource(R.color.transparent);
-                        controlBtnPRY.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnArm.setBackgroundResource(R.color.transparent);
-                        controlBtnArm.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                    }
-                    break;
-                case R.id.controlBtnXYZ:
-//                    viewPager.setCurrentItem(2);
-                    if (nowFragment != XYZFRAGMENT) {
-                        nowFragment = XYZFRAGMENT;
-                        flagRockModeBtn = 2;
-                        if (rockerLeftFragment == null) {
-                            rockerLeftFragment = new RockerLeftFragment();
-                        }
-                        getSupportFragmentManager().beginTransaction().replace(R.id.controlFrame, rockerLeftFragment).commitAllowingStateLoss();
-                        controlBtnXYZ.setBackgroundResource(R.drawable.control_fragment_check);
-                        controlBtnXYZ.setTextColor(getResources().getColor(R.color.colorWhite));
-                        controlBtnSuperior.setBackgroundResource(R.color.transparent);
-                        controlBtnSuperior.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnNormal.setBackgroundResource(R.color.transparent);
-                        controlBtnNormal.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnPRY.setBackgroundResource(R.color.transparent);
-                        controlBtnPRY.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnArm.setBackgroundResource(R.color.transparent);
-                        controlBtnArm.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                    }
-                    break;
-                case R.id.controlBtnPRY:
-//                    viewPager.setCurrentItem(2);
-                    if (nowFragment != PRYFRAGMENT) {
-                        nowFragment = PRYFRAGMENT;
-                        flagRockModeBtn = 1;
-                        if (rockerFragment == null) {
-                            rockerFragment = new RockerFragment();
-                        }
-                        getSupportFragmentManager().beginTransaction().replace(R.id.controlFrame, rockerFragment).commitAllowingStateLoss();
-                        controlBtnPRY.setBackgroundResource(R.drawable.control_fragment_check);
-                        controlBtnPRY.setTextColor(getResources().getColor(R.color.colorWhite));
-                        controlBtnSuperior.setBackgroundResource(R.color.transparent);
-                        controlBtnSuperior.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnXYZ.setBackgroundResource(R.color.transparent);
-                        controlBtnXYZ.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnNormal.setBackgroundResource(R.color.transparent);
-                        controlBtnNormal.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnArm.setBackgroundResource(R.color.transparent);
-                        controlBtnArm.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                    }
-                    break;
+//                case R.id.controlBtnSuperior:
+////                    viewPager.setCurrentItem(1);
+//                    if (nowFragment != SUPERIORFRAGMENT) {
+//                        nowFragment = SUPERIORFRAGMENT;
+//                        flagRockModeBtn = 0;
+//                        if (rockerFragment == null) {
+//                            rockerFragment = new RockerFragment();
+//                        }
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.controlFrame, rockerFragment).commitAllowingStateLoss();
+//                        controlBtnSuperior.setBackgroundResource(R.drawable.control_fragment_check);
+//                        controlBtnSuperior.setTextColor(getResources().getColor(R.color.colorWhite));
+//                        controlBtnNormal.setBackgroundResource(R.color.transparent);
+//                        controlBtnNormal.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//                        controlBtnXYZ.setBackgroundResource(R.color.transparent);
+//                        controlBtnXYZ.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//                        controlBtnPRY.setBackgroundResource(R.color.transparent);
+//                        controlBtnPRY.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//                        controlBtnArm.setBackgroundResource(R.color.transparent);
+//                        controlBtnArm.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//                    }
+//                    break;
+//                case R.id.controlBtnXYZ:
+////                    viewPager.setCurrentItem(2);
+//                    if (nowFragment != XYZFRAGMENT) {
+//                        nowFragment = XYZFRAGMENT;
+//                        flagRockModeBtn = 2;
+//                        if (rockerLeftFragment == null) {
+//                            rockerLeftFragment = new RockerLeftFragment();
+//                        }
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.controlFrame, rockerLeftFragment).commitAllowingStateLoss();
+//                        controlBtnXYZ.setBackgroundResource(R.drawable.control_fragment_check);
+//                        controlBtnXYZ.setTextColor(getResources().getColor(R.color.colorWhite));
+//                        controlBtnSuperior.setBackgroundResource(R.color.transparent);
+//                        controlBtnSuperior.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//                        controlBtnNormal.setBackgroundResource(R.color.transparent);
+//                        controlBtnNormal.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//                        controlBtnPRY.setBackgroundResource(R.color.transparent);
+//                        controlBtnPRY.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//                        controlBtnArm.setBackgroundResource(R.color.transparent);
+//                        controlBtnArm.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//                    }
+//                    break;
+//                case R.id.controlBtnPRY:
+////                    viewPager.setCurrentItem(2);
+//                    if (nowFragment != PRYFRAGMENT) {
+//                        nowFragment = PRYFRAGMENT;
+//                        flagRockModeBtn = 1;
+//                        if (rockerFragment == null) {
+//                            rockerFragment = new RockerFragment();
+//                        }
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.controlFrame, rockerFragment).commitAllowingStateLoss();
+//                        controlBtnPRY.setBackgroundResource(R.drawable.control_fragment_check);
+//                        controlBtnPRY.setTextColor(getResources().getColor(R.color.colorWhite));
+//                        controlBtnSuperior.setBackgroundResource(R.color.transparent);
+//                        controlBtnSuperior.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//                        controlBtnXYZ.setBackgroundResource(R.color.transparent);
+//                        controlBtnXYZ.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//                        controlBtnNormal.setBackgroundResource(R.color.transparent);
+//                        controlBtnNormal.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//                        controlBtnArm.setBackgroundResource(R.color.transparent);
+//                        controlBtnArm.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+//                    }
+//                    break;
                 case R.id.controlBtnArm:
 //                    viewPager.setCurrentItem(2);
                     if (nowFragment != ARMFRAGMENT) {
                         nowFragment = ARMFRAGMENT;
-                        flagRockModeBtn = 1;
-                        if (barFragment == null) {
-                            barFragment = new BarFragment();
+                        if (armFragment == null) {
+                            armFragment = new ArmFragment();
                         }
-                        getSupportFragmentManager().beginTransaction().replace(R.id.controlFrame, barFragment).commitAllowingStateLoss();
-                        controlBtnArm.setBackgroundResource(R.drawable.control_fragment_check);
-                        controlBtnArm.setTextColor(getResources().getColor(R.color.colorWhite));
-                        controlBtnSuperior.setBackgroundResource(R.color.transparent);
-                        controlBtnSuperior.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnXYZ.setBackgroundResource(R.color.transparent);
-                        controlBtnXYZ.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnNormal.setBackgroundResource(R.color.transparent);
-                        controlBtnNormal.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
-                        controlBtnPRY.setBackgroundResource(R.color.transparent);
-                        controlBtnPRY.setTextColor(getResources().getColor(R.color.controlFragmentUnchecked));
+                        getSupportFragmentManager().beginTransaction().replace(R.id.controlFrame, armFragment).commitAllowingStateLoss();
+                        controlBtnArm.setActivated(true);
+                        controlBtnControl.setActivated(false);
+                        controlBtnPro.setVisibility(View.INVISIBLE);
+                        controlBtnMore.setVisibility(View.INVISIBLE);
                     }
                     break;
             }
@@ -496,6 +517,15 @@ public class ControlActivity extends AppCompatActivity {
         final Button ModeLowBtn = popView.findViewById(R.id.popSpeedLowBtn);//陀螺仪控制
         final Button ModeNormalBtn = popView.findViewById(R.id.popSpeedNormalBtn);//陀螺仪控制
         final Button ModeHighBtn = popView.findViewById(R.id.popSpeedHighBtn);//陀螺仪控制
+        final VerticalSeekBarArm heightSeekBar = popView.findViewById(R.id.heightSeekBar);
+        final TextView textHeight = popView.findViewById(R.id.controlHeightSeekBarHigh);
+        final VerticalSeekBarArm strideSeekBar = popView.findViewById(R.id.controlStrideSeekBar);
+        final TextView textStride = popView.findViewById(R.id.controlStrideSeekBarHigh);
+        heightSeekBar.setProgress(progressHeight);
+        textHeight.setText(String.valueOf(progressHeight));
+        strideSeekBar.setProgress(progressStride);
+        textStride.setText(String.valueOf(progressStride));
+
         switch(SpeedMode){
             case 0:
                 ModeNormalBtn.setActivated(true);
@@ -516,22 +546,10 @@ public class ControlActivity extends AppCompatActivity {
                 ModeLowBtn.setActivated(true);
                 ModeNormalBtn.setActivated(false);
                 ModeHighBtn.setActivated(false);
-                progress = 0;
-                MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.bodyZ, toOrderRange(progress, 0, 100)});
-                switch (nowFragment){
-                    case NORMALFRAGMENT:
-                        buttonFragment.updateProgress();
-                        break;
-                    case SUPERIORFRAGMENT:
-                        rockerFragment.updateProgress();
-                        break;
-                    case XYZFRAGMENT:
-                        rockerLeftFragment.updateProgress();
-                        break;
-                    case PRYFRAGMENT:
-                        rockerFragment.updateProgress();
-                        break;
-                }
+                progressHeight = 0;
+                MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.bodyZ, toOrderRange(progressHeight, 0, 100)});
+                heightSeekBar.updateProgress(progressHeight);
+                textHeight.setText(String.valueOf(progressHeight));
                 switch (localeLanguage) {
                     case "zh":
                         mToast.show(ControlActivity.this, "低速运动模式已开启");
@@ -550,22 +568,10 @@ public class ControlActivity extends AppCompatActivity {
                 ModeLowBtn.setActivated(false);
                 ModeNormalBtn.setActivated(true);
                 ModeHighBtn.setActivated(false);
-                progress = progressInit;
-                MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.bodyZ, toOrderRange(progressInit, 0, 100)});
-                switch (nowFragment){
-                    case NORMALFRAGMENT:
-                        buttonFragment.updateProgress();
-                        break;
-                    case SUPERIORFRAGMENT:
-                        rockerFragment.updateProgress();
-                        break;
-                    case XYZFRAGMENT:
-                        rockerLeftFragment.updateProgress();
-                        break;
-                    case PRYFRAGMENT:
-                        rockerFragment.updateProgress();
-                        break;
-                }
+                progressHeight = progressHeightInit;
+                MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.bodyZ, toOrderRange(progressHeightInit, 0, 100)});
+                heightSeekBar.updateProgress(progressHeight);
+                textHeight.setText(String.valueOf(progressHeight));
                 switch (localeLanguage) {
                     case "zh":
                         mToast.show(ControlActivity.this, "常速运动模式已开启");
@@ -584,22 +590,10 @@ public class ControlActivity extends AppCompatActivity {
                 ModeLowBtn.setActivated(false);
                 ModeNormalBtn.setActivated(false);
                 ModeHighBtn.setActivated(true);
-                progress = 80;
-                MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.bodyZ, toOrderRange(progress, 0, 100)});
-                switch (nowFragment){
-                    case NORMALFRAGMENT:
-                        buttonFragment.updateProgress();
-                        break;
-                    case SUPERIORFRAGMENT:
-                        rockerFragment.updateProgress();
-                        break;
-                    case XYZFRAGMENT:
-                        rockerLeftFragment.updateProgress();
-                        break;
-                    case PRYFRAGMENT:
-                        rockerFragment.updateProgress();
-                        break;
-                }
+                progressHeight = 80;
+                MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.bodyZ, toOrderRange(progressHeight, 0, 100)});
+                heightSeekBar.updateProgress(progressHeight);
+                textHeight.setText(String.valueOf(progressHeight));
                 switch (localeLanguage) {
                     case "zh":
                         mToast.show(ControlActivity.this, "高速运动模式已开启");
@@ -609,6 +603,73 @@ public class ControlActivity extends AppCompatActivity {
                 }
             }
         });
+
+        heightSeekBar.setListener(new VerticalSeekBarArm.ISeekBarListener() {
+            @Override
+            public void actionDown() {
+            }
+
+            @Override
+            public void actionUp() {
+            }
+
+            @Override
+            public void actionMove() {
+                nowTime = System.currentTimeMillis();
+                progressHeight = heightSeekBar.getProgress();
+                textHeight.setText(String.valueOf(progressHeight));
+                if ((nowTime - saveTime) > 200) {
+                    MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.bodyZ, toOrderRange(progressHeight, 0, 100)});
+                    saveTime = nowTime;
+                }
+            }
+        });
+
+        strideSeekBar.setListener(new VerticalSeekBarArm.ISeekBarListener() {
+            @Override
+            public void actionDown() {
+            }
+
+            @Override
+            public void actionUp() {
+            }
+
+            @Override
+            public void actionMove() {
+                progressStride = strideSeekBar.getProgress();
+                textStride.setText(String.valueOf(progressStride));
+            }
+        });
+
+        final Button popHeightBtn = popView.findViewById(R.id.popHeightBtn);
+        final Button popStrideBtn = popView.findViewById(R.id.popStrideBtn);
+        popHeightBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.action, (byte)0xff});
+                heightSeekBar.updateProgress(progressHeightInit);
+                textHeight.setText(String.valueOf(progressHeightInit));
+                progressHeight = progressHeightInit;
+            }
+        });
+
+        popStrideBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                strideSeekBar.updateProgress(progressStrideInit);
+                textStride.setText(String.valueOf(progressStrideInit));
+                progressStride = progressStrideInit;
+            }
+        });
+
+        // 舵机 移动至中位
+//        final Button PopServoBtn = popView.findViewById(R.id.popServoBtn);//陀螺仪控制
+//        PopServoBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                MainActivity.addMessage(new byte[]{0x5F, 0x01});
+//            }
+//        });
 //        Button IMUBtn = popView.findViewById(R.id.popIMUBtn);//陀螺仪控制
 //        IMUBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -724,10 +785,41 @@ public class ControlActivity extends AppCompatActivity {
 //                mPop.dismiss();
 //            }
 //        });
-        mPop = new PopupWindow(popView, controlBtnMore.getWidth() * 12, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mPop = new PopupWindow(popView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mPop.setOutsideTouchable(true);
         mPop.setFocusable(false);
         mPop.showAsDropDown(controlBtnMore);
+        mPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                controlBtnMore.setActivated(false);
+            }
+        });
+    }
+
+    private class getVersionThread extends Thread {
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    if (!PublicMethod.XGORAM_VALUE.versionNumber.equals("")){
+                        if (Integer.parseInt(PublicMethod.XGORAM_VALUE.versionNumber.substring(2,3)) < 3){
+
+
+                        } else if (Integer.parseInt(PublicMethod.XGORAM_VALUE.versionNumber.substring(2,3)) >= 3){
+
+
+                        }
+                    } else {
+
+                    }
+
+                    sleep(200);
+                } catch (Exception ignored) {
+                    Log.e("ACTOR", ignored.getMessage());
+                }
+            }
+        }
     }
 
 //    ReadXmlThread readXmlThread;

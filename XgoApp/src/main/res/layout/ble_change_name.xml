@@ -13,7 +13,8 @@
         android:layout_marginHorizontal="100dp"
         android:layout_gravity="center"
 
-        android:background="@drawable/ble_items_save_linearlayout_bg"
+
+        android:background="@drawable/backgound_rec_blue1"
 
         android:orientation="vertical"
         android:scrollbars="vertical">
@@ -25,7 +26,7 @@
             android:layout_height="50dp"
             android:gravity="center"
             android:text="@string/rename"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:layout_marginTop="18dp"
             android:layout_marginBottom="10dp"
@@ -33,6 +34,8 @@
 
         <EditText
             android:id="@+id/items_new_name"
+            android:textColorHint="#808080"
+            android:textColor="#FFFFFF"
             android:hint="@string/renameText"
             android:layout_width="match_parent"
             android:layout_height="46dp"
@@ -57,9 +60,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/ble_items_save_confim_bg"
+                android:background="@drawable/textbox_blue"
                 android:text="@string/confim"
-                android:textColor="#05c181"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="50dp"
@@ -71,9 +74,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/ble_items_save_cancel_bg"
+                android:background="@drawable/textbox_blue"
                 android:text="@string/cancel"
-                android:textColor="#777777"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="50dp"
@@ -82,15 +85,15 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/iv_close"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="85dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/items_close"
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_close"-->
+<!--        android:layout_width="30dp"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:layout_marginEnd="85dp"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:scaleType="fitCenter"-->
+<!--        android:src="@drawable/items_close"-->
 
-        />
+<!--        />-->
 </RelativeLayout>

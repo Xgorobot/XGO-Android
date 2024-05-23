@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,151 +10,155 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/tab2"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="82dp"
-            android:layout_height="match_parent"
-            android:gravity="left">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
-            <ImageButton
-                android:id="@+id/controlBtnExit"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                >
+                <ImageButton
+                    android:id="@+id/controlBtnExit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="15dp"
+                    android:background="#00000000"
+                    android:src="@drawable/back"
+                    />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="15dp"
+                    android:background="#00000000"
+                    android:src="@drawable/back"
+                    android:visibility="invisible"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:gravity="center"
+                android:orientation="horizontal"
+                >
+
+                <Button
+                    android:id="@+id/controlBtnControl"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/backgound_rec_blue2"
+                    android:text="@string/control_action"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/controlBtnArm"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/backgound_rec_blue2"
+                    android:text="@string/control_arm"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right">
+
+                    <ImageButton
+                        android:id="@+id/controlBtnPro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginTop="15dp"
+                        android:background="#00000000"
+                        android:src="@drawable/btn_pro_press"/>
+
+
+                    <ImageButton
+                        android:id="@+id/controlBtnMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginTop="15dp"
+                        android:background="#00000000"
+                        android:src="@drawable/developer_press" />
+                </LinearLayout>
+
+
+
+    <!--            <ImageButton-->
+    <!--                android:id="@+id/controlBtnConnect"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginRight="17dp"-->
+    <!--                android:background="#00000000"-->
+    <!--                android:scaleType="centerInside"-->
+    <!--                android:src="@drawable/bluetooth"-->
+    <!--                android:visibility="gone"/>-->
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+
+            <FrameLayout
+                android:id="@+id/controlFrame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/controlFrameCover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="17dp"
-                android:background="#00000000"
-                android:scaleType="centerInside"
-                android:src="@drawable/back" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                android:id="@+id/controlBtnNormal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:text="@string/normal"
-                android:textColor="#92a1b6"
-                android:textSize="20sp" />
-            <Button
-                android:id="@+id/controlBtnSuperior"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:text="@string/superior"
-                android:textColor="#92a1b6"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/controlBtnXYZ"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:text="@string/xyz"
-                android:textColor="#92a1b6"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/controlBtnPRY"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:text="@string/pry"
-                android:textColor="#92a1b6"
-                android:textSize="20sp" />
-            <Button
-                android:id="@+id/controlBtnArm"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:text="@string/arm"
-                android:textColor="#92a1b6"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="103dp"
-            android:layout_height="match_parent"
-            android:gravity="center|end"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/controlBtnProgram"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="28dp"
-                android:background="#00000000"
-                android:scaleType="centerInside"
-                android:src="@drawable/control_program"
+                android:background="#55222222"
+                android:gravity="center"
+                android:text="@string/executing"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
                 android:visibility="gone"/>
-            <ImageButton
-                android:id="@+id/controlBtnMore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="17dp"
-                android:background="#00000000"
-                android:scaleType="centerInside"
-                android:src="@drawable/developer" />
+            <!--    <androidx.viewpager.widget.ViewPager-->
+            <!--        android:id="@+id/controlViewPager"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="0dp"-->
+            <!--        android:layout_weight="1"/>-->
+        </RelativeLayout>
 
-
-
-            <ImageButton
-                android:id="@+id/controlBtnConnect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="17dp"
-                android:background="#00000000"
-                android:scaleType="centerInside"
-                android:src="@drawable/bluetooth"
-                android:visibility="gone"/>
-
-        </LinearLayout>
     </LinearLayout>
-
-    <RelativeLayout
+    <View
+        android:id="@+id/controlGrayBackground"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-
-        <FrameLayout
-            android:id="@+id/controlFrame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <Button
-            android:id="@+id/controlFrameCover"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#55222222"
-            android:gravity="center"
-            android:text="@string/executing"
-            android:textColor="#ffffff"
-            android:textSize="25sp"
-            android:visibility="gone"/>
-        <!--    <androidx.viewpager.widget.ViewPager-->
-        <!--        android:id="@+id/controlViewPager"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="0dp"-->
-        <!--        android:layout_weight="1"/>-->
-    </RelativeLayout>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#66000000"/>
+</RelativeLayout>

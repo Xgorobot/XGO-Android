@@ -26,13 +26,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffff99"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:imeOptions="flagNoExtractUi"/>
         <Button
             android:id="@+id/testWriteBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:text="@string/noResponseWrite"
             android:enabled="false"/>
     </LinearLayout>
@@ -53,20 +53,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#CCCCCC"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:layout_marginBottom="5dp"/>
         <com.luwu.xgo_robot.mView.SpaceEditText
             android:id="@+id/testWriteRespondEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffff99"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:imeOptions="flagNoExtractUi"/>
         <Button
             android:id="@+id/testWriteRespondBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:text="@string/responseWrite"
             android:enabled="false"/>
     </LinearLayout>
@@ -87,20 +87,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#CCCCCC"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:layout_marginBottom="5dp"/>
         <com.luwu.xgo_robot.mView.SpaceEditText
             android:id="@+id/testReadEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffff99"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:imeOptions="flagNoExtractUi"/>
         <Button
             android:id="@+id/testReadBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:text="@string/readData"
             android:enabled="false"/>
     </LinearLayout>

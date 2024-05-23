@@ -12,7 +12,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.Looper;
 import android.util.Log;
+
+import com.luwu.xgo_robot.AppContext;
 
 import java.lang.reflect.Method;
 import java.util.UUID;
@@ -35,7 +38,7 @@ public class BluetoothLeService extends Service {
     private static final int STATE_CONNECTED = 2;
 
     protected static final int MTU_SIZE = 23;   // 500 + 3，实际可用为500，为了传输固件文件 20210929
-    protected static final int MTU_SIZE_HUGE = 243;  // 传输大文件 sendHugeMessage()
+    protected static final int MTU_SIZE_HUGE = 503;  // 传输大文件 sendHugeMessage()
 
     public final static String ACTION_GATT_CONNECTED =
             "com.example.bluetooth.le.ACTION_GATT_CONNECTED";
@@ -75,7 +78,7 @@ public class BluetoothLeService extends Service {
                     intentAction = ACTION_GATT_DISCONNECTED;
                     mConnectionState = STATE_DISCONNECTED;
                     //todo  ！！！这里把gatt断开试试
-                    disconnect();
+//                    disconnect();
                     refreshDeviceCache();
                     Log.i(TAG, "发现服务失败");
                     broadcastUpdate(intentAction);
@@ -85,11 +88,15 @@ public class BluetoothLeService extends Service {
                 intentAction = ACTION_GATT_DISCONNECTED;
                 mConnectionState = STATE_DISCONNECTED;
                 //todo  ！！！这里把gatt断开试试
-                disconnect();
+//                disconnect();
+//                AppContext.reInitBle();
                 refreshDeviceCache();
                 Log.i(TAG, "Disconnected from GATT server.");
                 broadcastUpdate(intentAction);
                 close();
+                Looper.prepare();
+                AppContext.reInitBle();
+                Looper.loop();
             }
         }
 
@@ -313,7 +320,7 @@ public class BluetoothLeService extends Service {
      * After using a given BLE device, the app must call this method to ensure resources are
      * released properly.
      */
-    public synchronized void close() {
+    public void close() {
         if (mBluetoothGatt == null) {
             return;
         }

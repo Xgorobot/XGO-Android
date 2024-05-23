@@ -23,9 +23,9 @@ import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mView.RockerView;
 import com.luwu.xgo_robot.mView.VerticalSeekBar;
 
-import static com.luwu.xgo_robot.mActivity.ControlActivity.progressInit;
+import static com.luwu.xgo_robot.mActivity.ControlActivity.progressHeightInit;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.toOrderRange;
-import static com.luwu.xgo_robot.mActivity.ControlActivity.progress;
+import static com.luwu.xgo_robot.mActivity.ControlActivity.progressHeight;
 import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_ADDR;
@@ -62,10 +62,10 @@ public class RockerFragment extends Fragment {
         rockerViewLeft = view.findViewById(R.id.controlRockViewLeft);
         rockerViewRight = view.findViewById(R.id.controlRockViewRight);
         seekBar = view.findViewById(R.id.heightSeekBar);
-        seekBar.setProgress(progress);
+        seekBar.setProgress(progressHeight);
         btnReset = view.findViewById(R.id.rockerBtnReset);
         textHeight = view.findViewById(R.id.textHeight);
-        textHeight.setText(String.valueOf(progress));
+        textHeight.setText(String.valueOf(progressHeight));
         mViewListener();
         mHandler = new Handler() {
             @Override
@@ -108,8 +108,8 @@ public class RockerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.action, (byte)0xff});
-                seekBar.updateProgress(progressInit);
-                textHeight.setText(String.valueOf(progressInit));
+                seekBar.updateProgress(progressHeightInit);
+                textHeight.setText(String.valueOf(progressHeightInit));
             }
         });
         rockerViewLeft.setRockViewListener(new RockerView.IRockViewListener() {
@@ -216,24 +216,24 @@ public class RockerFragment extends Fragment {
 
             @Override
             public void actionUp() {
-                MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progress, 0, 100)});
+                MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progressHeight, 0, 100)});
             }
 
             @Override
             public void actionMove() {
                 nowTime = System.currentTimeMillis();
-                progress = seekBar.getProgress();
-                textHeight.setText(String.valueOf(progress));
+                progressHeight = seekBar.getProgress();
+                textHeight.setText(String.valueOf(progressHeight));
                 if ((nowTime - saveTime3) > 200) {//200ms刷新
-                    MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progress, 0, 100)});
+                    MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progressHeight, 0, 100)});
                     saveTime3 = nowTime;
                 }
             }
         });
     }
     public void updateProgress(){
-        seekBar.updateProgress(progress);
-        textHeight.setText(String.valueOf(progress));
+        seekBar.updateProgress(progressHeight);
+        textHeight.setText(String.valueOf(progressHeight));
     }
 
     private class getBatteryThread extends Thread {

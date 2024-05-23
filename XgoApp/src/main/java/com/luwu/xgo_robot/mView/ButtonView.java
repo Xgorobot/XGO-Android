@@ -23,6 +23,7 @@ public class ButtonView extends View {
     public static final int DOWNPRESS = 2;
     public static final int RIGHTPRESS = 3;
     public static final int LEFTPRESS = 4;
+    private int nowPress = 0;
     private final int DEFAULT_BACKGROUND_SIZE = 400;
     private int measureWidth, measureHeight;
     IButtonViewListener mListener;
@@ -38,6 +39,7 @@ public class ButtonView extends View {
         super(context, attrs);
         initAttribute(context, attrs);//拿到自定义属性
         mUseBitmap = mBackgroundBitmap;
+        nowPress = 0;
         mBackgroundPaint = new Paint();
         mBackgroundPaint.setAntiAlias(true);
     }
@@ -134,6 +136,7 @@ public class ButtonView extends View {
                     case UPPRESS:
                         if (mUpBitmap != null) {
                             changeBackground(mUpBitmap);
+                            nowPress = UPPRESS;
                             if (mListener != null) {
                                 mListener.actionDown(UPPRESS);
                             }
@@ -142,6 +145,7 @@ public class ButtonView extends View {
                     case DOWNPRESS:
                         if (mDownBitmap != null) {
                             changeBackground(mDownBitmap);
+                            nowPress = DOWNPRESS;
                             if (mListener != null) {
                                 mListener.actionDown(DOWNPRESS);
                             }
@@ -150,6 +154,7 @@ public class ButtonView extends View {
                     case LEFTPRESS:
                         if (mLeftBitmap != null) {
                             changeBackground(mLeftBitmap);
+                            nowPress = LEFTPRESS;
                             if (mListener != null) {
                                 mListener.actionDown(LEFTPRESS);
                             }
@@ -158,6 +163,7 @@ public class ButtonView extends View {
                     case RIGHTPRESS:
                         if (mRightBitmap != null) {
                             changeBackground(mRightBitmap);
+                            nowPress = RIGHTPRESS;
                             if (mListener != null) {
                                 mListener.actionDown(RIGHTPRESS);
                             }
@@ -166,8 +172,7 @@ public class ButtonView extends View {
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                changeBackground(mBackgroundBitmap);
-                switch (getPressPosition(new Point((int) moveX, (int) moveY))) {
+                switch (nowPress) {
                     case UPPRESS:
                         if (mUpBitmap != null) {
                             if (mListener != null) {
@@ -197,6 +202,8 @@ public class ButtonView extends View {
                         }
                         break;
                 }
+                changeBackground(mBackgroundBitmap);
+                nowPress = USELESSPRESS;
                 break;
         }
         return true;

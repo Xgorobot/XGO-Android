@@ -44,7 +44,7 @@ public class BleSearchActivity extends Activity {
 
     private BleAdapter bleAdapter;
     private ListView listView;
-    private ImageView button;
+//    private ImageView button;
     private TextView helpMsg;
 
     private ProgressDialog progressDialog;
@@ -111,7 +111,7 @@ public class BleSearchActivity extends Activity {
                 title.setText("Connected,Rename it!");
         }
         final EditText items_name_edit = layout.findViewById(R.id.items_new_name);
-        ImageView iv_close = (ImageView) layout.findViewById(R.id.iv_close);
+//        ImageView iv_close = (ImageView) layout.findViewById(R.id.iv_close);
         dialog.show();
         WindowManager.LayoutParams params =
                 dialog.getWindow().getAttributes();
@@ -119,13 +119,13 @@ public class BleSearchActivity extends Activity {
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes(params);
 
-        iv_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                finish();
-            }
-        });
+//        iv_close.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//                finish();
+//            }
+//        });
         // 设置取消按钮的事件
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,6 +201,7 @@ public class BleSearchActivity extends Activity {
 
     }
 
+
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -216,13 +217,13 @@ public class BleSearchActivity extends Activity {
 
     BleDeviceEntity deviceForConnect;
     private void initView() {
-        button = findViewById(R.id.bluetooth_close);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+//        button = findViewById(R.id.bluetooth_close);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
         listView = (ListView) findViewById(R.id.search_listview);
         bleAdapter = new BleAdapter(this, R.layout.ble_item_search, bluetoothList);
         listView.setAdapter(bleAdapter);

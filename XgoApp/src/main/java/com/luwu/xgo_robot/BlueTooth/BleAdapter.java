@@ -42,7 +42,7 @@ public class BleAdapter extends ArrayAdapter<BleDeviceEntity> {
             viewHolder.name = convertView.findViewById(R.id.ble_name);
             viewHolder.mac = convertView.findViewById(R.id.ble_macId);
             viewHolder.rssi = convertView.findViewById(R.id.ble_rssi);
-            viewHolder.imageView = convertView.findViewById(R.id.ble_rssi_image);
+//            viewHolder.imageView = convertView.findViewById(R.id.ble_rssi_image);
 
             convertView.setTag(viewHolder);
         } else {
@@ -52,17 +52,17 @@ public class BleAdapter extends ArrayAdapter<BleDeviceEntity> {
         viewHolder.mac.setText(bluetoothEntity.getMac());
         viewHolder.rssi.setText(bluetoothEntity.getRssi() + "");
 
-        if (bluetoothEntity.getRssi() >= -55) {
-            viewHolder.imageView.setImageResource(R.drawable.ble_level5);
-        } else if (bluetoothEntity.getRssi() >= -70 && bluetoothEntity.getRssi() < -55) {
-            viewHolder.imageView.setImageResource(R.drawable.ble_level4);
-        } else if (bluetoothEntity.getRssi() >= -85 && bluetoothEntity.getRssi() < -70) {
-            viewHolder.imageView.setImageResource(R.drawable.ble_level3);
-        } else if (bluetoothEntity.getRssi() >= -100 && bluetoothEntity.getRssi() < -85) {
-            viewHolder.imageView.setImageResource(R.drawable.ble_level2);
-        } else {
-            viewHolder.imageView.setImageResource(R.drawable.ble_level1);
-        }
+//        if (bluetoothEntity.getRssi() >= -55) {
+//            viewHolder.imageView.setImageResource(R.drawable.ble_level5);
+//        } else if (bluetoothEntity.getRssi() >= -70 && bluetoothEntity.getRssi() < -55) {
+//            viewHolder.imageView.setImageResource(R.drawable.ble_level4);
+//        } else if (bluetoothEntity.getRssi() >= -85 && bluetoothEntity.getRssi() < -70) {
+//            viewHolder.imageView.setImageResource(R.drawable.ble_level3);
+//        } else if (bluetoothEntity.getRssi() >= -100 && bluetoothEntity.getRssi() < -85) {
+//            viewHolder.imageView.setImageResource(R.drawable.ble_level2);
+//        } else {
+//            viewHolder.imageView.setImageResource(R.drawable.ble_level1);
+//        }
         return convertView;
     }
 
@@ -70,7 +70,7 @@ public class BleAdapter extends ArrayAdapter<BleDeviceEntity> {
         TextView name;
         TextView mac;
         TextView rssi;
-        ImageView imageView;
+//        ImageView imageView;
     }
 }
 

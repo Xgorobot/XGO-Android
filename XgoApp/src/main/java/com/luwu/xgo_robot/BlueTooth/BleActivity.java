@@ -93,6 +93,7 @@ public class BleActivity extends AppCompatActivity implements View.OnClickListen
         super.onResume();
         hideBottomUIMenu(BleActivity.this);
         Log.d("BluetoothLeService", "ble,Resume");
+        findViewById(R.id.bleGrayBackground).setVisibility(View.GONE);
 //        //为加速度传感器注册监听器
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_GAME);
@@ -100,6 +101,7 @@ public class BleActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void initView() {
+        findViewById(R.id.bleGrayBackground).setOnClickListener(this);
         findViewById(R.id.home_ble_search).setOnClickListener(this);
         findViewById(R.id.home_ble_close).setOnClickListener(this);
         mBtConnectState = findViewById(R.id.home_ble_state);
@@ -300,7 +302,7 @@ public class BleActivity extends AppCompatActivity implements View.OnClickListen
                 title.setText("Connected. Rename it");
         }
         final EditText items_name_edit = layout.findViewById(R.id.items_new_name);
-        ImageView iv_close = (ImageView) layout.findViewById(R.id.iv_close);
+//        ImageView iv_close = (ImageView) layout.findViewById(R.id.iv_close);
         dialog.show();
         WindowManager.LayoutParams params =
                 dialog.getWindow().getAttributes();
@@ -308,13 +310,13 @@ public class BleActivity extends AppCompatActivity implements View.OnClickListen
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes(params);
 
-        iv_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                finish();
-            }
-        });
+//        iv_close.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//                finish();
+//            }
+//        });
         // 设置取消按钮的事件
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -602,7 +604,11 @@ public class BleActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.bleGrayBackground:
+                findViewById(R.id.bleGrayBackground).setVisibility(View.GONE);
+                break;
             case R.id.home_ble_search:
+                findViewById(R.id.bleGrayBackground).setVisibility(View.VISIBLE);
                 Intent intent = new Intent(BleActivity.this, BleSearchActivity.class);
                 startActivityForResult(intent, SEARCHACTIVITY_CONECT);
                 break;

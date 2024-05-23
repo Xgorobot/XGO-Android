@@ -243,7 +243,7 @@
                         android:background="@color/transparent"
                         android:text="@string/recordtick"
                         android:textColor="@color/white"
-                        android:textSize="25sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -268,7 +268,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="@string/leftforeleg"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <RadioGroup
                                 android:id="@+id/singleBlocklyRG1"
@@ -283,7 +283,7 @@
                                     android:layout_marginRight="10dp"
                                     android:text="@string/uninstall"
                                     android:textColor="@color/white"
-                                    android:textSize="25sp" />
+                                    android:textSize="18sp" />
 
                                 <RadioButton
                                     android:id="@+id/singleBlocklyRBH1"
@@ -293,7 +293,7 @@
                                     android:checked="true"
                                     android:text="@string/recovery"
                                     android:textColor="@color/white"
-                                    android:textSize="25sp" />
+                                    android:textSize="18sp" />
                             </RadioGroup>
                         </LinearLayout>
                     </HorizontalScrollView>
@@ -314,7 +314,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="@string/rightforeleg"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <RadioGroup
                                 android:id="@+id/singleBlocklyRG2"
@@ -329,7 +329,7 @@
                                     android:layout_marginRight="10dp"
                                     android:text="@string/uninstall"
                                     android:textColor="@color/white"
-                                    android:textSize="25sp" />
+                                    android:textSize="18sp" />
 
                                 <RadioButton
                                     android:id="@+id/singleBlocklyRBH2"
@@ -339,7 +339,7 @@
                                     android:checked="true"
                                     android:text="@string/recovery"
                                     android:textColor="@color/white"
-                                    android:textSize="25sp" />
+                                    android:textSize="18sp" />
                             </RadioGroup>
 
                         </LinearLayout>
@@ -361,7 +361,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="@string/righthindleg"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <RadioGroup
                                 android:id="@+id/singleBlocklyRG3"
@@ -376,7 +376,7 @@
                                     android:layout_marginRight="10dp"
                                     android:text="@string/uninstall"
                                     android:textColor="@color/white"
-                                    android:textSize="25sp" />
+                                    android:textSize="18sp" />
 
                                 <RadioButton
                                     android:id="@+id/singleBlocklyRBH3"
@@ -386,7 +386,7 @@
                                     android:checked="true"
                                     android:text="@string/recovery"
                                     android:textColor="@color/white"
-                                    android:textSize="25sp" />
+                                    android:textSize="18sp" />
                             </RadioGroup>
 
                         </LinearLayout>
@@ -408,7 +408,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="@string/lefthindleg"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <RadioGroup
                                 android:id="@+id/singleBlocklyRG4"
@@ -423,7 +423,7 @@
                                     android:layout_marginRight="10dp"
                                     android:text="@string/uninstall"
                                     android:textColor="@color/white"
-                                    android:textSize="25sp" />
+                                    android:textSize="18sp" />
 
                                 <RadioButton
                                     android:id="@+id/singleBlocklyRBH4"
@@ -433,7 +433,7 @@
                                     android:checked="true"
                                     android:text="@string/recovery"
                                     android:textColor="@color/white"
-                                    android:textSize="25sp" />
+                                    android:textSize="18sp" />
                             </RadioGroup>
 
                         </LinearLayout>
@@ -459,7 +459,7 @@
                         android:background="@color/transparent"
                         android:text="@string/viewAngle"
                         android:textColor="@color/white"
-                        android:textSize="25sp" />
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -485,7 +485,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="11:"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/singleBlocklyTxtMotor1"
@@ -494,7 +494,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="0"
                                 android:textColor="@color/white"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -502,7 +502,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="12:"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/singleBlocklyTxtMotor2"
@@ -511,7 +511,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="0"
                                 android:textColor="@color/white"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -519,7 +519,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="13:"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/singleBlocklyTxtMotor3"
@@ -528,7 +528,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="0"
                                 android:textColor="@color/white"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
                         </LinearLayout>
                     </HorizontalScrollView>
 
@@ -547,7 +547,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="21:"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/singleBlocklyTxtMotor4"
@@ -556,7 +556,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="0"
                                 android:textColor="@color/white"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -564,7 +564,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="22:"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/singleBlocklyTxtMotor5"
@@ -573,7 +573,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="0"
                                 android:textColor="@color/white"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -581,7 +581,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="23:"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/singleBlocklyTxtMotor6"
@@ -590,7 +590,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="0"
                                 android:textColor="@color/white"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                         </LinearLayout>
                     </HorizontalScrollView>
@@ -610,7 +610,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="31:"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/singleBlocklyTxtMotor7"
@@ -619,7 +619,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="0"
                                 android:textColor="@color/white"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -627,7 +627,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="32:"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/singleBlocklyTxtMotor8"
@@ -636,7 +636,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="0"
                                 android:textColor="@color/white"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -644,7 +644,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="33:"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/singleBlocklyTxtMotor9"
@@ -653,7 +653,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="0"
                                 android:textColor="@color/white"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                         </LinearLayout>
                     </HorizontalScrollView>
@@ -674,7 +674,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="41:"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/singleBlocklyTxtMotor10"
@@ -683,7 +683,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="0"
                                 android:textColor="@color/white"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -691,7 +691,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="42:"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/singleBlocklyTxtMotor11"
@@ -700,7 +700,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="0"
                                 android:textColor="@color/white"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -708,7 +708,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="43:"
                                 android:textColor="@color/blue"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/singleBlocklyTxtMotor12"
@@ -717,7 +717,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:text="0"
                                 android:textColor="@color/white"
-                                android:textSize="25sp" />
+                                android:textSize="18sp" />
                         </LinearLayout>
                     </HorizontalScrollView>
                 </LinearLayout>
@@ -740,7 +740,7 @@
                 android:background="@color/transparent"
                 android:text="@string/teachingModel"
                 android:textColor="@color/white"
-                android:textSize="25sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
     </RelativeLayout>

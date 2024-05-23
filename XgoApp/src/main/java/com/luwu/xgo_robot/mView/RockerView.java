@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,11 +29,12 @@ public class RockerView extends View {
     private int mBackgroundColor;
     private Bitmap mRockerBitmap;
     private int mRockerColor;
+    private GradientDrawable mRockerShape;
     private int mBackgroundRadius;
     private int mRockerRadius;
     private float mRockerRadiusPersent;
 
-    final private int isPhoto = 0, isColor = 1, isDefault = 2;//设置的背景模式 0：图片 1：颜色 2默认模式
+    final private int isPhoto = 0, isColor = 1, isDefault = 2, isGradient = 3;//设置的背景模式 0：图片 1：颜色 2默认模式
     private int mBackgroundMode = isDefault, mRockerMode = isDefault;
 
     private Paint mBackgroundPaint;
@@ -45,7 +47,7 @@ public class RockerView extends View {
     private Point speedPersent;
     //降低机器狗运动速度
     private float speedRatio = 0.8f;
-    //提供给外部的数据 -100< .x <100  -100< .y <100
+    //提供给外部的数据 -100< .x <100  -100< .y <100 (100 * 0.8f = 80)
     public Point getSpeed(){
         return new Point((int)(this.speedPersent.x*speedRatio), (int)(this.speedPersent.y*speedRatio));
     }
@@ -103,6 +105,10 @@ public class RockerView extends View {
                 // 色值
                 mRockerColor = ((ColorDrawable) mRockre).getColor();
                 mRockerMode = isColor;
+            } else if (mRockre instanceof GradientDrawable) {
+                // 形状
+                mRockerShape = ((GradientDrawable) mRockre);
+                mRockerMode = isGradient;
             } else {
                 // 其他形式
                 mRockerMode = isDefault;
@@ -186,6 +192,9 @@ public class RockerView extends View {
             Rect src = new Rect(0, 0, mRockerBitmap.getWidth(), mRockerBitmap.getHeight());
             Rect dst = new Rect(mRockerPosition.x - mRockerRadius, mRockerPosition.y - mRockerRadius, mRockerPosition.x + mRockerRadius, mRockerPosition.y + mRockerRadius);
             canvas.drawBitmap(mRockerBitmap, src, dst, mRockerPaint);
+        } else if (mRockerMode == isGradient) {
+            mRockerShape.setBounds(mRockerPosition.x - mRockerRadius, mRockerPosition.y - mRockerRadius, mRockerPosition.x + mRockerRadius, mRockerPosition.y + mRockerRadius);
+            mRockerShape.draw(canvas);
         } else if (mRockerMode == isDefault) {
             mRockerPaint.setColor(0xff03eb9c);
             canvas.drawCircle(mRockerPosition.x, mRockerPosition.y, mRockerRadius, mRockerPaint);

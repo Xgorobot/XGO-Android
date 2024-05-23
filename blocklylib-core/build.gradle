@@ -26,6 +26,7 @@ android {
           abortOnError false
     }
     publishNonDefault false
+    namespace 'com.google.blockly.android'
 }
 
 dependencies {

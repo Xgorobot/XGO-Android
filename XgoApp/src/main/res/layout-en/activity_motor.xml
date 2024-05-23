@@ -154,7 +154,7 @@
                     android:gravity="center"
                     android:text="@string/top"
                     android:textColor="#ffffff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <SeekBar
                     android:id="@+id/motorSeekBarX"
@@ -177,7 +177,7 @@
                     android:gravity="center"
                     android:text="0"
                     android:textColor="#ffffff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -186,7 +186,7 @@
                     android:gravity="left"
                     android:text="°"
                     android:textColor="#ffffff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -204,7 +204,7 @@
                     android:gravity="center"
                     android:text="@string/middle"
                     android:textColor="#ffffff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <SeekBar
                     android:id="@+id/motorSeekBarY"
@@ -227,7 +227,7 @@
                     android:gravity="center"
                     android:text="43"
                     android:textColor="#ffffff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -236,7 +236,7 @@
                     android:gravity="left"
                     android:text="°"
                     android:textColor="#ffffff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -253,7 +253,7 @@
                     android:gravity="center"
                     android:text="@string/Bottom"
                     android:textColor="#ffffff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <SeekBar
                     android:id="@+id/motorSeekBarZ"
@@ -276,7 +276,7 @@
                     android:gravity="center"
                     android:text="20"
                     android:textColor="#ffffff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -285,7 +285,7 @@
                     android:gravity="left"
                     android:text="°"
                     android:textColor="#ffffff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

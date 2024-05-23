@@ -3,6 +3,7 @@ package com.luwu.xgo_robot.mActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -16,6 +17,7 @@ import com.luwu.xgo_robot.mMothed.PublicMethod;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_ADDR.nameBt;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_ADDR.versionNumber;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.hideBottomUIMenu;
+import static com.luwu.xgo_robot.mMothed.PublicMethod.localeLanguage;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -34,6 +36,8 @@ public class ActorActivity extends AppCompatActivity {
 
     private Button actorBtn0x80, actorBtn0x81, actorBtn0x82;
     private byte[] actionAdditional = {(byte) 0x80, (byte) 0x81, (byte) 0x82};
+
+    private static int groupNum = 1; // 1, lite1动作组 ; 2, lite2动作组
 
 //    private TextView actorTitle;
 
@@ -66,8 +70,8 @@ public class ActorActivity extends AppCompatActivity {
         actorBtn3.setOnClickListener(mButtonClickListener);
         actorBtn4 = findViewById(R.id.actorBtn4);
         actorBtn4.setOnClickListener(mButtonClickListener);
-        actorBtn5 = findViewById(R.id.actorBtn5);
-        actorBtn5.setOnClickListener(mButtonClickListener);
+//        actorBtn5 = findViewById(R.id.actorBtn5);
+//        actorBtn5.setOnClickListener(mButtonClickListener);
         actorBtn6 = findViewById(R.id.actorBtn6);
         actorBtn6.setOnClickListener(mButtonClickListener);
         actorBtn7 = findViewById(R.id.actorBtn7);
@@ -98,51 +102,123 @@ public class ActorActivity extends AppCompatActivity {
         actorBtn19.setOnClickListener(mButtonClickListener);
 
         actorBtn20 = findViewById(R.id.actorBtn20);
-//        actorBtn20.setOnClickListener(mButtonClickListener);
+        actorBtn20.setOnClickListener(mButtonClickListener);
         actorBtn21 = findViewById(R.id.actorBtn21);
-//        actorBtn21.setOnClickListener(mButtonClickListener);
+        actorBtn21.setOnClickListener(mButtonClickListener);
         actorBtn22 = findViewById(R.id.actorBtn22);
-//        actorBtn22.setOnClickListener(mButtonClickListener);
+        actorBtn22.setOnClickListener(mButtonClickListener);
         actorBtn23 = findViewById(R.id.actorBtn23);
-//        actorBtn23.setOnClickListener(mButtonClickListener);
+        actorBtn23.setOnClickListener(mButtonClickListener);
         actorBtn24 = findViewById(R.id.actorBtn24);
-//        actorBtn24.setOnClickListener(mButtonClickListener);
+        actorBtn24.setOnClickListener(mButtonClickListener);
 
         actorBtn0x80 = findViewById(R.id.actorBtn0x80);
-//        actorBtn0x80.setOnClickListener(mButtonClickListener);
+        actorBtn0x80.setOnClickListener(mButtonClickListener);
         actorBtn0x81 = findViewById(R.id.actorBtn0x81);
-//        actorBtn0x81.setOnClickListener(mButtonClickListener);
+        actorBtn0x81.setOnClickListener(mButtonClickListener);
         actorBtn0x82 = findViewById(R.id.actorBtn0x82);
-//        actorBtn0x82.setOnClickListener(mButtonClickListener);
-        try {
-            if (PublicMethod.XGORAM_VALUE.versionNumber.equals("") || Integer.parseInt(PublicMethod.XGORAM_VALUE.versionNumber.substring(2,3)) < 3){
-                actorBtn20.setVisibility(View.INVISIBLE);
-                actorBtn21.setVisibility(View.INVISIBLE);
-                actorBtn22.setVisibility(View.INVISIBLE);
-                actorBtn23.setVisibility(View.INVISIBLE);
-                actorBtn24.setVisibility(View.INVISIBLE);
-                actorBtn0x80.setVisibility(View.INVISIBLE);
-                actorBtn0x81.setVisibility(View.INVISIBLE);
-                actorBtn0x82.setVisibility(View.INVISIBLE);
-            } else {
-                actorBtn20.setOnClickListener(mButtonClickListener);
-                actorBtn21.setOnClickListener(mButtonClickListener);
-                actorBtn22.setOnClickListener(mButtonClickListener);
-                actorBtn23.setOnClickListener(mButtonClickListener);
-                actorBtn24.setOnClickListener(mButtonClickListener);
-                actorBtn0x80.setOnClickListener(mButtonClickListener);
-                actorBtn0x81.setOnClickListener(mButtonClickListener);
-                actorBtn0x82.setOnClickListener(mButtonClickListener);
+        actorBtn0x82.setOnClickListener(mButtonClickListener);
+
+        groupNum = 1;
+        getVersionThread mGetVersionThread = new getVersionThread();
+        mGetVersionThread.start();
+    }
+
+    //实时获取版本号线程
+    private class getVersionThread extends Thread {
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    if (!PublicMethod.XGORAM_VALUE.versionNumber.equals("")){
+                        if (Integer.parseInt(PublicMethod.XGORAM_VALUE.versionNumber.substring(2,3)) < 3){
+                            if (groupNum == 2) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        actorBtn20.setVisibility(View.INVISIBLE);
+                                        actorBtn21.setVisibility(View.INVISIBLE);
+                                        actorBtn22.setVisibility(View.INVISIBLE);
+                                        actorBtn23.setVisibility(View.INVISIBLE);
+                                        actorBtn24.setVisibility(View.INVISIBLE);
+                                        actorBtn0x80.setVisibility(View.INVISIBLE);
+                                        actorBtn0x81.setVisibility(View.INVISIBLE);
+                                        actorBtn0x82.setVisibility(View.INVISIBLE);
+
+                                        actorBtn20.setClickable(false);
+                                        actorBtn21.setClickable(false);
+                                        actorBtn22.setClickable(false);
+                                        actorBtn23.setClickable(false);
+                                        actorBtn24.setClickable(false);
+                                        actorBtn0x80.setClickable(false);
+                                        actorBtn0x81.setClickable(false);
+                                        actorBtn0x82.setClickable(false);
+                                        groupNum = 1;
+
+                                    }
+                                });
+                            }
+                        } else if (Integer.parseInt(PublicMethod.XGORAM_VALUE.versionNumber.substring(2,3)) >= 3){
+                            if (groupNum == 1) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        actorBtn20.setVisibility(View.VISIBLE);
+                                        actorBtn21.setVisibility(View.VISIBLE);
+                                        actorBtn22.setVisibility(View.VISIBLE);
+                                        actorBtn23.setVisibility(View.VISIBLE);
+                                        actorBtn24.setVisibility(View.VISIBLE);
+                                        actorBtn0x80.setVisibility(View.VISIBLE);
+                                        actorBtn0x81.setVisibility(View.VISIBLE);
+                                        actorBtn0x82.setVisibility(View.VISIBLE);
+
+                                        actorBtn20.setClickable(true);
+                                        actorBtn21.setClickable(true);
+                                        actorBtn22.setClickable(true);
+                                        actorBtn23.setClickable(true);
+                                        actorBtn24.setClickable(true);
+                                        actorBtn0x80.setClickable(true);
+                                        actorBtn0x81.setClickable(true);
+                                        actorBtn0x82.setClickable(true);
+                                        groupNum = 2;
+
+                                    }
+                                });
+                            }
+                        }
+                    } else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                actorBtn20.setVisibility(View.INVISIBLE);
+                                actorBtn21.setVisibility(View.INVISIBLE);
+                                actorBtn22.setVisibility(View.INVISIBLE);
+                                actorBtn23.setVisibility(View.INVISIBLE);
+                                actorBtn24.setVisibility(View.INVISIBLE);
+                                actorBtn0x80.setVisibility(View.INVISIBLE);
+                                actorBtn0x81.setVisibility(View.INVISIBLE);
+                                actorBtn0x82.setVisibility(View.INVISIBLE);
+
+                                actorBtn20.setClickable(false);
+                                actorBtn21.setClickable(false);
+                                actorBtn22.setClickable(false);
+                                actorBtn23.setClickable(false);
+                                actorBtn24.setClickable(false);
+                                actorBtn0x80.setClickable(false);
+                                actorBtn0x81.setClickable(false);
+                                actorBtn0x82.setClickable(false);
+                                groupNum = 1;
+
+                            }
+                        });
+                    }
+
+                    sleep(200);
+                } catch (Exception ignored) {
+                    Log.e("ACTOR", ignored.getMessage());
+                }
             }
-        } catch (Exception ignored) {
-            actorBtn20.setVisibility(View.INVISIBLE);
-            actorBtn21.setVisibility(View.INVISIBLE);
-            actorBtn22.setVisibility(View.INVISIBLE);
-            actorBtn23.setVisibility(View.INVISIBLE);
-            actorBtn24.setVisibility(View.INVISIBLE);
-            actorBtn0x80.setVisibility(View.INVISIBLE);
-            actorBtn0x81.setVisibility(View.INVISIBLE);
-            actorBtn0x82.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -151,6 +227,7 @@ public class ActorActivity extends AppCompatActivity {
         super.onResume();
         hideBottomUIMenu(ActorActivity.this);
     }
+
 
 
     private class ButtonClickListener implements View.OnClickListener {
@@ -176,9 +253,9 @@ public class ActorActivity extends AppCompatActivity {
                 case R.id.actorBtn4:
                     sendAction(action[3]);
                     break;
-                case R.id.actorBtn5:
-                    sendAction(action[4]);
-                    break;
+//                case R.id.actorBtn5:
+//                    sendAction(action[4]);
+//                    break;
                 case R.id.actorBtn6:
                     sendAction(action[5]);
                     break;

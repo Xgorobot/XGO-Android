@@ -12,12 +12,15 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.content.Context;
+import android.widget.TextView;
 
+import com.luwu.xgo_robot.AppContext;
 import com.luwu.xgo_robot.BlueTooth.BleActivity;
 import com.luwu.xgo_robot.BlueTooth.BleClient;
 import com.luwu.xgo_robot.R;
@@ -48,8 +51,10 @@ public class SettingActivity extends AppCompatActivity {
     private RadioButton settingRadioClose,settingRadioNoClose;
     private RadioButton settingRadioDevelop, settingRadioAntiDevelop;
     private RadioButton settingLanWithSystem, settingLanChinese, settingLanEnglish;
+//    private TextView settingTextVersion;
 //    private Button hexBtn;
     private ProgressDialog progressDialog;
+//    private static getVersionThread mGetVersionThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,15 +86,22 @@ public class SettingActivity extends AppCompatActivity {
         settingLanChinese = findViewById(R.id.settingLanChinese);
         settingLanEnglish = findViewById(R.id.settingLanEnglish);
 
+//        settingTextVersion = findViewById(R.id.settingTextVersion);
+
 //        hexBtn = findViewById(R.id.hexBtn);
 
         setSelected();//设置监听之前调用
         setListener();//监听事件
+
+//        mGetVersionThread = new getVersionThread();
+//        mGetVersionThread.start();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+//        mGetVersionThread = new getVersionThread();
+//        mGetVersionThread.start();
         hideBottomUIMenu(SettingActivity.this);
     }
 
@@ -411,6 +423,42 @@ public class SettingActivity extends AppCompatActivity {
             this.recreate();
         } else {
 
+        }
+    }
+
+    private class getVersionThread extends Thread {
+        @Override
+        public void run() {
+            while (currentThread().isAlive()) {
+                try {
+                    if (PublicMethod.XGORAM_VALUE.productType > 0 && isBluetoothConnect ) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String productType = "";
+                                switch(PublicMethod.XGORAM_VALUE.productType){
+                                    case 0:
+                                        productType = "XGO-mini ";
+                                        break;
+                                    case 1:
+                                        productType = "XGO-lite ";
+                                        break;
+                                    case 2:
+                                        productType = "XGO-Rider ";
+                                        break;
+                                    default:
+                                        break;
+                                }
+//                                settingTextVersion.setText(productType + AppContext.getmBleClient().getBleNameConnected());
+                            }
+                        });
+                        break;
+                    }
+                    Thread.sleep(200);
+                } catch (Exception ignored) {
+
+                }
+            }
         }
     }
 }

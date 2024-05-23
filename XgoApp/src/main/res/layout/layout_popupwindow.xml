@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#333333">
+    android:layout_width="350dp"
+    android:layout_height="190dp"
+    android:background="@drawable/backgound_rec_blue1_1">
 
-    <TextView
-        android:id="@+id/popTxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:textSize="25sp"
-        android:text="@string/morefc"
-        android:gravity="center"/>
+<!--    <TextView-->
+<!--        android:id="@+id/popTxt"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="#ffffff"-->
+<!--        android:textSize="18sp"-->
+<!--        android:text="@string/morefc"-->
+<!--        android:gravity="center"/>-->
     <Switch
         android:id="@+id/popMoveSwitch"
         android:layout_width="wrap_content"
@@ -28,17 +29,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="16dp">
         <TextView
             android:id="@+id/popIMUTxt"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:text="@string/gyroscope"
             android:gravity="left|center"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"/>
+            android:layout_marginLeft="18dp"
+            android:layout_weight="1"
+            />
         <Switch
             android:id="@+id/IMUSwitch"
             android:layout_width="wrap_content"
@@ -46,9 +48,11 @@
             android:background="@color/transparent"
             android:checked="false"
             android:gravity="right|center"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="20dp"
             android:switchMinWidth="60dp"
-            android:layout_weight="2"/>
+            android:layout_weight="6"
+
+            />
         <!--
         <Button
             android:id="@+id/popIMUOnBtn"
@@ -87,49 +91,218 @@
         android:layout_marginTop="15dp">
         <TextView
             android:id="@+id/popSpeedTxt"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:textColor="#ffffff"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:text="@string/motion"
             android:gravity="left|center"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginLeft="18dp"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right">
+            android:gravity="right"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            >
+
             <Button
                 android:id="@+id/popSpeedLowBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_enable"
+                android:layout_width="73dp"
+                android:layout_height="24dp"
+                android:background="@drawable/backgound_rec_blue5_start"
                 android:gravity="center"
                 android:text="@string/lowspeed"
                 android:textColor="#ffffff"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/popSpeedNormalBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_enable"
+                android:layout_width="73dp"
+                android:layout_height="24dp"
+                android:background="@drawable/backgound_rec_blue5_mid"
                 android:gravity="center"
                 android:text="@string/normalspeed"
                 android:textColor="#ffffff"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/popSpeedHighBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="73dp"
+                android:layout_height="24dp"
                 android:textColor="#ffffff"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:text="@string/highspeed"
                 android:gravity="center"
-                android:background="@drawable/button_enable" />
+                android:background="@drawable/backgound_rec_blue5_end" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+        <TextView
+            android:id="@+id/popHeightText"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:text="@string/control_height"
+            android:gravity="left|center"
+            android:layout_marginLeft="18dp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_weight="6">
+            <TextView
+                android:id="@+id/controlHeightSeekBarLow"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:text="0"
+                android:textColor="#8BA4C7"
+                android:textSize="12sp"
+                android:gravity="right|center"/>
+
+
+            <com.luwu.xgo_robot.mView.VerticalSeekBarArm
+                android:id="@+id/heightSeekBar"
+                android:layout_width="150dp"
+                android:layout_height="20dp"
+                app:allBackground="@drawable/seekbar_background"
+                app:pastBackground="@drawable/seekbar_past_shape"
+                app:thumbBackground="@drawable/seekbar_thumb"
+                android:layout_gravity="center"
+                />
+
+
+            <TextView
+                android:id="@+id/controlHeightSeekBarHigh"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:text="100"
+                android:textColor="#3981FB"
+                android:textSize="12sp"
+                android:gravity="left|center"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp">
+
+                <Button
+                    android:id="@+id/popHeightBtn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/btn_more_reset"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="15dp">
+        <TextView
+            android:id="@+id/popStrideText"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:text="@string/control_stride"
+            android:gravity="left|center"
+            android:layout_marginLeft="18dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_weight="6">
+            <TextView
+                android:id="@+id/controlStrideSeekBarLow"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:text="0"
+                android:textColor="#8BA4C7"
+                android:textSize="12sp"
+                android:gravity="right|center"/>
+
+
+            <com.luwu.xgo_robot.mView.VerticalSeekBarArm
+                android:id="@+id/controlStrideSeekBar"
+                android:layout_width="150dp"
+                android:layout_height="20dp"
+                app:allBackground="@drawable/seekbar_background"
+                app:pastBackground="@drawable/seekbar_past_shape"
+                app:thumbBackground="@drawable/seekbar_thumb"
+                android:layout_gravity="center"/>
+
+
+            <TextView
+                android:id="@+id/controlStrideSeekBarHigh"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:text="100"
+                android:textColor="#3981FB"
+                android:textSize="12sp"
+                android:gravity="left|center"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp">
+                <Button
+                    android:id="@+id/popStrideBtn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/btn_more_reset"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="15dp">-->
+<!--        <TextView-->
+<!--            android:id="@+id/popServoText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:textColor="#ffffff"-->
+<!--            android:textSize="18sp"-->
+<!--            android:text="@string/pop_servo_text"-->
+<!--            android:gravity="left|center"-->
+<!--            android:layout_marginLeft="5dp" />-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="right">-->
+<!--            <Button-->
+<!--                android:id="@+id/popServoBtn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/button_press"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/pop_servo_btn"-->
+<!--                android:textColor="#ffffff"-->
+<!--                android:textSize="15sp"-->
+<!--                android:paddingHorizontal="10dp"/>-->
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
 
 
 

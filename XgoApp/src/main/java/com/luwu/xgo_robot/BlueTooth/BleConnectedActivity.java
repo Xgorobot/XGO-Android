@@ -36,7 +36,7 @@ import static com.luwu.xgo_robot.mMothed.PublicMethod.hideBottomUIMenu;
 public class BleConnectedActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int REQUEST_ENABLE_BT = 1;
-    private TextView mBtConnectState;
+//    private TextView mBtConnectState;
     private BluetoothAdapter mBluetoothAdapter;
     private List<BleDeviceEntity> list = new ArrayList<>();
     private List<BleDeviceEntity> bluetoothList = new ArrayList<>();
@@ -66,7 +66,8 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
         findViewById(R.id.ble_conected_rename).setOnClickListener(this);
         findViewById(R.id.ble_conected_close).setOnClickListener(this);
         findViewById(R.id.ble_conected_search).setOnClickListener(this);
-        mBtConnectState = findViewById(R.id.ble_conected_state);
+        findViewById(R.id.bleConnectedGrayBackground).setOnClickListener(this);
+//        mBtConnectState = findViewById(R.id.ble_conected_state);
     }
 
     @Override
@@ -75,6 +76,7 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
 //        mBtConnectState.setText(getResources().getString(R.string.conectedsuccess) + AppContext.getmBleClient().getBleNameConected());
         flagLoop = true;
         String connectState;
+        findViewById(R.id.bleConnectedGrayBackground).setVisibility(View.GONE);
         switch(PublicMethod.localeLanguage){
             case "zh":
                 connectState = String.format("连接成功 "+ AppContext.getmBleClient().getBleNameConnected());
@@ -83,7 +85,7 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
                 connectState = String.format(AppContext.getmBleClient().getBleNameConnected() + " connected");
         }
 
-        mBtConnectState.setText(connectState);
+//        mBtConnectState.setText(connectState);
 //        getProductType = new getProductTypeThread();
 //        getProductType.start();
     }
@@ -91,7 +93,11 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.bleConnectedGrayBackground:
+                findViewById(R.id.bleConnectedGrayBackground).setVisibility(View.GONE);
+                break;
             case R.id.ble_conected_search:
+                findViewById(R.id.bleConnectedGrayBackground).setVisibility(View.VISIBLE);
                 Intent intent = new Intent(BleConnectedActivity.this, BleSearchActivity.class);
                 startActivityForResult(intent, 1);
                 break;
@@ -100,13 +106,15 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.ble_conected_disconected:
                 AppContext.getmBleClient().disConnect();
+
                 if (DeviceUtil.isTabletDevice(BleConnectedActivity.this)){
-//                    Intent intent2 = new Intent(BleConectedActivity.this, SearchActivity.class);
-//                    startActivity(intent2);
+                    Intent intent2 = new Intent(BleConnectedActivity.this, BleSearchActivity.class);
+                    startActivity(intent2);
                 }else {
                     Intent intent2 = new Intent(BleConnectedActivity.this, BleActivity.class);
                     startActivity(intent2);
                 }
+                AppContext.reInitBle();
                 finish();
                 break;
             case R.id.ble_conected_rename:
@@ -135,7 +143,7 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
         Button confirm_btn = (Button) layout.findViewById(R.id.confirm_btn);
         TextView title = (TextView) layout.findViewById(R.id.title);
         final EditText items_name_edit = layout.findViewById(R.id.items_new_name);
-        ImageView iv_close = (ImageView) layout.findViewById(R.id.iv_close);
+//        ImageView iv_close = (ImageView) layout.findViewById(R.id.iv_close);
         dialog.show();
         WindowManager.LayoutParams params =
                 dialog.getWindow().getAttributes();
@@ -143,12 +151,12 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes(params);
 
-        iv_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+//        iv_close.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
         // 设置取消按钮的事件
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,7 +196,7 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
                                 progressDialog = ProgressDialog.show(BleConnectedActivity.this, "蓝牙已被重命名",
                                         "请重启机器狗", false, true);
 
-                                progressDialog.dismiss();
+//                                progressDialog.dismiss();
                                 break;
                             default:
                                 Toast.makeText(BleConnectedActivity.this,
@@ -198,34 +206,36 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
                                         "Please restart XGO", false, true);
 
                         }
-                        Thread delay_dismiss = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    Thread.sleep(3000);
-                                } catch (Exception exception){
-
-                                }
-                                progressDialog.dismiss();
-                            }
-                        });
-                        delay_dismiss.start();
-
-                        // 重命名后不断开连接
-//                        new Handler().postDelayed(new Runnable() {
+//                        Thread delay_dismiss = new Thread(new Runnable() {
 //                            @Override
 //                            public void run() {
-//                                progressDialog.dismiss();
-//                                AppContext.getmBleClient().disConnect();
-//                                if (DeviceUtil.isTabletDevice(BleConnectedActivity.this)){
-//                                    Intent intent2 = new Intent(BleConnectedActivity.this, BleSearchActivity.class);
-//                                    startActivity(intent2);
-//                                }else {
-//                                    Intent intent2 = new Intent(BleConnectedActivity.this, BleActivity.class);
-//                                    startActivity(intent2);
+//                                try {
+//                                    Thread.sleep(3000);
+//                                } catch (Exception exception){
+//
 //                                }
+//                                progressDialog.dismiss();
 //                            }
-//                        }, 4500);
+//                        });
+//                        delay_dismiss.start();
+
+                        // 重命名后不断开连接
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                AppContext.getmBleClient().disConnect();
+                                if (DeviceUtil.isTabletDevice(BleConnectedActivity.this)){
+                                    Intent intent2 = new Intent(BleConnectedActivity.this, BleSearchActivity.class);
+                                    startActivity(intent2);
+                                }else {
+                                    Intent intent2 = new Intent(BleConnectedActivity.this, BleActivity.class);
+                                    startActivity(intent2);
+                                }
+                                flagLoop = false;
+                                finish();
+                            }
+                        }, 4500);
 
                     } else {
                         switch(PublicMethod.localeLanguage){
@@ -308,42 +318,6 @@ public class BleConnectedActivity extends AppCompatActivity implements View.OnCl
                 break;
             default:
                 break;
-        }
-    }
-
-    // 读取设备类型
-    private class getProductTypeThread extends Thread {
-        @Override
-        public void run() {
-            while (currentThread().isAlive()) {
-                MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.productType, 0x01});
-                Message message = new Message();
-//                message.what = 0;
-                mHandler.sendMessageDelayed(message, 200);//200ms以后拿结果
-                try {
-                    sleep(5000);//5s更新一次
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    // 读取版本号
-    private class getVersionNumberThread extends Thread {
-        @Override
-        public void run() {
-            while (currentThread().isAlive()) {
-                MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.versionNumber, 0x01});
-                Message message = new Message();
-//                message.what = 0;
-                mHandler.sendMessageDelayed(message, 200);//200ms以后拿结果
-                try {
-                    sleep(5000);//5s更新一次
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 }

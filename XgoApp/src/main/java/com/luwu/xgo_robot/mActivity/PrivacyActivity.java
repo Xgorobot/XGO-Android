@@ -20,7 +20,7 @@ public class PrivacyActivity extends AppCompatActivity {
     protected final static String HTML_TEXT_TITLE="<h1 align=\"center\">隐私政策</h1>";
     protected final static String HTML_TEXT_TITLE_EN="<h1 align=\"center\">PRIVACY POLICY</h1>";
     protected final static String HTML_TEXT=
-//            "<p>&nbsp;&nbsp;&nbsp;&nbsp;本隐私政策详细说明了哈尔滨陆吾智能科技有限公司（“陆吾智能”、“我们”或“我们的”）通过我们的应用程序收集的信息，以及我们将如何使用这些信息。</p>\n" +
+//            "<p>&nbsp;&nbsp;&nbsp;&nbsp;本隐私政策详细说明了陆吾智能科技有限公司（“陆吾智能”、“我们”或“我们的”）通过我们的应用程序收集的信息，以及我们将如何使用这些信息。</p>\n" +
 //            "<h3>1.陆吾智能不会通过我们的应用程序收集用户的信息</h3>\n" +
 //            "<p>&nbsp;&nbsp;&nbsp;&nbsp;我们深知用户个人信息的重要性，在我们的APP中，不要求用户输入任何个人信息资料。用户使用我们的软件时可能会被读取一些信息（比如基于GPS的粗略的位置信息、手机蓝牙状态、手机传感器状态等），这是由于APP需要和陆吾智能的机器人进行通讯，以便用户能够正常地使用我们的应用程序。陆吾智能承诺所读取到的任何信息，只被应用于APP的开发，而不会透露给第三方（其他个人或公司）。</p>\n" +
 //            "<h3>2.手机APP可能会申请以下权限：</h3>\n" +
@@ -32,10 +32,10 @@ public class PrivacyActivity extends AppCompatActivity {
 //            "<p>&nbsp;&nbsp;&nbsp;&nbsp;为了保证我们的应用程序能够更好的为用户服务，陆吾智能有权不经过向您特别通知而对软件进行更新。</p>\n" +
 //            "<h3>4.其他</h3>\n" +
 //            "<p>&nbsp;&nbsp;&nbsp;&nbsp;安装并使用APP视为您同意上述隐私政策。</p>";
-    "<p>哈尔滨陆吾智能科技有限公司是依据中华人民共和国法律成立的有限责任公司（以下简称“陆吾智能”或“我们”，包括其母公司、子公司、关联公司等）。我们重视维护和保护用户的个人信息。您在使用陆吾智能的产品或服务（包括网站 https://www.xgorobot.com/其子域名网站）时，我们可能会收集和使用您的个人信息。本《隐私权政策》旨在向您说明我们如何收集、储存、使用或分享您的个人信息。希望您仔细阅读本《隐私权政策》，以便在需要的时候，能让您作出合适的选择。</p>\n" +
+    "<p>陆吾智能科技有限公司是依据中华人民共和国法律成立的有限责任公司（以下简称“陆吾智能”或“我们”，包括其母公司、子公司、关联公司等）。我们重视维护和保护用户的个人信息。您在使用陆吾智能的产品或服务（包括网站 https://www.xgorobot.com 其子域名网站）时，我们可能会收集和使用您的个人信息。本《隐私权政策》旨在向您说明我们如何收集、储存、使用或分享您的个人信息。希望您仔细阅读本《隐私权政策》，以便在需要的时候，能让您作出合适的选择。</p>\n" +
             "<p>您使用或继续使用陆吾智能的产品或服务，即意味着您同意我们按照本《隐私权政策》收集、储存、使用和分享您的个人信息。</p>\n" +
-            "<p>最近更新日期：2021年11月3日。</p>\n" +
-            "<p>陆吾智能地址：哈尔滨市南岗区邮政街副434号哈工大科技园大厦二层203号</p>\n" +
+            "<p>最近更新日期：2023年9月20日。</p>\n" +
+            "<p>陆吾智能地址：无锡市锡山区安镇街道翠山路488号无锡东站高铁商务中心B栋501-7</p>\n" +
             "<p>如果您有任何疑问、意见或建议，请通过以下联系方式与我们联系：</p>\n" +
             "<p>电子邮件：hello@xgorobot.com</p>\n" +
             "<p>本政策将帮助您了解以下内容：</p>\n" +
@@ -154,10 +154,10 @@ public class PrivacyActivity extends AppCompatActivity {
             "<p>如果您对我们的回复不满意，特别是我们的个人信息处理行为损害了您的合法权益，您还可以通过以下外部途径寻求解决方案：向【陆吾智能住所地有管辖权的法院提起诉讼】。</p>";
 
     protected final static String HTML_TEXT_EN =
-            "<p>Harbin Luwu Intelligent Technology Co., Ltd. (“LuWu Intelligent” or “we,” including its subsidiaries, parent company and affiliates) is a limited liability company established in accordance with the laws of the People's Republic of China. We value the protection and privacy of our users' personal information. When you use LuWu Intelligent's products or services (including the website https://www.xgorobot.com/and its subdomains), we may collect and use your personal information. This Privacy Policy aims to explain how we collect, store, use, and share your personal information. We hope that you carefully read this Privacy Policy so that you can make appropriate choices when needed.</p>\n" +
+            "<p>Luwu Intelligent Technology Co., Ltd. (“LuWu Intelligent” or “we,” including its subsidiaries, parent company and affiliates) is a limited liability company established in accordance with the laws of the People's Republic of China. We value the protection and privacy of our users' personal information. When you use LuWu Intelligent's products or services (including the website https://www.xgorobot.com/and its subdomains), we may collect and use your personal information. This Privacy Policy aims to explain how we collect, store, use, and share your personal information. We hope that you carefully read this Privacy Policy so that you can make appropriate choices when needed.</p>\n" +
                     "<p>Your use or continued use of LuWu Intelligent's products or services implies that you agree to the collection, storage, use, and sharing of your personal information in accordance with this Privacy Policy.</p>\n" +
-                    "<p>Last Updated: November 3, 2021.</p>\n" +
-                    "<p>Address of LuWu Intelligent: Room 203, 2nd Floor, Harbin Institute of Technology Science Park Building, No. 434 Postal Street, Nangang District, Harbin City</p>\n" +
+                    "<p>Last Updated: November 3, 2022.</p>\n" +
+                    "<p>Address of LuWu Intelligent: 501-7, building B, high speed rail business center, Wuxi East Station, 488 Cuishan Road, anzhen street, Xishan District, Wuxi City</p>\n" +
                     "<p>If you have any questions, comments, or suggestions, please contact us through the following:</p>\n" +
                     "<p>Email: hello@xgorobot.com</p>\n" +
                     "<p>This policy will help you understand the following:</p>\n" +

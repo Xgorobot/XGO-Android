@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="260dp"
     android:layout_height="40dp"
-    android:background="@drawable/ble_list_item_background">
+    android:layout_marginTop="20dp"
+    android:background="@color/transparent">
 
     <TextView
         android:layout_centerVertical="true"
@@ -11,9 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:textSize="18sp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="5dp"
         />
 
     <TextView
@@ -37,13 +38,13 @@
         android:visibility="gone"
         />
 
-    <ImageView
-        android:id="@+id/ble_rssi_image"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="24dp"
-        android:contentDescription="image"
-        />
+<!--    <ImageView-->
+<!--        android:id="@+id/ble_rssi_image"-->
+<!--        android:layout_width="34dp"-->
+<!--        android:layout_height="34dp"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_centerVertical="true"-->
+<!--        android:layout_marginEnd="24dp"-->
+<!--        android:contentDescription="image"-->
+<!--        />-->
 </RelativeLayout>

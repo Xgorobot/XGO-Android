@@ -1,7 +1,7 @@
 package com.luwu.xgo_robot.mFragment;
 
-import static com.luwu.xgo_robot.mActivity.ControlActivity.progress;
-import static com.luwu.xgo_robot.mActivity.ControlActivity.progressInit;
+import static com.luwu.xgo_robot.mActivity.ControlActivity.progressHeight;
+import static com.luwu.xgo_robot.mActivity.ControlActivity.progressHeightInit;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_ADDR;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_VALUE;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.toOrderRange;
@@ -60,10 +60,10 @@ public class RockerLeftFragment extends Fragment {
 //        rockerTxtSpeed = view.findViewById(R.id.rockerTxtSpeed);
         rockerViewLeft = view.findViewById(R.id.controlRockViewLeft);
         seekBar = view.findViewById(R.id.heightSeekBar);
-        seekBar.setProgress(progress);
+        seekBar.setProgress(progressHeight);
         btnReset = view.findViewById(R.id.rockerLeftBtnReset);
         textHeight = view.findViewById(R.id.textHeight);
-        textHeight.setText(String.valueOf(progress));
+        textHeight.setText(String.valueOf(progressHeight));
         mViewListener();
         mHandler = new Handler() {
             @Override
@@ -106,8 +106,8 @@ public class RockerLeftFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.action, (byte)0xff});
-                seekBar.updateProgress(progressInit);
-                textHeight.setText(String.valueOf(progressInit));
+                seekBar.updateProgress(progressHeightInit);
+                textHeight.setText(String.valueOf(progressHeightInit));
             }
         });
         rockerViewLeft.setRockViewListener(new RockerView.IRockViewListener() {
@@ -140,8 +140,8 @@ public class RockerLeftFragment extends Fragment {
                 if ((nowTime - saveTime1) > 300) {//500
                     Point speed = rockerViewLeft.getSpeed();
                     if (ControlActivity.flagRockModeBtn == 0) {//全向移动
-                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.speedVx, toOrderRange(-speed.y, speedRange, speedRange)});
-                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.speedVyaw, toOrderRange(-speed.x, speedRange, speedRange)});
+                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.speedVx, toOrderRange(-speed.y, -speedRange, speedRange)});
+                        MainActivity.addMessage(new byte[]{XGORAM_ADDR.speedVyaw, toOrderRange(-speed.x, -speedRange, speedRange)});
                     } else if (ControlActivity.flagRockModeBtn == 1) {//xyz转动
                         MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyPitch, toOrderRange(-speed.y, -speedRange, speedRange)});
                         MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyRoll, toOrderRange(speed.x, -speedRange, speedRange)});
@@ -168,16 +168,16 @@ public class RockerLeftFragment extends Fragment {
 
             @Override
             public void actionUp() {
-                MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progress, 0, 100)});
+                MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progressHeight, 0, 100)});
             }
 
             @Override
             public void actionMove() {
                 nowTime = System.currentTimeMillis();
-                progress = seekBar.getProgress();
-                textHeight.setText(String.valueOf(progress));
+                progressHeight = seekBar.getProgress();
+                textHeight.setText(String.valueOf(progressHeight));
                 if ((nowTime - saveTime3) > 200) {//200ms刷新
-                    MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progress, 0, 100)});
+                    MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progressHeight, 0, 100)});
                     saveTime3 = nowTime;
                 }
             }
@@ -185,8 +185,8 @@ public class RockerLeftFragment extends Fragment {
     }
 
     public void updateProgress(){
-        seekBar.updateProgress(progress);
-        textHeight.setText(String.valueOf(progress));
+        seekBar.updateProgress(progressHeight);
+        textHeight.setText(String.valueOf(progressHeight));
     }
 
     private class getBatteryThread extends Thread {

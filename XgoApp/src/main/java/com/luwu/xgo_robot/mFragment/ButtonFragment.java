@@ -21,14 +21,13 @@ import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mView.ButtonView;
 import com.luwu.xgo_robot.mView.VerticalSeekBar;
 
-import static com.luwu.xgo_robot.mActivity.ControlActivity.progressInit;
+import static com.luwu.xgo_robot.mActivity.ControlActivity.progressHeightInit;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.toOrderRange;
-import static com.luwu.xgo_robot.mActivity.ControlActivity.progress;
+import static com.luwu.xgo_robot.mActivity.ControlActivity.progressHeight;
 import static com.luwu.xgo_robot.mView.ButtonView.DOWNPRESS;
 import static com.luwu.xgo_robot.mView.ButtonView.LEFTPRESS;
 import static com.luwu.xgo_robot.mView.ButtonView.RIGHTPRESS;
 import static com.luwu.xgo_robot.mView.ButtonView.UPPRESS;
-import static java.lang.Math.sqrt;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_ADDR;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_VALUE;
 
@@ -67,11 +66,11 @@ public class ButtonFragment extends Fragment {
 //        buttonTxtSpeed = view.findViewById(R.id.buttonTxtSpeed);
 
         seekBar = view.findViewById(R.id.heightSeekBar);
-        seekBar.setProgress(progress);
+        seekBar.setProgress(progressHeight);
 
         btnReset = view.findViewById(R.id.buttonBtnReset);
         textHeight = view.findViewById(R.id.textHeight);
-        textHeight.setText(String.valueOf(progress));
+        textHeight.setText(String.valueOf(progressHeight));
 
         mViewListener();
         mHandler = new Handler() {
@@ -110,8 +109,8 @@ public class ButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.action, (byte)0xff});
-                seekBar.updateProgress(progressInit);
-                textHeight.setText(String.valueOf(progressInit));
+                seekBar.updateProgress(progressHeightInit);
+                textHeight.setText(String.valueOf(progressHeightInit));
             }
         });
         seekBar.setListener(new VerticalSeekBar.ISeekBarListener() {
@@ -126,10 +125,10 @@ public class ButtonFragment extends Fragment {
             @Override
             public void actionMove() {
                 nowTime = System.currentTimeMillis();
-                progress = seekBar.getProgress();
-                textHeight.setText(String.valueOf(progress));
+                progressHeight = seekBar.getProgress();
+                textHeight.setText(String.valueOf(progressHeight));
                 if ((nowTime - saveTime) > 200) {
-                    MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progress, 0, 100)});
+                    MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progressHeight, 0, 100)});
                     saveTime = nowTime;
                 }
             }
@@ -218,8 +217,8 @@ public class ButtonFragment extends Fragment {
      * 手动更新（非seekbar）progress
      */
     public void updateProgress(){
-        seekBar.updateProgress(progress);
-        textHeight.setText(String.valueOf(progress));
+        seekBar.updateProgress(progressHeight);
+        textHeight.setText(String.valueOf(progressHeight));
     }
 
     private class getBatteryThread extends Thread {

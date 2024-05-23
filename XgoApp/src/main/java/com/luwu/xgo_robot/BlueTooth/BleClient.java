@@ -195,6 +195,8 @@ public class BleClient {
                 isBluetoothConnect=false;
                 mBluetoothDevice = null;
                 Log.d(TAG, "收到蓝牙断开的广播");
+                PublicMethod.XGORAM_VALUE.versionNumber = "";
+                PublicMethod.XGORAM_VALUE.productType = -1;
                 switch(PublicMethod.localeLanguage){
                     case "zh":
                         mToast.show(mContext,"蓝牙已断开");
@@ -389,7 +391,7 @@ public class BleClient {
                 j += mtu;
                 try {
 //                    System.out.println(temp.length);
-                    Thread.sleep(12);//最高10ms发送一次
+                    Thread.sleep(24);//最高10ms发送一次
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -400,7 +402,7 @@ public class BleClient {
                 write(temp);
                 try {
 //                    System.out.println(temp.length);
-                    Thread.sleep(12);//最高10ms发送一次
+                    Thread.sleep(24);//最高10ms发送一次
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -763,14 +765,31 @@ public class BleClient {
                     case PublicMethod.XGORAM_ADDR.battery:
                         PublicMethod.XGORAM_VALUE.battery = PublicMethod.byteToInt(msg[i_msg]);
                         break;
-                    case PublicMethod.XGORAM_ADDR.productType:
-                        PublicMethod.XGORAM_VALUE.productType = PublicMethod.byteToInt(msg[i_msg]);
-                        break;
+//                    case PublicMethod.XGORAM_ADDR.productType:
+//                        PublicMethod.XGORAM_VALUE.productType = PublicMethod.byteToInt(msg[i_msg]);
+//                        break;
                     case PublicMethod.XGORAM_ADDR.versionNumber:
                         PublicMethod.XGORAM_VALUE.versionNumber = new String(Arrays.copyOfRange(msg, i_msg, i_msg+10));
+                        switch (PublicMethod.XGORAM_VALUE.versionNumber.substring(0, 1)){
+                            case "M":
+                                PublicMethod.XGORAM_VALUE.productType = 0;
+                                break;
+                            case "L":
+                                PublicMethod.XGORAM_VALUE.productType = 1;
+                                break;
+                            case "R":
+                                PublicMethod.XGORAM_VALUE.productType = 2;
+                                break;
+                            default:
+                                PublicMethod.XGORAM_VALUE.productType = -1;
+                                break;
+                        }
+
                         i_msg += 9;
                         break;
                     case PublicMethod.XGORAM_ADDR.updateHex:
+//                        System.out.println("~~~~~~~~~~~!!!!!!!!!!!!!!!!!!!");
+//                        System.out.println(PublicMethod.byteToInt(msg[i_msg]));
                         PublicMethod.XGORAM_VALUE.updateHex = PublicMethod.byteToInt(msg[i_msg]);
                         break;
                     case PublicMethod.XGORAM_ADDR.connectBt:
@@ -929,18 +948,18 @@ public class BleClient {
 //                    case XGORAM_ADDR.sensorRadio:
 //                        XGORAM_VALUE.sensorRadio=PublicMethod.byteToInt(msg[i_msg]);
 //                        break;
-                    case PublicMethod.XGORAM_ADDR.sensorLedR:
-                        PublicMethod.XGORAM_VALUE.sensorLedR = PublicMethod.byteToInt(msg[i_msg]);
-                        break;
-                    case PublicMethod.XGORAM_ADDR.sensorLedG:
-                        PublicMethod.XGORAM_VALUE.sensorLedG = PublicMethod.byteToInt(msg[i_msg]);
-                        break;
-                    case PublicMethod.XGORAM_ADDR.sensorLedB:
-                        PublicMethod.XGORAM_VALUE.sensorLedB = PublicMethod.byteToInt(msg[i_msg]);
-                        break;
-                    case PublicMethod.XGORAM_ADDR.sensorMagnet:
-                        PublicMethod.XGORAM_VALUE.sensorMagnet = PublicMethod.byteToInt(msg[i_msg]);
-                        break;
+//                    case PublicMethod.XGORAM_ADDR.sensorLedR:
+//                        PublicMethod.XGORAM_VALUE.sensorLedR = PublicMethod.byteToInt(msg[i_msg]);
+//                        break;
+//                    case PublicMethod.XGORAM_ADDR.sensorLedG:
+//                        PublicMethod.XGORAM_VALUE.sensorLedG = PublicMethod.byteToInt(msg[i_msg]);
+//                        break;
+//                    case PublicMethod.XGORAM_ADDR.sensorLedB:
+//                        PublicMethod.XGORAM_VALUE.sensorLedB = PublicMethod.byteToInt(msg[i_msg]);
+//                        break;
+//                    case PublicMethod.XGORAM_ADDR.sensorMagnet:
+//                        PublicMethod.XGORAM_VALUE.sensorMagnet = PublicMethod.byteToInt(msg[i_msg]);
+//                        break;
                     default:
                         break;
                 }

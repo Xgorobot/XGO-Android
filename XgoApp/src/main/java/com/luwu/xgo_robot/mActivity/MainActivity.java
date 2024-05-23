@@ -2,24 +2,24 @@ package com.luwu.xgo_robot.mActivity;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -31,13 +31,7 @@ import com.luwu.xgo_robot.R;
 import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mMothed.mToast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
-
-import yoop.bannerlayout.BannerViewLayout;
-import yoop.bannerlayout.PageIndicator;
 
 import static com.luwu.xgo_robot.mActivity.PrivacyActivity.HTML_TEXT;
 import static com.luwu.xgo_robot.mActivity.PrivacyActivity.HTML_TEXT_EN;
@@ -49,19 +43,25 @@ import static com.luwu.xgo_robot.mMothed.PublicMethod.localeLanguage;
 
 
 public class MainActivity extends AppCompatActivity {
-    BannerViewLayout mBanner;
-    PageIndicator mIndicator;
-    OnBannerListener mOnBannerListener = new OnBannerListener();
-    OnPageChangeListener mOnPageChangeListener = new OnPageChangeListener();
+//    BannerViewLayout mBanner;
+//    PageIndicator mIndicator;
+//    OnBannerListener mOnBannerListener = new OnBannerListener();
+//    OnPageChangeListener mOnPageChangeListener = new OnPageChangeListener();
 
-    private ImageButton mainBtnConnect, mainBtnSetting, mainBtnAbout;
-    private ImageButton mainBtnDebug, mainBtnDownload;
+    private ImageButton mainBtnConnectImg;
+    private Button mainBtnConnectText;
+    private ImageButton mainBtnSetting, mainBtnAbout, mainBtnDebug, mainBtnDownload;
+    private TextView mainTextSetting, mainTextAbout, mainTextDebug, mainTextDownload;
+
+    private ImageButton mainBtnStart;
     private MyBtnListener myBtnListener;
     private long mExitTime = 0;//点击两次返回键返回
-    private String mainLanguage;
+//    private String mainLanguage = "";
     private Handler mHandler;
-    private static getProductTypeThread getProductType; //处理产品型号读取线程
-    private static getVersionNumberThread getVersionNumber;; //处理版本号读取线程
+//    private static getProductTypeThread getProductType; //处理产品型号读取线程. 停用
+    private static askVersionNumberThread getVersionNumber;; //处理版本号读取线程
+
+    private static getVersionThread mGetVersionThread;
 //    private Handler mHandler;
 
     @Override
@@ -78,31 +78,43 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        updateLocale();
         super.onResume();
         hideBottomUIMenu(MainActivity.this);
         SharedPreferences info = getSharedPreferences("xgo_setting", MODE_PRIVATE);
         String setting_develop = info.getString("setting_develop", "no");
         if (setting_develop.equals("yes")) {
-            mainBtnDebug.setVisibility(View.VISIBLE);
-            mainBtnDownload.setVisibility(View.VISIBLE);
+            findViewById(R.id.mainLayoutDeveloper).setVisibility(View.VISIBLE);
         } else {
-            mainBtnDebug.setVisibility(View.GONE);
-            mainBtnDownload.setVisibility(View.GONE);
+            findViewById(R.id.mainLayoutDeveloper).setVisibility(View.GONE);
         }
-        if(!mainLanguage.equals(localeLanguage)){
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();//不再返回该页面
-                }
-            },0);
-        }
-        getProductType = new getProductTypeThread();
-        getProductType.start();
-        getVersionNumber = new getVersionNumberThread();
+
+        getVersionNumber = new askVersionNumberThread();
         getVersionNumber.start();
+        mGetVersionThread = new getVersionThread();
+        mGetVersionThread.start();
+
+
+        if (AppContext.getmBleClient().isConnected()){
+            mainBtnConnectImg.setImageDrawable(getResources().getDrawable((R.drawable.main_bluetooth_connect)));
+            mainBtnConnectText.setText(AppContext.getmBleClient().getBleNameConnected());
+        } else {
+            mainBtnConnectImg.setImageDrawable(getResources().getDrawable((R.drawable.main_bluetooth_dis)));
+            mainBtnConnectText.setText(R.string.pls_connect_bt);
+        }
+        switch (localeLanguage){
+            case "zh":
+                mainTextSetting.setText("设置");
+                mainTextAbout.setText("关于");
+                mainTextDebug.setText("标定");
+                mainTextDownload.setText("下载");
+                break;
+            default:
+                mainTextSetting.setText("Setting");
+                mainTextAbout.setText("About");
+                mainTextDebug.setText("Calibrate");
+                mainTextDownload.setText("Hex");
+        }
     }
 
     @Override
@@ -113,51 +125,64 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        getVersionNumber.interrupt();
+        mGetVersionThread.interrupt();
         finish();
     }
+
+
 
     //控件初始化
     private void InitView() {
         myBtnListener = new MyBtnListener();
 
-        mainBtnConnect = findViewById(R.id.mainBtnConnect);
+        mainBtnConnectImg = findViewById(R.id.mainBtnConnectImg);
+        mainBtnConnectText = findViewById(R.id.mainBtnConnectText);
         mainBtnSetting = findViewById(R.id.mainBtnSetting);
         mainBtnAbout = findViewById(R.id.mainBtnAbout);
         mainBtnDebug = findViewById(R.id.mainBtnDebug);
         mainBtnDownload = findViewById(R.id.mainBtnDownload);
+        mainBtnStart = findViewById(R.id.mainBtnStart);
+        mainTextSetting = findViewById(R.id.mainTextSetting);
+        mainTextAbout = findViewById(R.id.mainTextAbout);
+        mainTextDebug = findViewById(R.id.mainTextDebug);
+        mainTextDownload = findViewById(R.id.mainTextDownload);
 
-        mainBtnConnect.setOnClickListener(myBtnListener);
+        mainBtnConnectImg.setOnClickListener(myBtnListener);
+        mainBtnConnectText.setOnClickListener(myBtnListener);
         mainBtnSetting.setOnClickListener(myBtnListener);
         mainBtnAbout.setOnClickListener(myBtnListener);
         mainBtnDebug.setOnClickListener(myBtnListener);
         mainBtnDownload.setOnClickListener(myBtnListener);
+        mainBtnStart.setOnClickListener(myBtnListener);
+//        mainBtnStart.setVisibility(View.GONE);
 
-        mBanner = findViewById(R.id.main_banner);
-        mIndicator = findViewById(R.id.main_indicator);
-        mBanner.setOnPageChangeListener(mOnPageChangeListener);
-        mBanner.setOnBannerListener(mOnBannerListener);
-        List<Drawable> url = new ArrayList<>();
-
-        //url.add(this.getResources().getDrawable(R.drawable.main_beta));
-        switch(localeLanguage){
-            case "zh":
-                mainLanguage = "zh";
-                url.add(this.getResources().getDrawable(R.drawable.main_actor));
-                url.add(this.getResources().getDrawable(R.drawable.main_body));
-                url.add(this.getResources().getDrawable(R.drawable.main_leg));
-//                url.add(this.getResources().getDrawable(R.drawable.main_motor));
-                break;
-            default:
-                mainLanguage = "en";
-                url.add(this.getResources().getDrawable(R.drawable.main_actor_en));
-                url.add(this.getResources().getDrawable(R.drawable.main_body_en));
-                url.add(this.getResources().getDrawable(R.drawable.main_leg_en));
-//                url.add(this.getResources().getDrawable(R.drawable.main_motor_en));
-        }
-        int current = (url.size() - 1)/2;
-        mBanner.setBannerView(url).setStartView(current).start();
-        mIndicator.setNumPages(url.size());
-        mIndicator.setCurrentPage(current);
+//        mBanner = findViewById(R.id.main_banner);
+//        mIndicator = findViewById(R.id.main_indicator);
+//        mBanner.setOnPageChangeListener(mOnPageChangeListener);
+//        mBanner.setOnBannerListener(mOnBannerListener);
+//        List<Drawable> url = new ArrayList<>();
+//
+//        //url.add(this.getResources().getDrawable(R.drawable.main_beta));
+//        switch(localeLanguage){
+//            case "zh":
+//                mainLanguage = "zh";
+//                url.add(this.getResources().getDrawable(R.drawable.main_actor));
+//                url.add(this.getResources().getDrawable(R.drawable.main_body));
+//                url.add(this.getResources().getDrawable(R.drawable.main_leg));
+////                url.add(this.getResources().getDrawable(R.drawable.main_motor));
+//                break;
+//            default:
+//                mainLanguage = "en";
+//                url.add(this.getResources().getDrawable(R.drawable.main_actor_en));
+//                url.add(this.getResources().getDrawable(R.drawable.main_body_en));
+//                url.add(this.getResources().getDrawable(R.drawable.main_leg_en));
+////                url.add(this.getResources().getDrawable(R.drawable.main_motor_en));
+//        }
+//        int current = (url.size() - 1)/2;
+//        mBanner.setBannerView(url).setStartView(current).start();
+//        mIndicator.setNumPages(url.size());
+//        mIndicator.setCurrentPage(current);
     }
 
     //监听事件
@@ -166,9 +191,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            updateLocale();
             switch (v.getId()) {
-                case R.id.mainBtnConnect:
+                case R.id.mainBtnConnectImg:
+                case R.id.mainBtnConnectText:
                     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                     if (mBluetoothAdapter == null) {//设备不支持蓝牙
                         switch(localeLanguage){
@@ -199,6 +224,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.mainBtnSetting:
                     intent = new Intent(MainActivity.this, SettingActivity.class);
                     startActivity(intent);
+//                    intent = new Intent(MainActivity.this, RiderActivity.class);
+//                    startActivity(intent);
                     break;
                 case R.id.mainBtnAbout:
                     intent = new Intent(MainActivity.this, AboutActivity.class);
@@ -212,6 +239,24 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(MainActivity.this, DownloadActivity.class);
                     startActivity(intent);
                     break;
+                case R.id.mainBtnStart:
+                    if (!PublicMethod.XGORAM_VALUE.versionNumber.equals("") & isBluetoothConnect) {
+                        switch (PublicMethod.XGORAM_VALUE.productType) {
+                            case 0:
+                            case 1:
+                                intent = new Intent(MainActivity.this, ControlActivity.class);
+                                intent.putExtra("productType", PublicMethod.XGORAM_VALUE.productType);
+                                intent.putExtra("versionNumberFirst", Integer.parseInt(PublicMethod.XGORAM_VALUE.versionNumber.substring(2,3)));
+                                startActivity(intent);
+                                break;
+                            case 2:
+                                intent = new Intent(MainActivity.this, RiderActivity.class);
+                                startActivity(intent);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 default:
                     break;
             }
@@ -351,47 +396,47 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //ViewPage的监听事件
-    public class OnBannerListener implements BannerViewLayout.OnBannerListener {
-        @Override
-        public void OnBannerClick(final int position) {
-            updateLocale();
-            Intent intent;
-            if (position == 0-1) {
-                intent = new Intent(MainActivity.this, ProgramActivity.class);
-                startActivity(intent);
-            } else if (position == 1-1) {
-                intent = new Intent(MainActivity.this, ActorActivity.class);
-                startActivity(intent);
-            } else if (position == 2-1) {
-                intent = new Intent(MainActivity.this, ControlActivity.class);
-                startActivity(intent);
-            } else if (position == 3-1) {
-                intent = new Intent(MainActivity.this, LegActivity.class);
-                startActivity(intent);
-            } else if (position == 4-1) {
-                intent = new Intent(MainActivity.this, MotorActivity.class);
-                startActivity(intent);
-            }
-            //mToast.show(MainActivity.this, "current position is " + position);
-        }
-    }
-
-    public class OnPageChangeListener implements ViewPager.OnPageChangeListener {
-        @Override
-        public void onPageScrolled(final int i, final float v, final int i1) {
-
-        }
-
-        @Override
-        public void onPageSelected(final int position) {
-            if (mIndicator != null) mIndicator.setCurrentPage(position);
-        }
-
-        @Override
-        public void onPageScrollStateChanged(final int i) {
-
-        }
-    }
+//    public class OnBannerListener implements BannerViewLayout.OnBannerListener {
+//        @Override
+//        public void OnBannerClick(final int position) {
+//            updateLocale();
+//            Intent intent;
+//            if (position == 0-1) {
+//                intent = new Intent(MainActivity.this, ProgramActivity.class);
+//                startActivity(intent);
+//            } else if (position == 1-1) {
+//                intent = new Intent(MainActivity.this, ActorActivity.class);
+//                startActivity(intent);
+//            } else if (position == 2-1) {
+//                intent = new Intent(MainActivity.this, ControlActivity.class);
+//                startActivity(intent);
+//            } else if (position == 3-1) {
+//                intent = new Intent(MainActivity.this, LegActivity.class);
+//                startActivity(intent);
+//            } else if (position == 4-1) {
+//                intent = new Intent(MainActivity.this, MotorActivity.class);
+//                startActivity(intent);
+//            }
+//            //mToast.show(MainActivity.this, "current position is " + position);
+//        }
+//    }
+//
+//    public class OnPageChangeListener implements ViewPager.OnPageChangeListener {
+//        @Override
+//        public void onPageScrolled(final int i, final float v, final int i1) {
+//
+//        }
+//
+//        @Override
+//        public void onPageSelected(final int position) {
+//            if (mIndicator != null) mIndicator.setCurrentPage(position);
+//        }
+//
+//        @Override
+//        public void onPageScrollStateChanged(final int i) {
+//
+//        }
+//    }
     private void updateLocale(){
         SharedPreferences languageInfo = getSharedPreferences("xgo_setting", MODE_PRIVATE);
         String setting_language = languageInfo.getString("setting_language", "auto");
@@ -407,7 +452,8 @@ public class MainActivity extends AppCompatActivity {
         }
         Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();
-        if (configuration.locale.getLanguage() != localeLanguage){
+        if (!configuration.locale.getLanguage().equals(localeLanguage)){
+            String language = localeLanguage;
             if (localeLanguage.equals("zh")) {
                 configuration.setLocale(Locale.CHINESE); // 设置为中文
             } else {
@@ -448,8 +494,6 @@ public class MainActivity extends AppCompatActivity {
                         privacyFirstTextTitle.setText(Html.fromHtml(HTML_TEXT_TITLE_EN));
                         privacyFirstText.setText(Html.fromHtml(HTML_TEXT_EN));
                 }
-
-
                 btnCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -459,7 +503,6 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-
                 btnAgree.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -473,11 +516,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 读取设备类型
-    private class getProductTypeThread extends Thread {
+//    private class getProductTypeThread extends Thread {
+//        @Override
+//        public void run() {
+//            while (currentThread().isAlive()) {
+//                MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.productType, 0x01});
+//                Message message = new Message();
+////                message.what = 0;
+//                mHandler.sendMessageDelayed(message, 200);//200ms以后拿结果
+//                try {
+//                    sleep(5000);//5s更新一次
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
+
+    // 读取版本号
+    private class askVersionNumberThread extends Thread {
         @Override
         public void run() {
             while (currentThread().isAlive()) {
-                MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.productType, 0x01});
+                MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.versionNumber, 0x01});
                 Message message = new Message();
 //                message.what = 0;
                 mHandler.sendMessageDelayed(message, 200);//200ms以后拿结果
@@ -490,19 +551,43 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // 读取版本号
-    private class getVersionNumberThread extends Thread {
+    private class getVersionThread extends Thread {
         @Override
         public void run() {
             while (currentThread().isAlive()) {
-                MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.versionNumber, 0x01});
-                Message message = new Message();
-//                message.what = 0;
-                mHandler.sendMessageDelayed(message, 200);//200ms以后拿结果
                 try {
-                    sleep(5000);//5s更新一次
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    if (isBluetoothConnect){
+                        if (!PublicMethod.XGORAM_VALUE.versionNumber.equals("") && isBluetoothConnect ) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mainBtnStart.setVisibility(View.VISIBLE);
+                                    mainBtnStart.setClickable(true);
+                                    mainBtnStart.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.animator.zoom_out_in));
+                                }
+                            });
+                            break;
+                        } else{
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mainBtnStart.setVisibility(View.VISIBLE);
+                                    mainBtnStart.setClickable(false);
+                                }
+                            });
+                        }
+                    } else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mainBtnStart.clearAnimation();
+                                mainBtnStart.setVisibility(View.GONE);
+                            }
+                        });
+                    }
+                    Thread.sleep(200);
+                } catch (Exception ignored) {
+
                 }
             }
         }

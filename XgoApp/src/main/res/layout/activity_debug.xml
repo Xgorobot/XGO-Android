@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/tab2"
+        android:layout_marginTop="15dp"
+        android:background="#00000000"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -39,8 +40,8 @@
                 android:layout_height="wrap_content"
                 android:background="#00000000"
                 android:text="@string/calibration"
-                android:textColor="#00dffa"
-                android:textSize="25sp" />
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
 
 
         </LinearLayout>
@@ -49,7 +50,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="1"
         android:background="#00000000"
         android:gravity="center"
         android:orientation="vertical">
@@ -73,22 +74,34 @@
                 android:id="@+id/debugBtnConfirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_press"
+                android:background="@drawable/button_blue_gradient"
                 android:layout_marginRight="15dp"
                 android:paddingHorizontal="40dp"
                 android:text="@string/calibrationMode"
                 android:textColor="#ffffff"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/debugBtnCertering"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_blue_gradient"
+                android:layout_marginRight="15dp"
+                android:paddingHorizontal="40dp"
+                android:text="@string/servo_centering"
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+
             <Button
                 android:id="@+id/debugBtnFinish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_press"
+                android:background="@drawable/button_blue_gradient"
                 android:layout_marginLeft="15dp"
                 android:paddingHorizontal="40dp"
                 android:text="@string/calibrated"
                 android:textColor="#ffffff"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 

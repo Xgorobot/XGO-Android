@@ -11,15 +11,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.luwu.xgo_robot.R;
+import com.luwu.xgo_robot.mMothed.PublicMethod;
 import com.luwu.xgo_robot.mMothed.mToast;
 
 import static com.luwu.xgo_robot.mMothed.PublicMethod.hideBottomUIDialog;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.hideBottomUIMenu;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.localeLanguage;
+import static com.luwu.xgo_robot.mMothed.PublicMethod.toOrderRange;
 
 public class DebugActivity extends AppCompatActivity {
 
-    private Button debugBtnConfirm, debugBtnFinish;
+    private Button debugBtnConfirm, debugBtnFinish, servoCentering;
     private ImageButton debugBtnBack,debugImgMsg;
     private long mlastClickTime;
 
@@ -50,10 +52,12 @@ public class DebugActivity extends AppCompatActivity {
         debugBtnFinish = findViewById(R.id.debugBtnFinish);
         debugBtnBack = findViewById(R.id.debugBtnBack);
         debugImgMsg= findViewById(R.id.debugImgMsg);
+        servoCentering = findViewById(R.id.debugBtnCertering);
         debugBtnConfirm.setOnClickListener(mListener);
         debugBtnFinish.setOnClickListener(mListener);
         debugBtnBack.setOnClickListener(mListener);
         debugImgMsg.setOnClickListener(mListener);
+        servoCentering.setOnClickListener(mListener);
         debugImgMsg.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -106,26 +110,17 @@ public class DebugActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.debugBtnConfirm:
                     MainActivity.addMessage(new byte[]{0x04, (byte) 0x01}); //舵机卸载
-                    switch(localeLanguage){
-                        case "zh":
-                            mToast.show(DebugActivity.this,"已进入标定模式");
-                            break;
-                        default:
-                            mToast.show(DebugActivity.this,"Calibration mode on");
-                    }
+                    mToast.show(DebugActivity.this,getString(R.string.calibrationModeOn));
                     break;
                 case R.id.debugBtnFinish:
                     if(!isFastDoubleClick()){
                         MainActivity.addMessage(new byte[]{0x04, (byte) 0x00});//记录位置
-                        switch(localeLanguage){
-                            case "zh":
-                                mToast.show(DebugActivity.this,"完成标定");
-                                break;
-                            default:
-                                mToast.show(DebugActivity.this,"Calibrated");
-                        }
+                        mToast.show(DebugActivity.this,getString(R.string.calibrated));
                     }
                     break;
+                case R.id.debugBtnCertering:
+                    MainActivity.addMessage(new byte[]{PublicMethod.XGORAM_ADDR.servo_reset,  (byte) 0x01});
+                    mToast.show(DebugActivity.this,getString(R.string.servo_centering_finish));
                 case R.id.debugImgMsg:
                     ShowDialog();
                     break;

@@ -19,7 +19,7 @@ public class PublicMethod {
     public static class XGORAM_ADDR {
         public final static byte workstate = 0x00;
         public final static byte battery = 0x01;
-        public final static byte productType = 0x02;
+//        public final static byte productType = 0x02;
         public final static byte versionNumber = 0x07;
 
         public final static byte updateHex = 0x05;
@@ -75,6 +75,7 @@ public class PublicMethod {
         public final static byte motor_43 = 0x5B;
         public final static byte motor_speed = 0x5C;
         public final static byte motor_reset = 0x5D;
+        public final static byte servo_reset = 0x5F;
 
         public final static byte sensorLed = 0x60;
         public final static byte sensorIMU = 0x61;
@@ -85,7 +86,11 @@ public class PublicMethod {
         public final static byte sensorLedR = 0x66;
         public final static byte sensorLedG = 0x67;
         public final static byte sensorLedB = 0x68;
-        public final static byte sensorMagnet = 0x69;
+//        public final static byte sensorMagnet = 0x69;
+        public final static byte led_01 = 0x69;
+        public final static byte led_02 = 0x6A;
+        public final static byte led_03 = 0x6B;
+        public final static byte led_04 = 0x6C;
 
         // 机械臂
         public final static byte armJaw = 0x71;
@@ -99,9 +104,8 @@ public class PublicMethod {
 
         public static int workstate = 0;
         public static int battery = 0;
-        public static int productType = -1;  //0 mini, 1 lite
-        public static String versionNumber = "";
-
+        public static int productType = -1;  //0 mini, 1 lite, 2 rider
+        public static String versionNumber = "";  // "M-3.2.1" "L-3.0.1"
         public static int updateHex = 0;
 
         public static int connectBt = 0;

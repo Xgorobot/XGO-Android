@@ -309,7 +309,7 @@ public class WholeBlocklyActivity extends AbstractBlocklyActivity {
                 MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.sensorDistence, 0x01});
                 MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.sensorUltrasonicH, 0x02});
                 MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.sensorLedR, 0x03});
-                MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.sensorMagnet, 0x01});
+//                MainActivity.addMessageRead(new byte[]{PublicMethod.XGORAM_ADDR.sensorMagnet, 0x01});
                 try {
                     sleep(200);//200ms更新一次
                 } catch (InterruptedException e) {

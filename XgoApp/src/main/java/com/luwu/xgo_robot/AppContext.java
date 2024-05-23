@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.luwu.xgo_robot.BlueTooth.BleClient;
 import com.luwu.xgo_robot.mMothed.PublicMethod;
@@ -45,6 +46,22 @@ public class AppContext extends Application {
             public void connectFailed() {
                 PublicMethod.isBluetoothConnect = false;
                 mToast.show(AppContext.this,"device disconnect");
+            }
+        });
+    }
+
+    public static void reInitBle(){
+        mBleClient = new BleClient(appContext);
+//        Log.i("recon", "LOGO");
+        mBleClient.setmConnectRequest(new BleClient.ConnectionRequest() {
+            @Override
+            public void connectSuccess() {
+                PublicMethod.isBluetoothConnect = true;
+            }
+
+            @Override
+            public void connectFailed() {
+                PublicMethod.isBluetoothConnect = false;
             }
         });
     }

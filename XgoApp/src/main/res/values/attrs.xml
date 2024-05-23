@@ -23,4 +23,20 @@
         <attr name="rightPress" format="color|reference" />
         <attr name="leftPress" format="color|reference" />
     </declare-styleable>
+
+    <declare-styleable name="ArcProcessView">
+        <attr name="ArcProcesspastBackground" format="color" />
+        <attr name="ArcProcesspastStart" format="color" />
+        <attr name="ArcProcesspastEnd" format="color" />
+        <attr name="ArcProcessArcStroke" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="ArcSeekBarView">
+        <attr name="ArcMode" format="integer" />
+        <attr name="ArcSeekBarBackground" format="color|reference" />
+        <attr name="ArcSeekBarThumb" format="color|reference" />
+        <attr name="ArcSeekBarPass" format="color" />
+        <attr name="ArcSeekBarBackgroundStroke" format="integer" />
+        <attr name="ArcSeekBarThumbRadius" format="integer" />
+    </declare-styleable>
 </resources>

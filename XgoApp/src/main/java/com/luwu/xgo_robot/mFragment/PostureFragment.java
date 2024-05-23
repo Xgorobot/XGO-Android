@@ -22,7 +22,7 @@ import com.luwu.xgo_robot.mView.ThreeDimensionView;
 import com.luwu.xgo_robot.mView.VerticalSeekBar;
 
 import static com.luwu.xgo_robot.mMothed.PublicMethod.toOrderRange;
-import static com.luwu.xgo_robot.mActivity.ControlActivity.progress;
+import static com.luwu.xgo_robot.mActivity.ControlActivity.progressHeight;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_ADDR;
 import static com.luwu.xgo_robot.mMothed.PublicMethod.XGORAM_VALUE;
 public class PostureFragment extends Fragment {
@@ -117,7 +117,7 @@ public class PostureFragment extends Fragment {
         postureTxtBattery = view.findViewById(R.id.postureTxtBattery);
         postureTxtSpeed = view.findViewById(R.id.postureTxtSpeed);
         seekBar = view.findViewById(R.id.postureSeekBar);
-        seekBar.setProgress(progress);
+        seekBar.setProgress(progressHeight);
         seekBar.setListener(new VerticalSeekBar.ISeekBarListener() {
             @Override
             public void actionDown() {
@@ -130,9 +130,9 @@ public class PostureFragment extends Fragment {
             @Override
             public void actionMove() {
                 nowTime = System.currentTimeMillis();
-                progress = seekBar.getProgress();
+                progressHeight = seekBar.getProgress();
                 if ((nowTime - saveTime2) > 200) {
-                    MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progress, 0, 100)});
+                    MainActivity.addMessage(new byte[]{XGORAM_ADDR.bodyZ, toOrderRange(progressHeight, 0, 100)});
                     saveTime2 = nowTime;
                 }
             }

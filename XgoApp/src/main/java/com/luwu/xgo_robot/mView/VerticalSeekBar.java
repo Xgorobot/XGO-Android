@@ -60,7 +60,6 @@ public class VerticalSeekBar extends View {
         } else if (mProgress < 0) {
             mProgress = 0;
         }
-        com.luwu.xgo_robot.mActivity.ControlActivity.progress = mProgress;
     }
 
     /**
@@ -149,25 +148,29 @@ public class VerticalSeekBar extends View {
 
         // 背景边缘坐标
         int sLeft = r + wordSize;
-        int sRight = measuredWidth - r - wordSize;
+        int sRight = measuredWidth - r - wordSize*2;
         int sTop = (int) (measuredHeight * 0.33f);
         int sBottom = (int) (measuredHeight * 0.67f);
         //写字
         mWordPaint.setColor(getResources().getColor(R.color.colorWhite));
         mWordPaint.setTextSize(wordSize);
-        switch(PublicMethod.localeLanguage){
-            case "zh":
-                mWordPaint.setTextAlign(Paint.Align.LEFT);
-                canvas.drawText("低",0,0.75f*measuredHeight,mWordPaint);
-                mWordPaint.setTextAlign(Paint.Align.RIGHT);
-                canvas.drawText("高",measuredWidth,0.75f*measuredHeight,mWordPaint);
-                break;
-            default:
-                mWordPaint.setTextAlign(Paint.Align.LEFT);
-                canvas.drawText("Low",0,0.75f*measuredHeight,mWordPaint);
-                mWordPaint.setTextAlign(Paint.Align.RIGHT);
-                canvas.drawText("High",measuredWidth,0.75f*measuredHeight,mWordPaint);
-        }
+//        switch(PublicMethod.localeLanguage){
+//            case "zh":
+//                mWordPaint.setTextAlign(Paint.Align.LEFT);
+//                canvas.drawText("低",0,0.75f*measuredHeight,mWordPaint);
+//                mWordPaint.setTextAlign(Paint.Align.RIGHT);
+//                canvas.drawText("高",measuredWidth,0.75f*measuredHeight,mWordPaint);
+//                break;
+//            default:
+//                mWordPaint.setTextAlign(Paint.Align.LEFT);
+//                canvas.drawText("Low",0,0.75f*measuredHeight,mWordPaint);
+//                mWordPaint.setTextAlign(Paint.Align.RIGHT);
+//                canvas.drawText("High",measuredWidth,0.75f*measuredHeight,mWordPaint);
+//        }
+        mWordPaint.setTextAlign(Paint.Align.LEFT);
+        canvas.drawText("0",wordSize,0.75f*measuredHeight,mWordPaint);
+        mWordPaint.setTextAlign(Paint.Align.RIGHT);
+        canvas.drawText("100",measuredWidth-wordSize,0.75f*measuredHeight,mWordPaint);
         //绘制背景
         Rect src = new Rect(0, 0, mBackgroundBitmap.getWidth(), mBackgroundBitmap.getHeight());
         Rect dst = new Rect(sLeft, sTop, sRight, sBottom);
