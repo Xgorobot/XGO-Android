@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="700dp"
+    android:layout_height="wrap_content"
+    android:alpha="0.8">
+
+    <LinearLayout
+        android:id="@+id/popupActionsBtnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        >
+        <ImageButton
+            android:id="@+id/controlBtnExit"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="end"
+            android:background="#00000000"
+            android:scaleType="centerInside"
+            android:src="@drawable/actions_back"
+            android:clickable="false"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="218dp"
+        android:background="@drawable/backgound_rec_blue8"
+        >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="22dp"
+                android:layout_marginHorizontal="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <Button
+                        android:id="@+id/popupActionsBtnCarousel"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/backgound_rec_blue7"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/carousel"
+                        android:textColor="#ffffff"
+                        android:textSize="13sp"
+                        android:drawableLeft="@drawable/btn_carousel"
+                        />
+
+                    <Button
+                        android:id="@+id/popupActionsBtn1"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_01_liedown"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s"/>
+
+                    <Button
+                        android:id="@+id/popupActionsBtn2"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_02_standup"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+                    <Button
+                        android:id="@+id/popupActionsBtn3"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_03_crawl"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+                    <Button
+                        android:id="@+id/popupActionsBtn4"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_04_turnAround"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="14dp"
+                    >
+
+
+
+
+                    <Button
+                        android:id="@+id/popupActionsBtn6"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_06_squat"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+                    <Button
+                        android:id="@+id/popupActionsBtn7"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_07_turnroll"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+                    <Button
+                        android:id="@+id/popupActionsBtn8"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_08_turnpitch"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+                    <Button
+                        android:id="@+id/popupActionsBtn9"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_09_turnyaw"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+                    <Button
+                        android:id="@+id/popupActionsBtn10"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_10_threeAxis"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="14dp" >
+                    <Button
+                        android:id="@+id/popupActionsBtn11"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_11_pee"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+
+                    <Button
+                        android:id="@+id/popupActionsBtn12"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_12_sitdown"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+                    <Button
+                        android:id="@+id/popupActionsBtn13"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_13_wavehand"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+                    <Button
+                        android:id="@+id/popupActionsBtn14"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_14_stretch"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+                    <Button
+                        android:id="@+id/popupActionsBtn15"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_15_wavebody"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="14dp">
+
+
+
+                    <Button
+                        android:id="@+id/popupActionsBtn16"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_16_waveside"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+                    <Button
+                        android:id="@+id/popupActionsBtn17"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_blue_gradient_s"
+                        android:text="@string/actor_17_pray"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp" />
+
+                    <Button
+                        android:id="@+id/popupActionsBtn18"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_18_happy"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+                    <Button
+                        android:id="@+id/popupActionsBtn19"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_19_handshake"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+                    <Button
+                        android:id="@+id/popupActionsBtn20"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_20_chickenhead"
+                        android:textSize="15sp"
+                        android:visibility="invisible"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="14dp" >
+
+                    <Button
+                        android:id="@+id/popupActionsBtn21"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_21_pushup"
+                        android:textSize="15sp"
+                        android:visibility="invisible"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+                    <Button
+                        android:id="@+id/popupActionsBtn22"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_22_seek"
+                        android:textSize="15sp"
+                        android:visibility="invisible"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+                    <Button
+                        android:id="@+id/popupActionsBtn23"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_23_dance"
+                        android:textSize="15sp"
+                        android:visibility="invisible"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+                    <Button
+                        android:id="@+id/popupActionsBtn24"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_24_naughty"
+                        android:textSize="15sp"
+                        android:visibility="invisible"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+                    <Button
+                        android:id="@+id/popupActionsBtn0x80"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_0x80_grabhigh"
+                        android:textSize="15sp"
+                        android:visibility="invisible"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop = "14dp">
+
+                    <Button
+                        android:id="@+id/popupActionsBtn0x81"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_0x81_grabmiddle"
+                        android:textSize="15sp"
+                        android:visibility="invisible"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+                    <Button
+                        android:id="@+id/popupActionsBtn0x82"
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="@string/actor_0x82_grablow"
+                        android:textSize="15sp"
+                        android:visibility="invisible"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s" />
+
+                    <Button
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s"
+                        android:visibility="invisible"
+                        android:clickable="false"/>
+                    <Button
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s"
+                        android:visibility="invisible"
+                        android:clickable="false"/>
+                    <Button
+                        android:layout_width="118dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_blue_gradient_s"
+                        android:visibility="invisible"
+                        android:clickable="false"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        >
+        <Button
+            android:id="@+id/popupActionsBtnReset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reset"
+            android:textSize="18sp"
+            android:textColor="#FFFFFFFF"
+            android:background="@drawable/backgound_rec_blue2_1"
+            />
+
+    </LinearLayout>
+</LinearLayout>

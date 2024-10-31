@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mFragment.MultiFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/multiLineVer1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/multiLineVer3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.94" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/buttonLineHor1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/buttonLineHor2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.80" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/buttonLineHor3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1.00" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/buttonLineHor4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.90" />
+
+    <com.luwu.xgo_robot.mView.ArcProcessView
+        android:id="@+id/MultiArcProcessViewLeft"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_margin="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor2"
+        app:layout_constraintStart_toStartOf="@+id/multiLineVer1"
+        app:ArcProcessArcStroke="20"
+        app:ArcProcesspastBackground="#051650"
+        app:ArcProcesspastStart="#12C4FF"
+        app:ArcProcesspastEnd="#C600FF"
+        />
+
+    <LinearLayout
+        android:id="@+id/MultiArcSeekBarViewLeftLB"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor2"
+        app:layout_constraintStart_toStartOf="@+id/multiLineVer1"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <com.luwu.xgo_robot.mView.ArcSeekBarView
+        android:id="@+id/MultiArcSeekBarViewLeftRB"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor2"
+        app:layout_constraintLeft_toRightOf="@+id/MultiArcSeekBarViewLeftLB"
+        app:ArcSeekBarBackground="#0417A4"
+        app:ArcSeekBarBackgroundStroke="15"
+        app:ArcSeekBarPass="#F6BB00"
+        app:ArcSeekBarThumbRadius="25"
+        app:ArcMode = "0"
+        />
+    <com.luwu.xgo_robot.mView.ArcSeekBarView
+        android:id="@+id/MultiArcSeekBarViewLeftLT"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        app:layout_constraintBottom_toTopOf="@+id/MultiArcSeekBarViewLeftLB"
+        app:layout_constraintStart_toStartOf="@+id/multiLineVer1"
+        app:ArcSeekBarBackground="#0417A4"
+        app:ArcSeekBarBackgroundStroke="15"
+        app:ArcSeekBarPass="#F6BB00"
+        app:ArcSeekBarThumbRadius="25"
+        app:ArcMode = "2"
+        />
+
+    <com.luwu.xgo_robot.mView.ArcSeekBarView
+        android:id="@+id/MultiArcSeekBarViewLeftRT"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        app:layout_constraintBottom_toTopOf="@+id/MultiArcSeekBarViewLeftRB"
+        app:layout_constraintLeft_toRightOf="@+id/MultiArcSeekBarViewLeftLT"
+        app:ArcSeekBarBackground="#0417A4"
+        app:ArcSeekBarBackgroundStroke="15"
+        app:ArcSeekBarPass="#F6BB00"
+        app:ArcSeekBarThumbRadius="25"
+        app:ArcMode = "3"
+        />
+
+
+    <com.luwu.xgo_robot.mView.ButtonView
+        android:id="@+id/MultiButtonViewLeft"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:layout_margin="55dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor2"
+        app:layout_constraintStart_toStartOf="@+id/multiLineVer1"
+        app:leftPress="@drawable/button1_left_press"
+        app:noPress="@drawable/button1_nopress"
+        app:rightPress="@drawable/button1_right_press"
+        app:upPress="@drawable/button1_forward_press"
+        app:downPress="@drawable/button1_back_press"/>
+
+    <com.luwu.xgo_robot.mView.RockerView
+        android:id="@+id/MultiRockViewLeft"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_margin="105dp"
+        app:areaBackground="#00000000"
+        app:rockerBackground="@drawable/rocker_control"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor2"
+        app:layout_constraintStart_toStartOf="@+id/multiLineVer1" />
+
+    <com.luwu.xgo_robot.mView.ArcProcessView
+        android:id="@+id/MultiArcProcessViewRight"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_margin="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor2"
+        app:layout_constraintEnd_toStartOf="@+id/multiLineVer3"
+        app:ArcProcessArcStroke="20"
+        app:ArcProcesspastBackground="#051650"
+        app:ArcProcesspastStart="#12C4FF"
+        app:ArcProcesspastEnd="#C600FF"/>
+
+    <LinearLayout
+        android:id="@+id/MultiArcSeekBarViewRightRB"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor2"
+        app:layout_constraintEnd_toStartOf="@+id/multiLineVer3"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <com.luwu.xgo_robot.mView.ArcSeekBarView
+        android:id="@+id/MultiArcSeekBarViewRightLB"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor2"
+        app:layout_constraintRight_toLeftOf="@+id/MultiArcSeekBarViewRightRB"
+        app:ArcSeekBarBackground="#0417A4"
+        app:ArcSeekBarBackgroundStroke="15"
+        app:ArcSeekBarPass="#F6BB00"
+        app:ArcSeekBarThumbRadius="25"
+        app:ArcMode = "1"
+        />
+    <com.luwu.xgo_robot.mView.ArcSeekBarView
+        android:id="@+id/MultiArcSeekBarViewRightLT"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        app:layout_constraintBottom_toTopOf="@+id/MultiArcSeekBarViewRightLB"
+        app:layout_constraintRight_toLeftOf="@+id/MultiArcSeekBarViewRightRT"
+        app:ArcSeekBarBackground="#0417A4"
+        app:ArcSeekBarBackgroundStroke="15"
+        app:ArcSeekBarPass="#F6BB00"
+        app:ArcSeekBarThumbRadius="25"
+        app:ArcMode = "2"
+        />
+
+    <com.luwu.xgo_robot.mView.ArcSeekBarView
+        android:id="@+id/MultiArcSeekBarViewRightRT"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        app:layout_constraintBottom_toTopOf="@+id/MultiArcSeekBarViewRightRB"
+        app:layout_constraintEnd_toStartOf="@+id/multiLineVer3"
+        app:ArcSeekBarBackground="#0417A4"
+        app:ArcSeekBarBackgroundStroke="15"
+        app:ArcSeekBarPass="#F6BB00"
+        app:ArcSeekBarThumbRadius="25"
+        app:ArcMode = "3"
+        />
+
+
+
+    <com.luwu.xgo_robot.mView.ButtonView
+        android:id="@+id/MultiButtonViewRight"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:layout_margin="55dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor2"
+        app:layout_constraintEnd_toStartOf="@+id/multiLineVer3"
+        app:leftPress="@drawable/button2_left_press"
+        app:noPress="@drawable/button2_nopress"
+        app:rightPress="@drawable/button2_right_press"
+         />
+
+    <com.luwu.xgo_robot.mView.RockerView
+        android:id="@+id/MultiRockViewRight"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_margin="105dp"
+        app:areaBackground="#00000000"
+        app:rockerBackground="@drawable/rocker_control"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLineHor2"
+        app:layout_constraintEnd_toStartOf="@+id/multiLineVer3" />
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toRightOf="@+id/MultiButtonViewLeft"
+        app:layout_constraintRight_toLeftOf="@+id/MultiButtonViewRight"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonLineHor2">
+
+        <ImageButton
+            android:id="@+id/actionBtnActor1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:background="#00000000"
+            android:scaleType="centerInside"
+            android:src="@drawable/arm_gao_press" />
+
+        <ImageButton
+            android:id="@+id/actionBtnActor2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:background="#00000000"
+            android:scaleType="centerInside"
+            android:src="@drawable/arm_zhong_press"
+            />
+
+        <ImageButton
+            android:id="@+id/actionBtnActor3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:background="#00000000"
+            android:scaleType="centerInside"
+            android:src="@drawable/arm_di_press" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/actionsMiniLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/backgound_rec_blue6"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonLineHor3"
+        app:layout_constraintLeft_toLeftOf="@+id/MultiButtonViewLeft"
+        app:layout_constraintRight_toRightOf="@+id/MultiButtonViewRight"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="13dp"
+            android:layout_marginTop="14dp"
+                >
+            <Button
+                android:id="@+id/actionBtnCarousel"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/backgound_rec_blue7"
+                android:layout_marginHorizontal="8dp"
+                android:text="@string/carousel"
+                android:textColor="#ffffff"
+                android:textSize="13sp"
+                android:drawableLeft="@drawable/btn_carousel"
+                android:clickable="false"/>
+            <Button
+                android:id="@+id/actionBtnLiedown"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:background="@drawable/button_blue_gradient_s_2"
+                android:text="@string/actor_01_liedown"
+                android:textColor="#ffffff"
+                android:textSize="15sp"
+                android:clickable="false"
+                />
+            <Button
+                android:id="@+id/actionBtnStandup"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:background="@drawable/button_blue_gradient_s_2"
+                android:text="@string/actor_02_standup"
+                android:textColor="#ffffff"
+                android:textSize="15sp"
+                android:clickable="false"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+            <ImageButton
+                android:id="@+id/actionBtnActions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="#00000000"
+                android:scaleType="centerInside"
+                android:src="@drawable/btn_actionslist"
+                android:layout_weight="1"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

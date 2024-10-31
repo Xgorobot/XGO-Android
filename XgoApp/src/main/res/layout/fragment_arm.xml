@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mFragment.RockerLeftFragment"
+    android:background="#00000000">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/armLineVer1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/armLineVer2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+<!--    <androidx.constraintlayout.widget.Guideline-->
+<!--        android:id="@+id/rockerLineVer2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintGuide_percent="0.47" />-->
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/armLineHor1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/armLineHor2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.83" />
+
+    <com.luwu.xgo_robot.mView.ArmRockerView
+        android:id="@+id/controlArmRockView"
+        android:layout_width="247dp"
+        android:layout_height="247dp"
+        app:areaBackground="@drawable/arm_area_background"
+        app:rockerBackground="#ff0000"
+        app:layout_constraintBottom_toTopOf="@+id/armLineHor2"
+        app:layout_constraintStart_toStartOf="@+id/armLineVer1" />
+
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="130dp"
+        app:layout_constraintBottom_toTopOf="@+id/armLineHor2"
+        app:layout_constraintStart_toStartOf="@+id/armLineVer1"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/armTextX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:text="X:"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/armTextZ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:text="Z:"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/armTextValueX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:text=""
+                android:textColor="#00dffa"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/armTextValueZ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:text=""
+                android:textColor="#00dffa"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <com.luwu.xgo_robot.mView.VerticalSeekBar
+        android:id="@+id/armSeekBarJaw"
+        android:layout_width="290dp"
+        android:layout_height="35dp"
+        android:background="@drawable/backgound_rec_blue4"
+        app:allBackground="@drawable/seekbar_background"
+        app:layout_constraintBottom_toTopOf="@id/armLineHor2"
+        app:layout_constraintRight_toLeftOf="@id/armLineVer2"
+        app:pastBackground="@drawable/seekbar_past_shape"
+        app:thumbBackground="@drawable/seekbar_thumb" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/armSeekBarJaw"
+        app:layout_constraintStart_toStartOf="@+id/armSeekBarJaw"
+        android:layout_marginBottom="5dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:text="@string/fragment_arm_gripper"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/armLineHor2"-->
+<!--        app:layout_constraintRight_toLeftOf="@+id/armSeekBarJaw"-->
+<!--        android:layout_marginEnd="5dp"-->
+<!--        android:gravity="center">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="#00000000"-->
+<!--            android:text="@string/fragment_arm_open"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="15sp" />-->
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/armLineHor2"-->
+<!--        app:layout_constraintLeft_toRightOf="@+id/armSeekBarJaw"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:gravity="center">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="#00000000"-->
+<!--            android:text="@string/fragment_arm_close"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="15sp" />-->
+<!--    </LinearLayout>-->
+
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/armLineHor1"
+        app:layout_constraintRight_toLeftOf="@id/armLineVer2">
+
+
+
+        <ImageButton
+            android:id="@+id/armBtnActor1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:background="#00000000"
+            android:scaleType="centerInside"
+            android:src="@drawable/arm_gao_press" />
+
+        <ImageButton
+            android:id="@+id/armBtnActor2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:background="#00000000"
+            android:scaleType="centerInside"
+            android:src="@drawable/arm_zhong_press"
+             />
+
+        <ImageButton
+            android:id="@+id/armBtnActor3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:scaleType="centerInside"
+            android:src="@drawable/arm_di_press" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/controlArmRockView"
+        app:layout_constraintLeft_toLeftOf="@id/armLineVer1"
+        android:layout_marginBottom="10dp"
+        android:background="#011B80"
+        >
+
+        <Button
+            android:id="@+id/armBtnReferGround"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backgound_rec_blue3"
+            android:gravity="center"
+            android:text="@string/arm_relative_ground"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            />
+
+        <Button
+            android:id="@+id/armBtnReferBase"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backgound_rec_blue3"
+            android:gravity="center"
+            android:text="@string/arm_relative_body"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
