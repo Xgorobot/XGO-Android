@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
@@ -104,9 +105,31 @@ public class BleClient {
      */
     private void init(Context context) {
         mContext = context;
-        mContext.registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());//注册广播
+        /**
+         * Android 14
+         */
+//        mContext.registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());//注册广播
+        compatRegisterReceiver(mContext, mGattUpdateReceiver, makeGattUpdateIntentFilter(), true);
         Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
         mContext.bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);//绑定service
+    }
+    /**
+     * Starting with Android 14, apps and services that target Android 14 and use context-registered
+     * receivers are required to specify a flag to indicate whether or not the receiver should be
+     * exported to all other apps on the device: either RECEIVER_EXPORTED or RECEIVER_NOT_EXPORTED
+     *
+     * <p>https://developer.android.com/about/versions/14/behavior-changes-14#runtime-receivers-exported
+     *
+     * from https://github.com/discord/react-native/pull/47/files/72576a373484bcdf64564daa8a961dc34635b21a
+     */
+    private void compatRegisterReceiver(
+            Context context, BroadcastReceiver receiver, IntentFilter filter, boolean exported) {
+        if (Build.VERSION.SDK_INT >= 34 && context.getApplicationInfo().targetSdkVersion >= 34) {
+            context.registerReceiver(
+                    receiver, filter, exported ? Context.RECEIVER_EXPORTED : Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            context.registerReceiver(receiver, filter);
+        }
     }
 
 

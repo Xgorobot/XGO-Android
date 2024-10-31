@@ -111,7 +111,7 @@
     <string name="change_reference_frame"> Change Reference Frame </string>
     <string name="privacy_first_exit">Exit</string>
     <string name="privacy_first_agree">Agree</string>
-    <string name="update_hex">Firmware Upgrade</string>
+    <string name="update_hex">Firmware Info</string>
     <string name="download_file">Download</string>
     <string name="update_file">Upgrade</string>
     <string name="hexVersionNow">Current Firmware Version</string>
@@ -128,8 +128,8 @@
     <string name="control_stride">Stride</string>
     <string name="control_height">Height</string>
     <string name="control_action">Motion</string>
-    <string name="rider_control">Rider</string>
-    <string name="main_hex">Hex</string>
+    <string name="rider_control">Action Control</string>
+    <string name="main_hex">Firmware</string>
     <string name="main_calibrate">Calibrate</string>
     <string name="main_about">About</string>
     <string name="main_setting">Setting</string>
@@ -141,7 +141,7 @@
     <string name="actor_rider_02_shifting">Shifting</string>
     <string name="actor_rider_03_altitude">Altitude</string>
     <string name="actor_rider_04_zigzag">Zigzag</string>
-    <string name="actor_rider_05_lift">Lift Rotate</string>
+    <string name="actor_rider_05_lift">Rotate</string>
     <string name="actor_rider_06_trembling">Trembling</string>
     <string name="rider_height_reset">Reset</string>
     <string name="rider_height">Height</string>

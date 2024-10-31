@@ -39,4 +39,8 @@
         <attr name="ArcSeekBarBackgroundStroke" format="integer" />
         <attr name="ArcSeekBarThumbRadius" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="DeadlineSeekBar">
+        <attr name="DeadlineLocate" format="integer" />
+    </declare-styleable>
 </resources>

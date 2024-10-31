@@ -102,18 +102,19 @@ public class MainActivity extends AppCompatActivity {
             mainBtnConnectImg.setImageDrawable(getResources().getDrawable((R.drawable.main_bluetooth_dis)));
             mainBtnConnectText.setText(R.string.pls_connect_bt);
         }
+        // 中英文显示bug
         switch (localeLanguage){
             case "zh":
                 mainTextSetting.setText("设置");
                 mainTextAbout.setText("关于");
                 mainTextDebug.setText("标定");
-                mainTextDownload.setText("下载");
+                mainTextDownload.setText("固件");
                 break;
             default:
                 mainTextSetting.setText("Setting");
                 mainTextAbout.setText("About");
                 mainTextDebug.setText("Calibrate");
-                mainTextDownload.setText("Hex");
+                mainTextDownload.setText("Firmware");
         }
     }
 
@@ -240,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.mainBtnStart:
+
                     if (!PublicMethod.XGORAM_VALUE.versionNumber.equals("") & isBluetoothConnect) {
                         switch (PublicMethod.XGORAM_VALUE.productType) {
                             case 0:
